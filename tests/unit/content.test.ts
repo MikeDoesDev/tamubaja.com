@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ContentError, parseContent } from "@/lib/content";
-import { carSchema, sponsorsSchema, tiersSchema } from "@/lib/schemas";
+import { carSchema, faqSchema, seasonsSchema, sponsorsSchema, teamSchema, tiersSchema } from "@/lib/schemas";
 
 const validSponsor = `- name: GM
   tier: gold
@@ -91,5 +91,39 @@ ${tier("gold")}${tier("bronze")}${tier("silver")}${tier("platinum")}inKindCatego
     expect(() => parseContent("tiers.yaml", yaml, tiersSchema)).toThrowError(
       /bronze, silver, gold, platinum/,
     );
+  });
+});
+
+describe("forgiving edits a non-coder is likely to make", () => {
+  it("accepts numbers where text is expected", () => {
+    const yaml = `- season: 2024–25
+  event: Baja SAE Maryland
+  location: Maryland
+  overall: 31
+  highlights: [3rd Acceleration]
+`;
+    const seasons = parseContent("seasons.yaml", yaml, seasonsSchema);
+    expect(seasons[0].season).toBe("2024–25");
+    const stats = parseContent("team.yaml", `story: [Hi]\nleads:\n  - name: A B\n    role: PM\n    major: ME\n    classYear: 2027\nsubteams:\n  - name: Chassis\n    description: Frames\n`, teamSchema);
+    expect(stats.leads[0].classYear).toBe("2027");
+  });
+
+  it("accepts yes/no for true/false", () => {
+    const sponsors = parseContent("sponsors.yaml", validSponsor.replace("show: true", "show: yes"), sponsorsSchema);
+    expect(sponsors[0].show).toBe(true);
+  });
+
+  it("treats an empty list as no items", () => {
+    const team = parseContent("team.yaml", "story: [Hi]\nleads:\nsubteams:\n  - name: Chassis\n    description: Frames\n", teamSchema);
+    expect(team.leads).toEqual([]);
+  });
+
+  it("explains an empty file instead of calling it broken formatting", () => {
+    expect(() => parseContent("faq.yaml", "# only a comment\n", faqSchema)).toThrowError(/content\/faq\.yaml is empty/);
+  });
+
+  it("adds a plain-English hint for a wrong true/false value", () => {
+    const yaml = validSponsor.replace("show: true", "show: maybe");
+    expect(() => parseContent("sponsors.yaml", yaml, sponsorsSchema)).toThrowError(/use true or false/);
   });
 });

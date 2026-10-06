@@ -1,6 +1,18 @@
 import { z } from "zod";
 
-const text = z.string().trim().min(1, "can't be empty");
+// Editors often type `value: 9` or `classYear: 2027`; YAML reads those as numbers.
+const stringish = z.union([z.string(), z.number()]).transform(String);
+const text = stringish.pipe(z.string().trim().min(1, "can't be empty"));
+// `show: yes` is a string in YAML 1.2; accept the common spellings.
+const yesNo = z.preprocess((value) => {
+  if (typeof value !== "string") return value;
+  const word = value.trim().toLowerCase();
+  if (["yes", "true", "on"].includes(word)) return true;
+  if (["no", "false", "off"].includes(word)) return false;
+  return value;
+}, z.boolean());
+// A list key left with nothing under it (`leads:`) loads as null; treat it as empty.
+const list = <T extends z.ZodType>(schema: T) => z.preprocess((value) => value ?? [], schema);
 const httpUrl = z
   .string()
   .regex(/^https?:\/\/\S+$/, "must be a full web address starting with https://");
@@ -50,7 +62,7 @@ export const sponsorSchema = z.object({
   tier: z.enum(SPONSOR_TIERS),
   logo: publicPath,
   url: httpUrl,
-  show: z.boolean(),
+  show: yesNo,
 });
 export const sponsorsSchema = z.array(sponsorSchema);
 
@@ -79,7 +91,7 @@ export const seasonsSchema = z.array(
     location: text,
     overall: z.number().int().positive().nullable(),
     fieldSize: z.number().int().positive().optional(),
-    highlights: z.array(text),
+    highlights: list(z.array(text)),
     photo: publicPath.optional(),
   }),
 );
@@ -93,21 +105,23 @@ export const carSchema = z.object({
   subsystems: z.array(z.object({ name: text, description: text, photo: publicPath.optional() })).min(1),
   buildSeason: text,
   milestones: z
-    .array(z.object({ name: text, date: isoDate, tentative: z.boolean().optional() }))
+    .array(z.object({ name: text, date: isoDate, tentative: yesNo.optional() }))
     .min(1),
 });
 
 export const teamSchema = z.object({
   story: z.array(text).min(1),
-  leads: z.array(
-    z.object({
-      name: text,
-      role: text,
-      major: text,
-      classYear: z.string().regex(/^\d{4}$/, "must be a 4-digit graduation year like 2027"),
-      linkedin: httpUrl.optional(),
-      photo: publicPath.optional(),
-    }),
+  leads: list(
+    z.array(
+      z.object({
+        name: text,
+        role: text,
+        major: text,
+        classYear: stringish.pipe(z.string().regex(/^\d{4}$/, "must be a 4-digit graduation year like 2027")),
+        linkedin: httpUrl.optional(),
+        photo: publicPath.optional(),
+      }),
+    ),
   ),
   subteams: z.array(z.object({ name: text, description: text })).min(1),
 });

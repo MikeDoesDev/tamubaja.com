@@ -26,12 +26,23 @@ export function formatIssues(file: string, issues: Issue[]): string {
     const where = issue.path.length
       ? issue.path.map((p) => (typeof p === "number" ? `item ${p + 1}` : String(p))).join(" → ")
       : "(whole file)";
-    return `  • ${where}: ${issue.message}`;
+    return `  • ${where}: ${issue.message}${hintFor(issue.message)}`;
   });
   return `Problem in content/${file}:\n${lines.join("\n")}`;
 }
 
+function hintFor(message: string): string {
+  if (/expected boolean/.test(message)) return " (use true or false)";
+  if (/expected (string|number), received/.test(message)) return " (check the value, or wrap it in quotes)";
+  if (/expected array/.test(message)) return " (this should be a list: each item on its own line starting with a dash)";
+  return "";
+}
+
 export function parseContent<T>(file: string, raw: string, schema: z.ZodType<T>): T {
+  const hasContent = raw.split("\n").some((line) => line.trim() && !line.trim().startsWith("#"));
+  if (!hasContent) {
+    throw new ContentError(`Problem: content/${file} is empty. It needs at least one entry. Restore it from the file's history on GitHub.`);
+  }
   let data: unknown;
   try {
     data = load(raw);
