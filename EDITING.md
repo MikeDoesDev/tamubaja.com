@@ -78,6 +78,18 @@ leads:
 
 For a photo, upload a square JPG to `public/images/team/` and add `photo: /images/team/jordan-smith.jpg`. Without a photo, their initials are shown.
 
+## Change the home-page stats
+
+Edit `homeStats:` in `content/site.yaml` (up to 4). Plain numbers like `100+` or `9` count up as visitors scroll; text like `3rd` just appears.
+
+```yaml
+homeStats:
+  - value: "100+"
+    label: Universities we race against
+  - value: 3rd
+    label: Acceleration — 2025
+```
+
 ## Replace the sponsor packet PDF
 
 Upload the new PDF to `public/packet/` with the **same file name** (`tamu-baja-sponsor-packet-2026-27.pdf`), or upload it with a new name and update `packetPdf:` in `content/site.yaml`. Keep it under 5 MB.

@@ -89,8 +89,8 @@ tamu-baja-site/
 - [ ] **Step 1: Ensure git identity exists for this repo**
 
 ```bash
-git config user.name >/dev/null || git config user.name "Michael"
-git config user.email >/dev/null || git config user.email "michaelacoggins25@gmail.com"
+git config user.name >/dev/null || git config user.name "<your-name>"
+git config user.email >/dev/null || git config user.email "<your-email>"
 ```
 
 - [ ] **Step 2: Scaffold Next.js into the existing repo**
