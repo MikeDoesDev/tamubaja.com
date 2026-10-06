@@ -35,10 +35,13 @@ async function scrollToBottom(page: Page) {
     });
   });
   // Generous timeout: the first request for each logo size is encoded to AVIF on the spot
-  // (cached afterwards), which is slow when every test worker hits /partners at once.
-  await page.waitForFunction(() => Array.from(document.images).every((img) => img.complete), null, {
-    timeout: 30_000,
-  });
+  // (cached afterwards). Polling the list means a failure names the images still loading.
+  await expect
+    .poll(
+      () => page.$$eval("img", (images) => images.filter((img) => !img.complete).map((img) => img.currentSrc || img.src)),
+      { message: "images still loading", timeout: 20_000 },
+    )
+    .toEqual([]);
 }
 
 for (const route of ROUTES) {
