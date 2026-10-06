@@ -14,7 +14,7 @@ export function Hero({ site }: { site: Site }) {
         fetchPriority="high"
         quality={60}
         sizes="100vw"
-        className="-z-20 object-cover"
+        className="-z-20 object-cover object-[50%_15%]"
       />
       {site.heroVideo && (
         <video
