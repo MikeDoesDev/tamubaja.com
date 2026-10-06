@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "validate": "tsx scripts/validate-content.ts",
-    "prebuild": "npm run validate",
+    "prebuild": "npm run validate && npm run logos",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "lighthouse": "node scripts/lighthouse.mjs"
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "logos": "tsx scripts/mono-logos.ts",
+    "predev": "npm run logos"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -30,6 +32,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5",

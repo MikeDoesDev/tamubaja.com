@@ -35,6 +35,19 @@ body {
   clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%);
 }
 
+/* Footer logo strip: single-color logos (scripts/mono-logos.ts) in soft grey that brighten on
+   hover. Replaces performative-ui's own logo filter and 70% opacity; each logo's size is set
+   inline in SponsorMarquee. */
+.partner-marquee .pui-marquee__item img {
+  filter: none;
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+.partner-marquee .pui-marquee__item a:hover img {
+  filter: none;
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   /* performative-ui's LogoMarquee has no reduced-motion mode: show a still, wrapped row. */
   .partner-marquee {

@@ -46,3 +46,6 @@ next-env.d.ts
 /blob-report
 /.lighthouse
 /_incoming
+
+# single-color sponsor logos, made by scripts/mono-logos.ts on every build
+/public/sponsors/mono/

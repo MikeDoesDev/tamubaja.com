@@ -12,21 +12,8 @@ export type TileSize = keyof typeof SIZES;
 /**
  * A sponsor logo on a tile. On devices with a mouse, logos sit muted in grayscale and
  * light up in full color on hover or keyboard focus; touch devices always show color.
- * `decorative` hides repeated copies (the logo strip's loop) from screen readers and Tab.
- * `eager` loads the logo up front (at low priority) for tiles that slide in sideways, which
- * lazy loading would leave blank until they enter the clipped strip.
  */
-export function SponsorTile({
-  sponsor,
-  size = "md",
-  decorative = false,
-  eager = false,
-}: {
-  sponsor: Sponsor;
-  size?: TileSize;
-  decorative?: boolean;
-  eager?: boolean;
-}) {
+export function SponsorTile({ sponsor, size = "md" }: { sponsor: Sponsor; size?: TileSize }) {
   const dark = sponsor.tile === "dark";
   const surface = dark ? "bg-panel-2 ring-1 ring-line" : "bg-white";
   // Fading a light logo on a dark tile makes it unreadable, so dark tiles only go grayscale.
@@ -37,19 +24,15 @@ export function SponsorTile({
       target="_blank"
       rel="noopener noreferrer"
       title={sponsor.name}
-      aria-hidden={decorative || undefined}
-      tabIndex={decorative ? -1 : undefined}
       data-sponsor-tile
       className={`group block shrink-0 rounded-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-2 hover:ring-accent focus-visible:-translate-y-1 focus-visible:ring-2 focus-visible:ring-accent ${surface} ${SIZES[size]}`}
     >
       <span className="relative block h-full w-full">
         <Image
           src={sponsor.logo}
-          alt={decorative ? "" : sponsor.name}
+          alt={sponsor.name}
           fill
           sizes="224px"
-          loading={eager ? "eager" : "lazy"}
-          fetchPriority={eager ? "low" : undefined}
           className={`object-contain transition duration-300 ${muted} group-hover:opacity-100 group-hover:grayscale-0 group-focus-visible:opacity-100 group-focus-visible:grayscale-0`}
         />
       </span>

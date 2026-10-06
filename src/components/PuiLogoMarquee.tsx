@@ -11,7 +11,7 @@ export function PuiLogoMarquee({ logos, speed }: { logos: MarqueeItem[]; speed: 
     <LogoMarquee
       logos={logos}
       speed={speed}
-      gap={20}
+      gap={56}
       fade
       pauseOnHover
       // The library labels a plain <div> "Trusted by", which ARIA doesn't allow; drop it.

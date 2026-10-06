@@ -28,3 +28,8 @@ export function groupSponsors(sponsors: Sponsor[]): SponsorGroup[] {
 export function visibleSponsors(sponsors: Sponsor[]): Sponsor[] {
   return groupSponsors(sponsors).flatMap((group) => group.sponsors);
 }
+
+/** Where scripts/mono-logos.ts writes a logo's single-color version (always a PNG). */
+export function monoLogoPath(logo: string): string {
+  return logo.replace(/^\/sponsors\//, "/sponsors/mono/").replace(/\.[a-z0-9]+$/i, ".png");
+}

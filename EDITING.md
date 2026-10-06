@@ -36,7 +36,9 @@ Only do this after the sponsor has said yes to showing their logo.
   show: true
 ```
 
-`tier` must be one of `platinum`, `gold`, `silver`, `bronze`, `inkind`. Logos appear white on the dark site automatically.
+`tier` must be one of `platinum`, `gold`, `silver`, `bronze`, `inkind`. In-kind gifts count at their value, so a large one goes in the matching money tier.
+
+The Partners page shows the logo in its own colors on a white tile. The footer strip makes a matching grey version automatically on the next deploy. If the logo is **white artwork** (made for dark backgrounds), add `tile: dark` to its block so both places show it correctly.
 
 **Never** put dollar amounts or a sponsor's contact info in these files. The repository may be public.
 

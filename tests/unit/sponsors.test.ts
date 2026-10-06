@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Sponsor } from "@/lib/schemas";
-import { groupSponsors, visibleSponsors } from "@/lib/sponsors";
+import { groupSponsors, monoLogoPath, visibleSponsors } from "@/lib/sponsors";
 
 const s = (name: string, tier: Sponsor["tier"], show = true): Sponsor => ({
   name,
@@ -35,5 +35,12 @@ describe("visibleSponsors", () => {
   it("lists shown sponsors from platinum to in-kind for the logo strip", () => {
     const list = visibleSponsors([s("k", "inkind"), s("hidden", "gold", false), s("p", "platinum"), s("b", "bronze")]);
     expect(list.map((x) => x.name)).toEqual(["p", "b", "k"]);
+  });
+});
+
+describe("monoLogoPath", () => {
+  it("points at the single-color PNG made for the logo strip", () => {
+    expect(monoLogoPath("/sponsors/acme-gear.png")).toBe("/sponsors/mono/acme-gear.png");
+    expect(monoLogoPath("/sponsors/acme-gear.SVG")).toBe("/sponsors/mono/acme-gear.png");
   });
 });

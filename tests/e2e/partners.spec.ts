@@ -19,7 +19,7 @@ test("touch devices show logos in full color", async ({ page, isMobile }) => {
   await expect(tile.locator("img")).not.toHaveCSS("filter", /grayscale\(1\)/);
 });
 
-test("footer logo strip loads near the footer, scrolls, and is decorative for screen readers", async ({ page }) => {
+test("footer logo strip loads near the footer, scrolls, is grey, and is decorative for screen readers", async ({ page }) => {
   await page.goto("/");
   const strip = page.getByTestId("sponsor-marquee");
   test.skip((await strip.count()) === 0, "no sponsors are shown yet");
@@ -31,6 +31,9 @@ test("footer logo strip loads near the footer, scrolls, and is decorative for sc
     await expect(tile).toHaveAttribute("aria-hidden", "true");
     await expect(tile).toHaveAttribute("tabindex", "-1");
   }
+  // Logos are already single-color; the library's own logo filter would darken them.
+  await expect(tiles.first().locator("img")).toHaveCSS("filter", "none");
+  await expect(tiles.first().locator("img")).toHaveCSS("opacity", "0.45");
   await expect(page.getByRole("link", { name: "See all our partners" })).toBeVisible();
 });
 
