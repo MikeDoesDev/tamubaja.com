@@ -1,0 +1,15 @@
+# Rebuilds the site every Monday so build milestones flip to "Done" on time.
+# Needs repo secret VERCEL_DEPLOY_HOOK (see HANDOFF.md).
+name: Weekly redeploy
+on:
+  schedule:
+    - cron: "0 11 * * 1"
+  workflow_dispatch:
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        run: curl -fsS -X POST "$HOOK"
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
