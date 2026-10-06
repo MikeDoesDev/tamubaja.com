@@ -27,6 +27,12 @@ async function scrollToBottom(page: Page) {
       window.scrollTo(0, y);
       await new Promise((resolve) => setTimeout(resolve, 40));
     }
+    // A scroll this fast passes lazy images before Chrome starts them, and Chrome then defers them
+    // until they're back on screen (e.g. the Gold row on mobile /partners). Load them all so the
+    // broken-image check below covers every image.
+    document.querySelectorAll<HTMLImageElement>("img[loading='lazy']").forEach((img) => {
+      img.loading = "eager";
+    });
   });
   // Generous timeout: the first request for each logo size is encoded to AVIF on the spot
   // (cached afterwards), which is slow when every test worker hits /partners at once.
