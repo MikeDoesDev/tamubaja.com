@@ -18,7 +18,7 @@ export function Hero({ site }: { site: Site }) {
       />
       {site.heroVideo && (
         <video
-          className="absolute inset-0 -z-20 hidden h-full w-full object-cover md:block"
+          className="absolute inset-0 -z-20 hidden h-full w-full object-cover md:block motion-reduce:hidden"
           autoPlay
           muted
           loop

@@ -6,7 +6,7 @@ import { Hero } from "@/components/Hero";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { StatsStrip } from "@/components/StatsStrip";
 import { getCar, getSeasons, getSite } from "@/lib/content";
-import { newestFirst, ordinal } from "@/lib/format";
+import { ordinal } from "@/lib/format";
 import type { Season } from "@/lib/schemas";
 import { pageMetadata } from "@/lib/seo";
 
@@ -21,8 +21,9 @@ export const metadata = pageMetadata({
 export default function HomePage() {
   const site = getSite();
   const car = getCar();
-  const recent = newestFirst(getSeasons())
+  const bestFinishes = getSeasons()
     .filter((season): season is Season & { overall: number } => season.overall !== null)
+    .sort((a, b) => a.overall - b.overall)
     .slice(0, 3);
   const organization = {
     "@context": "https://schema.org",
@@ -36,7 +37,7 @@ export default function HomePage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, "\u003c") }} />
       <Hero site={site} />
       <StatsStrip stats={site.homeStats} />
 
@@ -99,10 +100,10 @@ export default function HomePage() {
       </Section>
 
       <Section className="bg-panel/40">
-        <Eyebrow>Results</Eyebrow>
+        <Eyebrow>Best finishes</Eyebrow>
         <SectionHeading>Racing against 100+ universities</SectionHeading>
         <ul className="mt-10 grid gap-6 md:grid-cols-3">
-          {recent.map((season) => (
+          {bestFinishes.map((season) => (
             <li key={season.season} className="rounded-sm border border-line bg-panel p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">{season.season}</p>
               <p className="mt-1 font-display text-2xl font-extrabold uppercase">{season.event}</p>

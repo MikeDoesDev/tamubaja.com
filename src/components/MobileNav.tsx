@@ -23,7 +23,7 @@ export function MobileNav({ links }: { links: readonly NavLink[] }) {
       <button
         type="button"
         aria-expanded={open}
-        aria-controls="mobile-menu"
+        aria-controls={open ? "mobile-menu" : undefined}
         onClick={() => setOpen((value) => !value)}
         className="rounded-sm border border-line px-3 py-2 font-display text-sm font-bold uppercase"
       >
