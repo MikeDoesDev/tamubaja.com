@@ -1,69 +1,127 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ButtonLink } from "@/components/ButtonLink";
+import { CtaBand } from "@/components/CtaBand";
+import { Hero } from "@/components/Hero";
+import { Eyebrow, Section, SectionHeading } from "@/components/Section";
+import { StatsStrip } from "@/components/StatsStrip";
+import { getCar, getSeasons, getSite } from "@/lib/content";
+import { newestFirst, ordinal } from "@/lib/format";
+import type { Season } from "@/lib/schemas";
+import { pageMetadata } from "@/lib/seo";
 
-export default function Home() {
+export const metadata = pageMetadata({
+  title: "Texas A&M Baja SAE — Engineered to conquer the toughest terrain",
+  description:
+    "Texas A&M Baja SAE designs, builds, and races a new off-road car every year against 100+ universities. Sponsor the team behind car #51.",
+  path: "/",
+  absolute: true,
+});
+
+export default function HomePage() {
+  const site = getSite();
+  const car = getCar();
+  const recent = newestFirst(getSeasons())
+    .filter((season): season is Season & { overall: number } => season.overall !== null)
+    .slice(0, 3);
+  const organization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: site.name,
+    url: site.url,
+    logo: `${site.url}${site.logo}`,
+    email: site.email,
+    sameAs: [site.socials.instagram, site.socials.linktree, ...(site.socials.linkedin ? [site.socials.linkedin] : [])],
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />
+      <Hero site={site} />
+      <StatsStrip stats={site.homeStats} />
+
+      <Section>
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <Eyebrow>Who we are</Eyebrow>
+            <SectionHeading>Built by Aggies. Raced in the dirt.</SectionHeading>
+            <div className="mt-6 space-y-4 text-lg text-muted">
+              {site.mission.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+            <Image src={site.teamPhoto} alt="Texas A&M Baja SAE team members" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </Section>
+
+      <Section className="bg-panel/40">
+        <Eyebrow>Why sponsor</Eyebrow>
+        <SectionHeading>What your support gets you</SectionHeading>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {site.sponsorPillars.map((pillar) => (
+            <article key={pillar.title} className="rounded-sm border border-line bg-panel p-6">
+              <h3 className="font-display text-2xl font-extrabold uppercase">{pillar.title}</h3>
+              <p className="mt-2 text-muted">{pillar.body}</p>
+            </article>
+          ))}
         </div>
-      </main>
-    </div>
+        <div className="mt-8">
+          <ButtonLink href="/sponsors">See sponsorship tiers</ButtonLink>
+        </div>
+      </Section>
+
+      <Section>
+        <div className="grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-sm">
+            <Image src={car.photo} alt={`The Texas A&M Baja ${car.season} car`} fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
+          </div>
+          <div>
+            <Eyebrow>{car.season} car</Eyebrow>
+            <SectionHeading>Meet the car</SectionHeading>
+            <dl className="mt-6 grid grid-cols-2 gap-4">
+              {car.specs.slice(0, 4).map((spec) => (
+                <div key={spec.label}>
+                  <dt className="text-xs uppercase tracking-[0.2em] text-muted">{spec.label}</dt>
+                  <dd className="font-display text-2xl font-bold uppercase">{spec.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="mt-8">
+              <ButtonLink href="/car" variant="secondary">
+                Full specs
+              </ButtonLink>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section className="bg-panel/40">
+        <Eyebrow>Results</Eyebrow>
+        <SectionHeading>Racing against 100+ universities</SectionHeading>
+        <ul className="mt-10 grid gap-6 md:grid-cols-3">
+          {recent.map((season) => (
+            <li key={season.season} className="rounded-sm border border-line bg-panel p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">{season.season}</p>
+              <p className="mt-1 font-display text-2xl font-extrabold uppercase">{season.event}</p>
+              <p className="mt-3 font-display text-5xl font-extrabold text-accent">{ordinal(season.overall)}</p>
+              <p className="text-xs uppercase tracking-wide text-muted">Overall</p>
+              {season.highlights[0] && <p className="mt-3 text-sm text-muted">{season.highlights[0]}</p>}
+            </li>
+          ))}
+        </ul>
+        <Link href="/car#history" className="mt-8 inline-block font-semibold text-accent underline underline-offset-4">
+          Full competition history
+        </Link>
+      </Section>
+
+      <CtaBand
+        title="Put your name on the car"
+        body="Join the companies helping Aggie engineers design, build, and race car #51."
+        packetPdf={site.packetPdf}
+      />
+    </>
   );
 }
