@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense, useState, type ChangeEvent, type FormEvent } from "react";
+import { Suspense, useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import {
   EMPTY_INQUIRY,
   INTERESTS,
@@ -20,6 +20,7 @@ const INPUT =
 
 type Status = "idle" | "sending" | "success" | "error";
 type Props = { accessKey: string; email: string };
+const FIELD_ORDER = ["name", "company", "email", "interest"] as const;
 
 function Field({
   id,
@@ -53,6 +54,19 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
   const [fields, setFields] = useState<InquiryFields>({ ...EMPTY_INQUIRY, interest: initialInterest });
   const [errors, setErrors] = useState<InquiryErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const successRef = useRef<HTMLDivElement>(null);
+
+  // A tier link changed ?interest= while the form is open: update that field only,
+  // keeping whatever the visitor already typed.
+  const [syncedInterest, setSyncedInterest] = useState(initialInterest);
+  if (initialInterest !== syncedInterest) {
+    setSyncedInterest(initialInterest);
+    if (initialInterest) setFields((current) => ({ ...current, interest: initialInterest }));
+  }
+
+  useEffect(() => {
+    if (status === "success") successRef.current?.focus();
+  }, [status]);
 
   const update =
     (name: keyof InquiryFields) =>
@@ -68,7 +82,11 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
     event.preventDefault();
     const found = validateInquiry(fields);
     setErrors(found);
-    if (Object.keys(found).length > 0) return;
+    const firstInvalid = FIELD_ORDER.find((key) => found[key]);
+    if (firstInvalid) {
+      document.getElementById(firstInvalid)?.focus();
+      return;
+    }
     if (fields.botcheck) {
       setStatus("success");
       return;
@@ -93,7 +111,7 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
 
   if (status === "success") {
     return (
-      <div role="status" className="rounded-sm border border-accent bg-panel p-8">
+      <div ref={successRef} tabIndex={-1} role="status" className="rounded-sm border border-accent bg-panel p-8">
         <p className="font-display text-3xl font-extrabold uppercase">Thanks — message received.</p>
         <p className="mt-2 text-muted">We&apos;ll reply within 2 business days from {email}.</p>
       </div>
@@ -169,7 +187,12 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
 function InquiryFormFromUrl(props: Props) {
   const params = useSearchParams();
   const initialInterest = interestFromQuery(new URLSearchParams(params.toString()));
-  return <InquiryFormInner key={initialInterest} {...props} initialInterest={initialInterest} />;
+  // Bring the form into view whenever a link picks an interest (also covers clicks
+  // that happen before the page has finished hydrating).
+  useEffect(() => {
+    if (initialInterest) document.getElementById("inquire")?.scrollIntoView();
+  }, [initialInterest]);
+  return <InquiryFormInner {...props} initialInterest={initialInterest} />;
 }
 
 export function InquiryForm(props: Props) {

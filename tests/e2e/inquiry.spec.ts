@@ -42,6 +42,7 @@ test("a tier card's Choose link preselects that tier", async ({ page }) => {
   await page.getByRole("link", { name: "Choose Gold" }).click();
   await expect(page).toHaveURL(/interest=gold/);
   await expect(page.getByLabel("What are you interested in?")).toHaveValue("gold");
+  await expect(page.locator("#inquire")).toBeInViewport();
 });
 
 test("successful submit sends the right payload and confirms", async ({ page }) => {
@@ -80,4 +81,19 @@ test("the team page's resume-book link preselects recruiting", async ({ page }) 
   await page.getByRole("link", { name: "Request our resume book" }).click();
   await expect(page).toHaveURL(/interest=recruiting/);
   await expect(page.getByLabel("What are you interested in?")).toHaveValue("recruiting");
+});
+
+test("picking a tier after typing keeps what the visitor typed", async ({ page }) => {
+  await page.goto("/sponsors");
+  await page.getByLabel("Your name").fill("Jordan Smith");
+  await page.getByRole("link", { name: "Choose Silver" }).click();
+  await expect(page.getByLabel("What are you interested in?")).toHaveValue("silver");
+  await expect(page.getByLabel("Your name")).toHaveValue("Jordan Smith");
+});
+
+test("an invalid submit moves focus to the first problem", async ({ page }) => {
+  await page.goto("/sponsors");
+  await page.getByLabel("Your name").fill("Jordan Smith");
+  await page.getByRole("button", { name: "Send inquiry" }).click();
+  await expect(page.getByLabel("Company or organization")).toBeFocused();
 });

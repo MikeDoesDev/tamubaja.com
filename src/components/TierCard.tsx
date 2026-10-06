@@ -30,7 +30,6 @@ export function TierCard({ tier, lowerTierName }: { tier: Tier; lowerTierName?: 
       </ul>
       <Link
         href={`/sponsors?interest=${tier.id}#inquire`}
-        scroll={false}
         className="mt-6 inline-block text-sm font-semibold uppercase tracking-wide text-accent underline underline-offset-4 hover:text-ink"
       >
         Choose {tier.name}
