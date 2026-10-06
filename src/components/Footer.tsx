@@ -7,7 +7,8 @@ export function Footer() {
   const link = "transition-colors hover:text-ink";
   return (
     <footer className="border-t border-line bg-black/30">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      {/* The logo strip runs edge to edge; the rest of the footer keeps the content width. */}
+      <div className="pt-14">
         <h2 className="mb-6 text-center font-display text-2xl font-extrabold uppercase">Our partners</h2>
         <SponsorMarquee />
         <p className="mt-6 text-center">
@@ -15,6 +16,8 @@ export function Footer() {
             See all our partners
           </Link>
         </p>
+      </div>
+      <div className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
         <div className="mt-14 grid gap-8 border-t border-line pt-10 text-sm text-muted sm:grid-cols-3">
           <div>
             <p className="font-display text-xl font-bold uppercase text-ink">{site.name}</p>

@@ -55,6 +55,12 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
   const [errors, setErrors] = useState<InquiryErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const successRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Marks the form as interactive (tests wait for this before typing).
+  useEffect(() => {
+    formRef.current?.setAttribute("data-hydrated", "");
+  }, []);
 
   // A tier link changed ?interest= while the form is open: update that field only,
   // keeping whatever the visitor already typed.
@@ -119,7 +125,25 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
   }
 
   return (
-    <form noValidate onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
+    // action/method make the form work even before JavaScript loads (posting straight to
+    // Web3Forms, or to the visitor's email app without a key) instead of a GET that would put
+    // their details in the URL. Once hydrated, onSubmit takes over.
+    <form
+      ref={formRef}
+      noValidate
+      onSubmit={onSubmit}
+      action={accessKey ? WEB3FORMS_ENDPOINT : `mailto:${email}`}
+      method="post"
+      encType={accessKey ? undefined : "text/plain"}
+      className="grid gap-5 sm:grid-cols-2"
+    >
+      {accessKey && (
+        <>
+          <input type="hidden" name="access_key" value={accessKey} />
+          <input type="hidden" name="subject" value="Baja sponsor inquiry" />
+          <input type="hidden" name="from_name" value="tamubaja.com" />
+        </>
+      )}
       <Field id="name" label="Your name" error={errors.name}>
         <input id="name" name="name" autoComplete="name" value={fields.name} onChange={update("name")} aria-invalid={!!errors.name} aria-describedby={describedBy("name")} className={INPUT} />
       </Field>

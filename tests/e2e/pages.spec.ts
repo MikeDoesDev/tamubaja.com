@@ -28,8 +28,10 @@ async function scrollToBottom(page: Page) {
       await new Promise((resolve) => setTimeout(resolve, 40));
     }
   });
+  // Generous timeout: the first request for each logo size is encoded to AVIF on the spot
+  // (cached afterwards), which is slow when every test worker hits /partners at once.
   await page.waitForFunction(() => Array.from(document.images).every((img) => img.complete), null, {
-    timeout: 15_000,
+    timeout: 30_000,
   });
 }
 

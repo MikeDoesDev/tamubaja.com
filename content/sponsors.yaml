@@ -31,7 +31,7 @@
   tier: silver
   logo: /sponsors/tesla.png
   url: https://www.tesla.com
-  show: false
+  show: true
 - name: L3Harris
   tier: silver
   logo: /sponsors/l3harris.png
@@ -41,7 +41,7 @@
   tier: inkind
   logo: /sponsors/gates.png
   url: https://www.gates.com
-  show: false
+  show: true
 - name: AFCO Racing
   tier: inkind
   logo: /sponsors/afco.png
@@ -51,22 +51,23 @@
   tier: inkind
   logo: /sponsors/kisssoft.png
   url: https://www.kisssoft.com
-  show: false
+  show: true
 - name: Polymaker
   tier: inkind
   logo: /sponsors/polymaker.png
   url: https://us.polymaker.com
-  show: false
+  show: true
 - name: Rock West Composites
   tier: inkind
   logo: /sponsors/rock-west.png
   url: https://www.rockwestcomposites.com
-  show: false
-- name: Primeweld
+  show: true
+- name: PrimeWeld
   tier: inkind
   logo: /sponsors/primeweld.png
   url: https://primeweld.com
-  show: false
+  show: true
+  tile: dark
 - name: Tidal Power Services
   tier: silver
   logo: /sponsors/tidal-power.png
@@ -145,3 +146,51 @@
   logo: /sponsors/red-bull.png
   url: https://www.redbull.com
   show: true
+- name: Rapid Harness
+  tier: inkind
+  logo: /sponsors/rapid-harness.png
+  url: https://www.rapidharness.com
+  show: true
+- name: RaceBox
+  tier: inkind
+  logo: /sponsors/racebox.png
+  url: https://www.racebox.pro
+  show: true
+- name: TrailBrake
+  tier: inkind
+  logo: /sponsors/trailbrake.png
+  url: https://www.trailbrake.com
+  show: true
+  tile: dark
+- name: mjbots (moteus)
+  tier: inkind
+  logo: /sponsors/moteus.png
+  url: https://mjbots.com
+  show: true
+- name: Taylor Race Engineering
+  tier: inkind
+  logo: /sponsors/taylor-race.png
+  url: https://www.taylor-race.com
+  show: true
+- name: RAMSIS by Humanetics
+  tier: inkind
+  logo: /sponsors/ramsis.png
+  url: https://www.humanetics.com
+  show: true
+- name: Action Machine
+  tier: inkind
+  logo: /sponsors/action-machine.png
+  url: https://actionmachineinc.com
+  show: true
+# Hidden: Timken is still "in progress" in the sponsor tracker.
+- name: Timken
+  tier: inkind
+  logo: /sponsors/timken.png
+  url: https://www.timken.com
+  show: false
+# Hidden until the team confirms the right company, website, and logo file (public/sponsors/bam-machining.png).
+- name: BAM Machining Group
+  tier: inkind
+  logo: /sponsors/bam-machining.png
+  url: https://www.google.com/search?q=BAM+Machining+Group
+  show: false

@@ -27,7 +27,10 @@ export function SponsorTile({
   decorative?: boolean;
   eager?: boolean;
 }) {
-  const surface = sponsor.tile === "dark" ? "bg-panel-2 ring-1 ring-line" : "bg-white";
+  const dark = sponsor.tile === "dark";
+  const surface = dark ? "bg-panel-2 ring-1 ring-line" : "bg-white";
+  // Fading a light logo on a dark tile makes it unreadable, so dark tiles only go grayscale.
+  const muted = dark ? "pointer-fine:grayscale" : "pointer-fine:opacity-70 pointer-fine:grayscale";
   return (
     <a
       href={sponsor.url}
@@ -47,7 +50,7 @@ export function SponsorTile({
           sizes="224px"
           loading={eager ? "eager" : "lazy"}
           fetchPriority={eager ? "low" : undefined}
-          className="object-contain transition duration-300 pointer-fine:opacity-70 pointer-fine:grayscale group-hover:opacity-100 group-hover:grayscale-0 group-focus-visible:opacity-100 group-focus-visible:grayscale-0"
+          className={`object-contain transition duration-300 ${muted} group-hover:opacity-100 group-hover:grayscale-0 group-focus-visible:opacity-100 group-focus-visible:grayscale-0`}
         />
       </span>
     </a>

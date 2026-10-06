@@ -1,35 +1,29 @@
 import { getSponsors } from "@/lib/content";
 import { visibleSponsors } from "@/lib/sponsors";
+import { PartnerLogoMarquee } from "./PartnerLogoMarquee";
 import { EmptyWall } from "./SponsorGrid";
 import { SponsorTile } from "./SponsorTile";
 
 /**
- * Endless scrolling logo strip (CSS only). The list is rendered twice and shifted by -50%,
- * so the loop is seamless; spacing is padding on each item (not `gap`) to keep both halves equal.
- * Pauses on hover/focus. With reduced motion it becomes a static, wrapped row of the originals.
+ * Endless scrolling logo strip built on performative-ui's LogoMarquee, which renders the list
+ * twice for a seamless loop. Because that second copy can't be hidden from screen readers,
+ * every tile in the strip is decorative; the "See all our partners" link is the accessible route.
+ * With reduced motion the strip becomes a still, wrapped row of the originals (see globals.css).
  */
 export function SponsorMarquee() {
   const sponsors = visibleSponsors(getSponsors());
   if (sponsors.length === 0) return <EmptyWall />;
-  const loop = [...sponsors, ...sponsors];
   return (
-    <div
-      data-testid="sponsor-marquee"
-      className="group overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] motion-reduce:[mask-image:none]"
-    >
-      <ul
-        className="marquee flex w-max py-3 group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-y-4"
-        style={{ animationDuration: `${sponsors.length * 3.5}s` }}
-      >
-        {loop.map((sponsor, index) => {
-          const duplicate = index >= sponsors.length;
-          return (
-            <li key={`${sponsor.name}-${index}`} data-duplicate={duplicate || undefined} className="px-2.5 motion-reduce:data-duplicate:hidden">
-              <SponsorTile sponsor={sponsor} size="sm" decorative={duplicate} eager />
-            </li>
-          );
-        })}
-      </ul>
+    <div data-testid="sponsor-marquee">
+      <p className="sr-only">Our partners&apos; logos scroll here. The link below lists every partner.</p>
+      <PartnerLogoMarquee
+        speed={Math.round(sponsors.length * 3.5)}
+        logos={sponsors.map((sponsor) => ({
+          kind: "node",
+          node: <SponsorTile sponsor={sponsor} size="sm" decorative eager />,
+        }))}
+      />
+      <style>{`@media (prefers-reduced-motion: reduce) { [data-testid="sponsor-marquee"] .pui-marquee__item:nth-child(n + ${sponsors.length + 1}) { display: none; } }`}</style>
     </div>
   );
 }

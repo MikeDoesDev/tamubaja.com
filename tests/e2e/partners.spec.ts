@@ -19,14 +19,19 @@ test("touch devices show logos in full color", async ({ page, isMobile }) => {
   await expect(tile.locator("img")).not.toHaveCSS("filter", /grayscale\(1\)/);
 });
 
-test("footer logo strip scrolls and hides its repeated copy from screen readers", async ({ page }) => {
+test("footer logo strip loads near the footer, scrolls, and is decorative for screen readers", async ({ page }) => {
   await page.goto("/");
   const strip = page.getByTestId("sponsor-marquee");
   test.skip((await strip.count()) === 0, "no sponsors are shown yet");
-  await expect(strip.locator("ul")).toHaveCSS("animation-name", "marquee");
-  const repeat = strip.locator("li[data-duplicate] a").first();
-  await expect(repeat).toHaveAttribute("aria-hidden", "true");
-  await expect(repeat).toHaveAttribute("tabindex", "-1");
+  await strip.scrollIntoViewIfNeeded();
+  await expect(strip.locator(".pui-marquee__track")).toHaveCSS("animation-name", "pui-marquee");
+  await expect(strip.locator(".pui-marquee")).not.toHaveAttribute("aria-label");
+  const tiles = strip.locator("[data-sponsor-tile]");
+  for (const tile of [tiles.first(), tiles.last()]) {
+    await expect(tile).toHaveAttribute("aria-hidden", "true");
+    await expect(tile).toHaveAttribute("tabindex", "-1");
+  }
+  await expect(page.getByRole("link", { name: "See all our partners" })).toBeVisible();
 });
 
 test("with reduced motion the logo strip is a still row without repeats", async ({ page }) => {
@@ -34,6 +39,9 @@ test("with reduced motion the logo strip is a still row without repeats", async 
   await page.goto("/");
   const strip = page.getByTestId("sponsor-marquee");
   test.skip((await strip.count()) === 0, "no sponsors are shown yet");
-  await expect(strip.locator("li[data-duplicate]").first()).toBeHidden();
-  await expect(strip.locator("ul")).toHaveCSS("animation-name", "none");
+  await strip.scrollIntoViewIfNeeded();
+  const items = strip.locator(".pui-marquee__item");
+  await expect(items.first()).toBeVisible();
+  await expect(items.last()).toBeHidden();
+  await expect(strip.locator(".pui-marquee__track")).toHaveCSS("animation-name", "none");
 });

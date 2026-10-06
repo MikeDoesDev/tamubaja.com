@@ -31,24 +31,21 @@ body {
   outline-offset: 3px;
 }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee {
-  animation: marquee linear infinite;
-}
-
 .slash-top {
   clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* performative-ui's LogoMarquee has no reduced-motion mode: show a still, wrapped row. */
+  .partner-marquee {
+    mask-image: none;
+  }
+  .partner-marquee .pui-marquee__track {
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1rem;
+  }
   *,
   *::before,
   *::after {

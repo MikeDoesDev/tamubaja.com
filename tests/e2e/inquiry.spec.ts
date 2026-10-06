@@ -15,6 +15,7 @@ async function mockEndpoint(page: Page, handler: (route: Route) => Promise<void>
 }
 
 async function fillForm(page: Page) {
+  await page.locator("form[data-hydrated]").waitFor();
   await page.getByLabel("Your name").fill("Jordan Smith");
   await page.getByLabel("Company or organization").fill("Acme Gear");
   await page.getByLabel("Work email").fill("jordan@acme.com");
@@ -29,6 +30,7 @@ test("empty submit shows every error and sends nothing", async ({ page }) => {
     await route.fulfill({ status: 200, headers: CORS, json: { success: true } });
   });
   await page.goto("/sponsors#inquire");
+  await page.locator("form[data-hydrated]").waitFor();
   await page.getByRole("button", { name: "Send inquiry" }).click();
   await expect(page.getByText("Enter your name.")).toBeVisible();
   await expect(page.getByText("Enter your company or organization.")).toBeVisible();
@@ -39,6 +41,7 @@ test("empty submit shows every error and sends nothing", async ({ page }) => {
 
 test("a tier card's Choose link preselects that tier", async ({ page }) => {
   await page.goto("/sponsors");
+  await page.locator("form[data-hydrated]").waitFor();
   await page.getByRole("link", { name: "Choose Gold" }).click();
   await expect(page).toHaveURL(/interest=gold/);
   await expect(page.getByLabel("What are you interested in?")).toHaveValue("gold");
@@ -85,6 +88,7 @@ test("the team page's resume-book link preselects recruiting", async ({ page }) 
 
 test("picking a tier after typing keeps what the visitor typed", async ({ page }) => {
   await page.goto("/sponsors");
+  await page.locator("form[data-hydrated]").waitFor();
   await page.getByLabel("Your name").fill("Jordan Smith");
   await page.getByRole("link", { name: "Choose Silver" }).click();
   await expect(page.getByLabel("What are you interested in?")).toHaveValue("silver");
@@ -93,6 +97,7 @@ test("picking a tier after typing keeps what the visitor typed", async ({ page }
 
 test("an invalid submit moves focus to the first problem", async ({ page }) => {
   await page.goto("/sponsors");
+  await page.locator("form[data-hydrated]").waitFor();
   await page.getByLabel("Your name").fill("Jordan Smith");
   await page.getByRole("button", { name: "Send inquiry" }).click();
   await expect(page.getByLabel("Company or organization")).toBeFocused();
