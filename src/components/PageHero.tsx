@@ -18,7 +18,7 @@ export function PageHero({
     <section className="relative isolate overflow-hidden border-b border-line">
       {image && (
         <>
-          <Image src={image} alt={imageAlt} fill preload sizes="100vw" className="-z-20 object-cover opacity-40" />
+          <Image src={image} alt={imageAlt} fill preload fetchPriority="high" quality={60} sizes="100vw" className="-z-20 object-cover opacity-40" />
           <div className="absolute inset-0 -z-10 bg-linear-to-t from-bg to-bg/40" />
         </>
       )}

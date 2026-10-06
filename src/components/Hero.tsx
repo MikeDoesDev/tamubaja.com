@@ -11,6 +11,8 @@ export function Hero({ site }: { site: Site }) {
         alt="Texas A&M Baja SAE car racing off-road"
         fill
         preload
+        fetchPriority="high"
+        quality={60}
         sizes="100vw"
         className="-z-20 object-cover"
       />
