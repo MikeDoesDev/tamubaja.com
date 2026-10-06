@@ -1,0 +1,125 @@
+import { z } from "zod";
+
+const text = z.string().trim().min(1, "can't be empty");
+const httpUrl = z
+  .string()
+  .regex(/^https?:\/\/\S+$/, "must be a full web address starting with https://");
+const publicPath = z
+  .string()
+  .regex(/^\/\S+$/, "must be a file path starting with / and no spaces (for example /images/hero.jpg)");
+const email = z.string().regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "must be an email address");
+const isoDate = z.preprocess(
+  (value) => (value instanceof Date ? value.toISOString().slice(0, 10) : value),
+  z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "must be a date written as YYYY-MM-DD"),
+);
+
+export const TIER_IDS = ["bronze", "silver", "gold", "platinum"] as const;
+export const SPONSOR_TIERS = ["platinum", "gold", "silver", "bronze", "inkind"] as const;
+
+export const siteSchema = z.object({
+  name: text,
+  tagline: text,
+  description: text,
+  url: httpUrl,
+  email,
+  socials: z.object({
+    instagram: httpUrl,
+    linktree: httpUrl,
+    linkedin: httpUrl.optional(),
+  }),
+  packetPdf: publicPath,
+  heroImage: publicPath,
+  heroVideo: publicPath.optional(),
+  teamPhoto: publicPath,
+  logo: publicPath,
+  web3formsKey: z.string(),
+  mission: z.array(text).min(1),
+  homeStats: z.array(z.object({ value: text, label: text })).min(1).max(4),
+  sponsorPillars: z.array(z.object({ title: text, body: text })).min(1),
+  giving: z.object({
+    foundationUrl: httpUrl,
+    accountCode: text,
+    steps: z.array(text).min(1),
+    checkPayableTo: text,
+    checkAddress: z.array(text).min(1),
+  }),
+});
+
+export const sponsorSchema = z.object({
+  name: text,
+  tier: z.enum(SPONSOR_TIERS),
+  logo: publicPath,
+  url: httpUrl,
+  show: z.boolean(),
+});
+export const sponsorsSchema = z.array(sponsorSchema);
+
+export const tiersSchema = z
+  .object({
+    tiers: z.array(
+      z.object({
+        id: z.enum(TIER_IDS),
+        name: text,
+        priceLabel: text,
+        badgeColor: z.string().regex(/^#[0-9a-fA-F]{6}$/, "must be a hex color like #9F6A3E"),
+        benefits: z.array(text).min(1),
+      }),
+    ),
+    inKindCategories: z.array(z.object({ name: text, examples: text })).min(1),
+  })
+  .refine((file) => file.tiers.map((t) => t.id).join(",") === TIER_IDS.join(","), {
+    message: "list the tiers exactly once each, in this order: bronze, silver, gold, platinum",
+    path: ["tiers"],
+  });
+
+export const seasonsSchema = z.array(
+  z.object({
+    season: text,
+    event: text,
+    location: text,
+    overall: z.number().int().positive().nullable(),
+    fieldSize: z.number().int().positive().optional(),
+    highlights: z.array(text),
+    photo: publicPath.optional(),
+  }),
+);
+
+export const carSchema = z.object({
+  season: text,
+  name: text,
+  photo: publicPath,
+  summary: text,
+  specs: z.array(z.object({ label: text, value: text })).min(1),
+  subsystems: z.array(z.object({ name: text, description: text, photo: publicPath.optional() })).min(1),
+  buildSeason: text,
+  milestones: z
+    .array(z.object({ name: text, date: isoDate, tentative: z.boolean().optional() }))
+    .min(1),
+});
+
+export const teamSchema = z.object({
+  story: z.array(text).min(1),
+  leads: z.array(
+    z.object({
+      name: text,
+      role: text,
+      major: text,
+      classYear: z.string().regex(/^\d{4}$/, "must be a 4-digit graduation year like 2027"),
+      linkedin: httpUrl.optional(),
+      photo: publicPath.optional(),
+    }),
+  ),
+  subteams: z.array(z.object({ name: text, description: text })).min(1),
+});
+
+export const faqSchema = z.array(z.object({ q: text, a: text })).min(1);
+
+export type Site = z.infer<typeof siteSchema>;
+export type Sponsor = z.infer<typeof sponsorSchema>;
+export type TiersFile = z.infer<typeof tiersSchema>;
+export type Tier = TiersFile["tiers"][number];
+export type Season = z.infer<typeof seasonsSchema>[number];
+export type Car = z.infer<typeof carSchema>;
+export type Team = z.infer<typeof teamSchema>;
+export type Lead = Team["leads"][number];
+export type FaqItem = z.infer<typeof faqSchema>[number];
