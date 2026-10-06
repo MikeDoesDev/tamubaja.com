@@ -6,27 +6,27 @@
   tier: gold
   logo: /sponsors/gm.png
   url: https://www.gm.com
-  show: false
+  show: true
 - name: Gene Haas Foundation
   tier: gold
   logo: /sponsors/haas-foundation.png
   url: https://www.ghaasfoundation.org
-  show: false
+  show: true
 - name: Caterpillar
   tier: gold
   logo: /sponsors/caterpillar.png
   url: https://www.caterpillar.com
-  show: false
+  show: true
 - name: Bray International
   tier: gold
   logo: /sponsors/bray.png
   url: https://www.bray.com
-  show: false
+  show: true
 - name: Vistra
   tier: gold
   logo: /sponsors/vistra.png
   url: https://vistracorp.com
-  show: false
+  show: true
 - name: Tesla
   tier: silver
   logo: /sponsors/tesla.png
@@ -36,7 +36,7 @@
   tier: silver
   logo: /sponsors/l3harris.png
   url: https://www.l3harris.com
-  show: false
+  show: true
 - name: Gates
   tier: inkind
   logo: /sponsors/gates.png
@@ -46,7 +46,7 @@
   tier: inkind
   logo: /sponsors/afco.png
   url: https://www.afcoracing.com
-  show: false
+  show: true
 - name: KISSsoft
   tier: inkind
   logo: /sponsors/kisssoft.png
@@ -71,69 +71,77 @@
   tier: silver
   logo: /sponsors/tidal-power.png
   url: https://tidalpowerservices.com
-  show: false
+  show: true
 - name: Texas A&M Mechanical Engineering
   tier: silver
   logo: /sponsors/tamu-meen.png
   url: https://engineering.tamu.edu/mechanical/
-  show: false
+  show: true
+  tile: dark
+
 - name: Rusty Nail Racing
   tier: bronze
   logo: /sponsors/rusty-nail-racing.png
   url: https://rustynailracing.com
-  show: false
+  show: true
 - name: Renzo Gracie Pearland
   tier: bronze
   logo: /sponsors/renzo-gracie-pearland.png
   url: https://renzograciepearland.com
-  show: false
+  show: true
 - name: Blackbaud Giving Fund
   tier: bronze
   logo: /sponsors/blackbaud-giving-fund.png
   url: https://blackbaudgivingfund.org
-  show: false
+  show: true
+  tile: dark
+
 - name: QA1
   tier: inkind
   logo: /sponsors/qa1.png
   url: https://www.qa1.net
-  show: false
+  show: true
 - name: Genesis Racing Shocks
   tier: inkind
   logo: /sponsors/genesis-racing-shocks.png
   url: https://genesisshocks.com
-  show: false
+  show: true
 - name: TMS Titanium
   tier: inkind
   logo: /sponsors/tms-titanium.png
   url: https://www.tmstitanium.com
-  show: false
+  show: true
 - name: U.S. Sprocket and Gear
   tier: inkind
   logo: /sponsors/us-gear-sprocket.png
   url: https://ussprocketandgear.com
-  show: false
+  show: true
 - name: Houston Heat Treat
   tier: inkind
   logo: /sponsors/houston-heat-treat.png
   url: https://houstonheattreat.com
-  show: false
+  show: true
+  tile: dark
+
 - name: GMN Bearing USA
   tier: inkind
   logo: /sponsors/gmn-bearings.png
   url: https://www.gmnbt.com
-  show: false
+  show: true
 - name: Capital Bending
   tier: inkind
   logo: /sponsors/capital-bending.png
   url: https://capitalbending.com
-  show: false
+  show: true
+  tile: dark
+
 - name: Carson Supply
   tier: inkind
   logo: /sponsors/carson-supply.png
   url: https://carsonsupplytx.com
-  show: false
+  show: true
 - name: Red Bull
   tier: inkind
   logo: /sponsors/red-bull.png
   url: https://www.redbull.com
-  show: false
+  show: true

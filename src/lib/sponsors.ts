@@ -23,3 +23,8 @@ export function groupSponsors(sponsors: Sponsor[]): SponsorGroup[] {
     sponsors: sponsors.filter((sponsor) => sponsor.show && sponsor.tier === tier),
   })).filter((group) => group.sponsors.length > 0);
 }
+
+/** Shown sponsors in tier order, for the scrolling logo strip. */
+export function visibleSponsors(sponsors: Sponsor[]): Sponsor[] {
+  return groupSponsors(sponsors).flatMap((group) => group.sponsors);
+}

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Sponsor } from "@/lib/schemas";
-import { groupSponsors } from "@/lib/sponsors";
+import { groupSponsors, visibleSponsors } from "@/lib/sponsors";
 
 const s = (name: string, tier: Sponsor["tier"], show = true): Sponsor => ({
   name,
@@ -28,5 +28,12 @@ describe("groupSponsors", () => {
   it("keeps file order within a tier", () => {
     const groups = groupSponsors([s("z", "gold"), s("a", "gold")]);
     expect(groups[0].sponsors.map((x) => x.name)).toEqual(["z", "a"]);
+  });
+});
+
+describe("visibleSponsors", () => {
+  it("lists shown sponsors from platinum to in-kind for the logo strip", () => {
+    const list = visibleSponsors([s("k", "inkind"), s("hidden", "gold", false), s("p", "platinum"), s("b", "bronze")]);
+    expect(list.map((x) => x.name)).toEqual(["p", "b", "k"]);
   });
 });

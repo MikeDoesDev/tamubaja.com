@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("sitemap lists every page on the production domain", async ({ request }) => {
   const body = await (await request.get("/sitemap.xml")).text();
-  for (const path of ["", "/sponsors", "/car", "/team", "/give"]) {
+  for (const path of ["", "/sponsors", "/partners", "/car", "/team", "/give"]) {
     expect(body).toContain(`<loc>https://tamubaja.com${path}</loc>`);
   }
 });
@@ -13,7 +13,7 @@ test("robots.txt allows crawling and points at the sitemap", async ({ request })
   expect(body).toContain("Sitemap: https://tamubaja.com/sitemap.xml");
 });
 
-for (const path of ["/", "/sponsors", "/car", "/team", "/give"]) {
+for (const path of ["/", "/sponsors", "/partners", "/car", "/team", "/give"]) {
   test(`${path} has a description, canonical URL, and a working share image`, async ({ page, request }) => {
     await page.goto(path);
     await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /.{50,}/);

@@ -127,3 +127,15 @@ describe("forgiving edits a non-coder is likely to make", () => {
     expect(() => parseContent("sponsors.yaml", yaml, sponsorsSchema)).toThrowError(/use true or false/);
   });
 });
+
+describe("sponsor tile color", () => {
+  it("accepts an optional dark tile, in any capitalization", () => {
+    const sponsors = parseContent("sponsors.yaml", validSponsor + "  tile: Dark\n", sponsorsSchema);
+    expect(sponsors[0].tile).toBe("dark");
+    expect(parseContent("sponsors.yaml", validSponsor, sponsorsSchema)[0].tile).toBeUndefined();
+  });
+
+  it("rejects an unknown tile color", () => {
+    expect(() => parseContent("sponsors.yaml", validSponsor + "  tile: purple\n", sponsorsSchema)).toThrowError(/tile/);
+  });
+});

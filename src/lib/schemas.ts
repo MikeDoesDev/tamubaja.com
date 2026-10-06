@@ -63,6 +63,10 @@ export const sponsorSchema = z.object({
   logo: publicPath,
   url: httpUrl,
   show: yesNo,
+  // Optional: "dark" puts a white-text logo on a dark tile so it stays visible.
+  tile: z
+    .preprocess((value) => (typeof value === "string" ? value.trim().toLowerCase() : value), z.enum(["light", "dark"]))
+    .optional(),
 });
 export const sponsorsSchema = z.array(sponsorSchema);
 

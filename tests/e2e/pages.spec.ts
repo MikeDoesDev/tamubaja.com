@@ -3,6 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 const ROUTES = [
   { path: "/", h1: /engineered to conquer/i },
   { path: "/sponsors", h1: /partner with texas a&m baja/i },
+  { path: "/partners", h1: /powered by our partners/i },
   { path: "/car", h1: /car/i },
   { path: "/team", h1: /team behind car #51/i },
   { path: "/give", h1: /support the team/i },
@@ -71,7 +72,7 @@ test("mobile menu opens, navigates, and closes with Escape", async ({ page, isMo
   await page.goto("/");
   await page.getByRole("button", { name: "Menu" }).click();
   const menu = page.getByRole("navigation", { name: "Mobile" });
-  await expect(menu.getByRole("link", { name: "Sponsors" })).toBeVisible();
+  await expect(menu.getByRole("link", { name: "Partners" })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(menu).toBeHidden();
 });

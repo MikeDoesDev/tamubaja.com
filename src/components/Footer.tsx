@@ -1,5 +1,6 @@
 import { getSite } from "@/lib/content";
-import { LogoWall } from "./LogoWall";
+import Link from "next/link";
+import { SponsorMarquee } from "./SponsorMarquee";
 
 export function Footer() {
   const site = getSite();
@@ -7,8 +8,13 @@ export function Footer() {
   return (
     <footer className="border-t border-line bg-black/30">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <h2 className="mb-8 text-center font-display text-2xl font-extrabold uppercase">Our partners</h2>
-        <LogoWall />
+        <h2 className="mb-6 text-center font-display text-2xl font-extrabold uppercase">Our partners</h2>
+        <SponsorMarquee />
+        <p className="mt-6 text-center">
+          <Link href="/partners" className="text-sm font-semibold text-accent underline underline-offset-4">
+            See all our partners
+          </Link>
+        </p>
         <div className="mt-14 grid gap-8 border-t border-line pt-10 text-sm text-muted sm:grid-cols-3">
           <div>
             <p className="font-display text-xl font-bold uppercase text-ink">{site.name}</p>

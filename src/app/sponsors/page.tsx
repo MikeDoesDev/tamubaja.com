@@ -1,9 +1,9 @@
 import { ButtonLink } from "@/components/ButtonLink";
 import { Faq } from "@/components/Faq";
 import { InquiryForm } from "@/components/InquiryForm";
-import { LogoWall } from "@/components/LogoWall";
 import { MilestoneTimeline } from "@/components/MilestoneTimeline";
 import { PageHero } from "@/components/PageHero";
+import { SponsorGrid } from "@/components/SponsorGrid";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { TierCard } from "@/components/TierCard";
 import { getCar, getFaq, getSite, getTiers } from "@/lib/content";
@@ -87,7 +87,7 @@ export default function SponsorsPage() {
       <Section className="bg-panel/40">
         <SectionHeading>Current partners</SectionHeading>
         <div className="mt-10">
-          <LogoWall size="lg" />
+          <SponsorGrid />
         </div>
       </Section>
 
