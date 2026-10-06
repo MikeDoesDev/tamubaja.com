@@ -39,9 +39,10 @@ giving:
   accountCode: 511361-20000
   steps:
     - Open the Texas A&M Foundation giving page.
-    - Choose "Select a Unit or College," then "An Unlisted Account."
-    - Enter account code 511361-20000 in the Giving Account box.
-    - Enter your gift amount and complete checkout.
+    - Choose an amount.
+    - Select "Student Organization Gifts."
+    - In the gift notes field, enter the code 511361-20000.
+    - Fill in any remaining information to complete your donation.
   checkPayableTo: Texas A&M Baja SAE
   checkAddress:
     - "ATTN: Dr. Saripalli"

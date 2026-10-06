@@ -29,7 +29,7 @@ The site succeeds if:
 | Hosting | Vercel, auto-deploy from GitHub; all pages statically generated; no server-only features so `output: 'export'` stays a one-line switch to Cloudflare Pages / GitHub Pages |
 | Content editing | YAML files in `/content`, validated at build time |
 | Sponsor CTA | Short inquiry form → team inbox via Web3Forms, + packet PDF download, + mailto fallback |
-| Money disclosure | Tier prices and benefits shown. No season budget, no fundraising progress bar, no individual sponsor amounts |
+| Money disclosure | Tier prices and benefits shown. No season budget, no fundraising progress bar, no individual sponsor amounts on the site's pages. The downloadable sponsor packet PDF is published as-is (it includes the season budget), per the business lead (2026-10-06) |
 | Individual giving | Secondary "Give" page → Texas A&M Foundation instructions + check option |
 | Team page | Leads + subteams + group photo + "Request resume book" CTA. No full roster |
 | Pages | Home, Sponsors, Car (specs + results history), Team, Give, 404 |

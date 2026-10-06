@@ -12,7 +12,7 @@ Pass this to the next business lead every spring. Every account is tied to the t
 | Weekly rebuild | GitHub repo secret `VERCEL_DEPLOY_HOOK` | GitHub org owners | Recreate in Vercel → Settings → Git → Deploy Hooks if it stops |
 
 ## Before launch (one time)
-- [ ] Confirm the correct Texas A&M Foundation giving link and steps → `content/site.yaml` → `giving`
+- [ ] Give page steps now match the 26-27 packet ("Student Organization Gifts" + code 511361-20000 in gift notes); confirm once with a test visit to the Foundation page
 - [ ] Confirm the 2025–26 result (add to `content/seasons.yaml`, or leave it out)
 - [ ] Agree on founding wording (2017 vs 2018) in `content/team.yaml` and `content/site.yaml`
 - [ ] Sponsors who approved their logo → upload logo, set `show: true`
