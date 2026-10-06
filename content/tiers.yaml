@@ -1,0 +1,40 @@
+# Sponsorship tiers, cheapest first. Each tier automatically shows "+ Everything in <tier below>".
+tiers:
+  - id: bronze
+    name: Bronze
+    priceLabel: $500 – $1,499
+    badgeColor: "#9F6A3E"
+    benefits:
+      - Social media feature
+      - Small logo on the car and website
+  - id: silver
+    name: Silver
+    priceLabel: $1,500 – $4,999
+    badgeColor: "#B3B7BA"
+    benefits:
+      - Access to our team resume bank
+      - Medium logo placement
+  - id: gold
+    name: Gold
+    priceLabel: $5,000 – $9,999
+    badgeColor: "#EFE37F"
+    benefits:
+      - Baja SAE team merchandise
+      - Recruit at team meetings
+      - Large logo placement
+  - id: platinum
+    name: Platinum
+    priceLabel: $10,000+
+    badgeColor: "#9EC8E0"
+    benefits:
+      - Invitation to vehicle testing
+      - Dedicated recognition at the SAE Rollout event
+inKindCategories:
+  - name: Technology and software
+    examples: Engineering tools, design software, data acquisition systems
+  - name: Tools and equipment
+    examples: Hand tools, power tools, welding supplies, safety gear
+  - name: Materials and supplies
+    examples: Lubricants, cleaning products, fabrication materials
+  - name: Support services
+    examples: Travel assistance, food and catering for events, logistics

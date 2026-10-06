@@ -1,0 +1,55 @@
+# The current car and this season's build milestones.
+# Milestones mark themselves Done / Up next / Upcoming from the date — never edit status by hand.
+season: 2025–26
+name: The 2025–26 car
+photo: /images/car-current.jpg
+summary: Every season we start from a clean sheet. Our 2025–26 car pairs a 4130 chromoly chassis with a carbon-fiber seat and body, a custom two-stage gearbox, titanium axles, and an electronically controlled CVT.
+specs:
+  - label: Dry weight
+    value: 354.4 lb
+  - label: Suspension travel
+    value: 13–13.5 in
+  - label: Weight split (F/R)
+    value: 47 / 53
+  - label: CG height
+    value: 21.7 in
+  - label: Chassis
+    value: 4130 chromoly, 84.6 lb
+  - label: Transmission
+    value: Electronic CVT + 2-stage gearbox
+  - label: Axles
+    value: Titanium
+  - label: Body and seat
+    value: Carbon fiber
+subsystems:
+  - name: Chassis
+    description: A 4130 chromoly tube frame weighing 84.6 lb, built for driver protection and stiffness, wrapped in a carbon-fiber seat and body panels.
+  - name: Suspension
+    description: Front double A-arms and rear semi-trailing arms with 13–13.5 inches of travel to absorb rocks, logs, and hard landings.
+  - name: Powertrain
+    description: An electronic CVT with about 80% less rotating inertia than an off-the-shelf unit drives a custom two-stage reduction gearbox with carburized 8620 steel gears and titanium axles.
+  - name: Controls and electronics
+    description: Electronic CVT control plus the sensors and data acquisition we use to validate every design in the dirt.
+  - name: Manufacturing
+    description: In-house fabrication and machining backed by industry partners, from tube bending and welding to gear hobbing and splining.
+buildSeason: 2026–27
+milestones:
+  - name: Initial design review 1
+    date: 2026-08-09
+  - name: Initial design review 2
+    date: 2026-09-13
+  - name: Engineering design review 1
+    date: 2026-10-25
+  - name: Engineering design review 2
+    date: 2026-11-15
+  - name: Design freeze
+    date: 2026-11-22
+  - name: Rolling chassis
+    date: 2027-02-14
+  - name: First drive
+    date: 2027-02-28
+  - name: SAE Rollout
+    date: 2027-04-18
+    tentative: true
+  - name: Competition
+    date: 2027-05-20

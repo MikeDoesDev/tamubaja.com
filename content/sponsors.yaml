@@ -1,0 +1,69 @@
+# Sponsor logo wall. A sponsor appears on the site ONLY when show: true.
+# Set show: true only after the sponsor approves logo use AND the logo file exists in public/sponsors/.
+# tier must be one of: platinum, gold, silver, bronze, inkind
+# Never add dollar amounts or contact info here.
+- name: General Motors
+  tier: gold
+  logo: /sponsors/gm.png
+  url: https://www.gm.com
+  show: false
+- name: Gene Haas Foundation
+  tier: gold
+  logo: /sponsors/haas-foundation.png
+  url: https://www.ghaasfoundation.org
+  show: false
+- name: Caterpillar
+  tier: gold
+  logo: /sponsors/caterpillar.png
+  url: https://www.caterpillar.com
+  show: false
+- name: Bray International
+  tier: gold
+  logo: /sponsors/bray.png
+  url: https://www.bray.com
+  show: false
+- name: Vistra
+  tier: gold
+  logo: /sponsors/vistra.png
+  url: https://vistracorp.com
+  show: false
+- name: Tesla
+  tier: silver
+  logo: /sponsors/tesla.png
+  url: https://www.tesla.com
+  show: false
+- name: L3Harris
+  tier: silver
+  logo: /sponsors/l3harris.png
+  url: https://www.l3harris.com
+  show: false
+- name: Gates
+  tier: inkind
+  logo: /sponsors/gates.png
+  url: https://www.gates.com
+  show: false
+- name: AFCO Racing
+  tier: inkind
+  logo: /sponsors/afco.png
+  url: https://www.afcoracing.com
+  show: false
+- name: KISSsoft
+  tier: inkind
+  logo: /sponsors/kisssoft.png
+  url: https://www.kisssoft.com
+  show: false
+- name: Polymaker
+  tier: inkind
+  logo: /sponsors/polymaker.png
+  url: https://us.polymaker.com
+  show: false
+- name: Rock West Composites
+  tier: inkind
+  logo: /sponsors/rock-west.png
+  url: https://www.rockwestcomposites.com
+  show: false
+- name: Primeweld
+  tier: inkind
+  logo: /sponsors/primeweld.png
+  url: https://primeweld.com
+  show: false

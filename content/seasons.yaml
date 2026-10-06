@@ -1,0 +1,55 @@
+# Competition history. Add the newest season at the top.
+# overall: the overall placing as a number, or null if there was no overall result.
+# Only add results the team has confirmed.
+- season: 2024–25
+  event: Baja SAE Maryland
+  location: Maryland
+  overall: 31
+  highlights:
+    - 3rd Acceleration — first podium
+- season: 2023–24
+  event: Baja SAE Williamsport
+  location: Williamsport, Pennsylvania
+  overall: 18
+  highlights:
+    - 4th Design
+- season: 2022–23
+  event: Baja SAE Oregon
+  location: Oregon
+  overall: 44
+  highlights:
+    - Top 40 in Design, Cost, and Sales
+- season: 2021–22
+  event: Baja SAE Tennessee
+  location: Tennessee
+  overall: 27
+  highlights:
+    - Strong static event results
+- season: 2020–21
+  event: Virtual competition
+  location: Online
+  overall: null
+  highlights:
+    - 8th of 156 — Virtual Knowledge Event
+- season: 2019–20
+  event: Virtual competition
+  location: Online
+  overall: 16
+  highlights:
+    - Team-record finish
+    - First four-wheel-drive car
+- season: 2018–19
+  event: Baja SAE California
+  location: California
+  overall: 52
+  highlights:
+    - 9th Cost
+    - 16th Sales
+- season: 2017–18
+  event: Baja SAE Kansas
+  location: Kansas
+  overall: 33
+  fieldSize: 95
+  highlights:
+    - First competition
+    - 7th Maneuverability

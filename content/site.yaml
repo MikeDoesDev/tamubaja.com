@@ -1,0 +1,49 @@
+# Site-wide settings. Read EDITING.md before changing anything here.
+name: Texas A&M Baja SAE
+tagline: Engineered to conquer the toughest terrain.
+description: Texas A&M Baja SAE designs, builds, and races a new off-road vehicle every year against 100+ universities. Partner with the team behind car #51.
+url: https://tamubaja.com
+email: baja.sae.tamu@gmail.com
+socials:
+  instagram: https://www.instagram.com/tamu.baja.sae/
+  linktree: https://linktr.ee/tamu.baja.sae
+  linkedin: https://www.linkedin.com/company/tamusae/
+packetPdf: /packet/tamu-baja-sponsor-packet-2026-27.pdf
+heroImage: /images/hero.jpg
+teamPhoto: /images/team.jpg
+logo: /images/logo-white.png
+# Free key from web3forms.com, requested with baja.sae.tamu@gmail.com.
+# While empty, the sponsor form opens the visitor's email app instead of sending.
+web3formsKey: ""
+mission:
+  - We're a collegiate engineering design team that designs, builds, and races a brand-new off-road vehicle every year, then takes it to an international Baja SAE competition against more than 100 universities.
+  - Founded as a development program for Texas A&M's Formula team, we find high-potential undergraduates and give them the tools, mentorship, and hands-on experience to make an immediate impact in the automotive industry.
+homeStats:
+  - value: "100+"
+    label: Universities we race against
+  - value: 3rd
+    label: Acceleration — 2025
+  - value: 4th
+    label: Design — 2024
+  - value: 18th
+    label: Overall — 2024
+sponsorPillars:
+  - title: Brand exposure
+    body: Your logo rides on the car, team uniforms, promotional materials, and our social channels, in front of competition crowds, industry judges, and the Aggie community.
+  - title: Talent pipeline
+    body: Meet engineers who design, machine, and test real hardware. Sponsors get access to our resume bank and can recruit directly at team meetings.
+  - title: Tax-deductible
+    body: Gifts are made through the Texas A&M Foundation and are tax-deductible. Every donor is invited to our spring Rollout.
+giving:
+  foundationUrl: https://www.txamfoundation.com/give.aspx
+  accountCode: 511361-20000
+  steps:
+    - Open the Texas A&M Foundation giving page.
+    - Choose "Select a Unit or College," then "An Unlisted Account."
+    - Enter account code 511361-20000 in the Giving Account box.
+    - Enter your gift amount and complete checkout.
+  checkPayableTo: Texas A&M Baja SAE
+  checkAddress:
+    - "ATTN: Dr. Saripalli"
+    - 3123 TAMU
+    - College Station, TX 77843

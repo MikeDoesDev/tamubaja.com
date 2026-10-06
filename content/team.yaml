@@ -1,0 +1,25 @@
+# Team page content.
+# leads: add a lead only after they agree to appear on the site. Example:
+#   - name: Jordan Smith
+#     role: Project Manager
+#     major: Mechanical Engineering
+#     classYear: "2027"
+#     linkedin: https://www.linkedin.com/in/jordan-smith
+#     photo: /images/team/jordan-smith.jpg
+story:
+  - Texas A&M Baja SAE grew out of the Texas A&M Racing Apprentices program as a development path for the university's Formula team. Since our first competition in Kansas in 2018, we've designed and built a new car every season.
+  - The team is open to every major and class year. Engineers design, machine, and test real hardware; business members run sponsorships, finance, and media. Graduates leave with the kind of experience employers ask about in interviews.
+leads: []
+subteams:
+  - name: Chassis
+    description: Frame design, driver ergonomics, and safety.
+  - name: Suspension
+    description: Geometry, shocks, hubs, and steering.
+  - name: Powertrain
+    description: CVT, gearbox, axles, and driveline.
+  - name: Controls
+    description: Electronics, CVT control, sensors, and data.
+  - name: Manufacturing
+    description: Fabrication, machining, and welding.
+  - name: Business
+    description: Sponsorships, finance, media, and outreach.
