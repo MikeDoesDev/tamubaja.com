@@ -74,3 +74,10 @@ test("failed submit offers a prefilled email fallback", async ({ page }) => {
     /^mailto:baja\.sae\.tamu@gmail\.com\?subject=/,
   );
 });
+
+test("the team page's resume-book link preselects recruiting", async ({ page }) => {
+  await page.goto("/team");
+  await page.getByRole("link", { name: "Request our resume book" }).click();
+  await expect(page).toHaveURL(/interest=recruiting/);
+  await expect(page.getByLabel("What are you interested in?")).toHaveValue("recruiting");
+});
