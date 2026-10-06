@@ -2,6 +2,7 @@
 # Set show: true only after the sponsor approves logo use AND the logo file exists in public/sponsors/.
 # tier must be one of: platinum, gold, silver, bronze, inkind
 # Never add dollar amounts or contact info here.
+# In-kind gifts count at their value: a big enough gift goes in that money tier, not inkind.
 - name: General Motors
   tier: gold
   logo: /sponsors/gm.png
@@ -27,6 +28,11 @@
   logo: /sponsors/vistra.png
   url: https://vistracorp.com
   show: true
+- name: Rapid Harness
+  tier: gold
+  logo: /sponsors/rapid-harness.png
+  url: https://www.rapidharness.com
+  show: true
 - name: Tesla
   tier: silver
   logo: /sponsors/tesla.png
@@ -38,7 +44,7 @@
   url: https://www.l3harris.com
   show: true
 - name: Gates
-  tier: inkind
+  tier: silver
   logo: /sponsors/gates.png
   url: https://www.gates.com
   show: true
@@ -73,6 +79,7 @@
   logo: /sponsors/tidal-power.png
   url: https://tidalpowerservices.com
   show: true
+# A&M approved the team's use of this logo (confirmed 2026-10-06).
 - name: Texas A&M Mechanical Engineering
   tier: silver
   logo: /sponsors/tamu-meen.png
@@ -90,6 +97,7 @@
   logo: /sponsors/renzo-gracie-pearland.png
   url: https://renzograciepearland.com
   show: true
+# Listed on purpose: donors give through it, and the team chose to keep it on the wall.
 - name: Blackbaud Giving Fund
   tier: bronze
   logo: /sponsors/blackbaud-giving-fund.png
@@ -145,11 +153,6 @@
   tier: inkind
   logo: /sponsors/red-bull.png
   url: https://www.redbull.com
-  show: true
-- name: Rapid Harness
-  tier: inkind
-  logo: /sponsors/rapid-harness.png
-  url: https://www.rapidharness.com
   show: true
 - name: RaceBox
   tier: inkind
