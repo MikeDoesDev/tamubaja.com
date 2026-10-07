@@ -139,3 +139,12 @@ describe("sponsor tile color", () => {
     expect(() => parseContent("sponsors.yaml", validSponsor + "  tile: purple\n", sponsorsSchema)).toThrowError(/tile/);
   });
 });
+
+describe("site notice", () => {
+  it("is optional and accepts yes/no for show", async () => {
+    const { siteSchema } = await import("@/lib/schemas");
+    const notice = siteSchema.shape.notice.parse({ show: "yes", title: "Under construction", message: "Some features may be limited." });
+    expect(notice).toEqual({ show: true, title: "Under construction", message: "Some features may be limited." });
+    expect(siteSchema.shape.notice.parse(undefined)).toBeUndefined();
+  });
+});

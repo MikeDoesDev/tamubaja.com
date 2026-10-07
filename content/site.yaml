@@ -15,6 +15,11 @@ logo: /images/logo-white.png
 # Free key from web3forms.com, requested with baja.sae.tamu@gmail.com.
 # While empty, the sponsor form opens the visitor's email app instead of sending.
 web3formsKey: ""
+# Banner shown above the header on every page. Set show: false (or delete these lines) at launch.
+notice:
+  show: true
+  title: Site under construction
+  message: We're still building this site, so some features may be limited or not work yet. Questions? Email baja.sae.tamu@gmail.com.
 mission:
   - We're a collegiate engineering design team that designs, builds, and races a brand-new off-road vehicle every year, then takes it to an international Baja SAE competition against more than 100 universities.
   - Founded as a development program for Texas A&M's Formula team, we find high-potential undergraduates and give them the tools, mentorship, and hands-on experience to make an immediate impact in the automotive industry.

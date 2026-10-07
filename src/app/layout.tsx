@@ -3,6 +3,7 @@ import { Inter, Saira_Condensed } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { SiteNotice } from "@/components/SiteNotice";
 import { getSite } from "@/lib/content";
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
+        <SiteNotice />
         <Header />
         <main id="main">{children}</main>
         <Footer />

@@ -80,6 +80,17 @@ leads:
 
 For a photo, upload a square JPG to `public/images/team/` and add `photo: /images/team/jordan-smith.jpg`. Without a photo, their initials are shown.
 
+## Turn the "under construction" banner on or off
+
+The amber banner above the header comes from `notice:` in `content/site.yaml`. Change the wording there, or set `show: false` to hide it (do this at launch).
+
+```yaml
+notice:
+  show: false
+  title: Site under construction
+  message: We're still building this site, so some features may be limited or not work yet.
+```
+
 ## Change the home-page stats
 
 Edit `homeStats:` in `content/site.yaml` (up to 4). Plain numbers like `100+` or `9` count up as visitors scroll; text like `3rd` just appears.

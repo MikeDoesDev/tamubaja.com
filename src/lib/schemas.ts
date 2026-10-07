@@ -45,6 +45,8 @@ export const siteSchema = z.object({
   teamPhoto: publicPath,
   logo: publicPath,
   web3formsKey: z.string(),
+  // Optional banner above the header on every page (e.g. "under construction").
+  notice: z.object({ show: yesNo, title: text, message: text }).optional(),
   mission: z.array(text).min(1),
   homeStats: z.array(z.object({ value: text, label: text })).min(1).max(4),
   sponsorPillars: z.array(z.object({ title: text, body: text })).min(1),

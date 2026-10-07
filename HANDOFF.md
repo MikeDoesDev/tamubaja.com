@@ -20,6 +20,7 @@ Pass this to the next business lead every spring. Every account is tied to the t
 - [ ] Photo rights confirmed for everything in `public/images/`
 - [ ] Web3Forms key in `content/site.yaml`; one real test inquiry received
 - [ ] Domain bought and connected; `VERCEL_DEPLOY_HOOK` secret added
+- [ ] Turn off the "under construction" banner: `content/site.yaml` → `notice` → `show: false`
 
 ## Every new season (August)
 - [ ] Update `content/car.yaml` (new car specs + milestones)
