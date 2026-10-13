@@ -18,11 +18,12 @@
   logo: /sponsors/caterpillar.png
   url: https://www.caterpillar.com
   show: true
+# Hidden: business team asked to take Bray off the site (2026-10-13).
 - name: Bray International
   tier: gold
   logo: /sponsors/bray.png
   url: https://www.bray.com
-  show: true
+  show: false
 - name: Vistra
   tier: gold
   logo: /sponsors/vistra.png

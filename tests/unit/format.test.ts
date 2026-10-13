@@ -25,4 +25,7 @@ describe("initials", () => {
     expect(initials("ana maria lopez")).toBe("AM");
     expect(initials("Cher")).toBe("C");
   });
+  it("skips a nickname in parentheses", () => {
+    expect(initials("Victor (Alex) Lugo")).toBe("VL");
+  });
 });

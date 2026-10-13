@@ -2,7 +2,8 @@ import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
 import { LeadCard } from "@/components/LeadCard";
 import { PageHero } from "@/components/PageHero";
-import { Section, SectionHeading } from "@/components/Section";
+import { Eyebrow, Section, SectionHeading } from "@/components/Section";
+import { SubteamExplorer } from "@/components/SubteamExplorer";
 import { getSite, getTeam } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
@@ -43,8 +44,9 @@ export default function TeamPage() {
 
       {team.leads.length > 0 && (
         <Section className="bg-panel/40">
-          <SectionHeading>Leadership</SectionHeading>
-          <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Eyebrow>Leadership</Eyebrow>
+          <SectionHeading>Who runs the program</SectionHeading>
+          <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {team.leads.map((lead) => (
               <LeadCard key={lead.name} lead={lead} />
             ))}
@@ -53,15 +55,12 @@ export default function TeamPage() {
       )}
 
       <Section>
-        <SectionHeading>Subteams</SectionHeading>
-        <ul className="mt-8 grid gap-px overflow-hidden rounded-sm bg-line sm:grid-cols-2 lg:grid-cols-3">
-          {team.subteams.map((subteam) => (
-            <li key={subteam.name} className="bg-panel p-6">
-              <h3 className="font-display text-2xl font-extrabold uppercase">{subteam.name}</h3>
-              <p className="mt-1 text-sm text-muted">{subteam.description}</p>
-            </li>
-          ))}
-        </ul>
+        <Eyebrow>Six subteams, one car</Eyebrow>
+        <SectionHeading>Meet the subteams</SectionHeading>
+        <p className="mt-4 max-w-2xl text-lg text-muted">Pick a subteam to see what it builds and who builds it.</p>
+        <div className="mt-8">
+          <SubteamExplorer subteams={team.subteams} />
+        </div>
       </Section>
 
       <section className="slash-top bg-maroon px-4 pb-20 pt-28 sm:px-6">
@@ -75,10 +74,10 @@ export default function TeamPage() {
           </div>
           <div>
             <h2 className="font-display text-4xl font-extrabold uppercase leading-none">Want to join?</h2>
-            <p className="mt-3 text-white/85">Open to every major and class year. Applications run through Texas A&amp;M SAE.</p>
+            <p className="mt-3 text-white/85">Open to every major and class year. See how new members get started.</p>
             <div className="mt-6">
-              <ButtonLink href="https://apply.tamusae.org/" variant="secondary" external>
-                Join the team
+              <ButtonLink href="/development" variant="secondary">
+                How to join
               </ButtonLink>
             </div>
           </div>

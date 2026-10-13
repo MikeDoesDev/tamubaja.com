@@ -1,26 +1,10 @@
-# The current car and this season's build milestones.
+# The current car, how we build it, and this season's build milestones.
+# No spec sheet on purpose: the site tells the build story instead.
 # Milestones mark themselves Done / Up next / Upcoming from the date — never edit status by hand.
 season: 2025–26
 name: The 2025–26 car
 photo: /images/car-current.jpg
 summary: Every season we start from a clean sheet. Our 2025–26 car pairs a 4130 chromoly chassis with a carbon-fiber seat and body, a custom two-stage gearbox, titanium axles, and an electronically controlled CVT.
-specs:
-  - label: Dry weight
-    value: 354.4 lb
-  - label: Suspension travel
-    value: 13–13.5 in
-  - label: Weight split (F/R)
-    value: 47 / 53
-  - label: CG height
-    value: 21.7 in
-  - label: Chassis
-    value: 4130 chromoly, 84.6 lb
-  - label: Transmission
-    value: Electronic CVT + 2-stage gearbox
-  - label: Axles
-    value: Titanium
-  - label: Body and seat
-    value: Carbon fiber
 subsystems:
   - name: Chassis
     description: A 4130 chromoly tube frame weighing 84.6 lb, built for driver protection and stiffness, wrapped in a carbon-fiber seat and body panels.
@@ -32,6 +16,18 @@ subsystems:
     description: Electronic CVT control plus the sensors and data acquisition we use to validate every design in the dirt.
   - name: Manufacturing
     description: In-house fabrication and machining backed by industry partners, from tube bending and welding to gear hobbing and splining.
+# "How we build it": the steps every car goes through, in order.
+buildProcess:
+  - name: Design
+    description: Every season starts from a clean sheet. Each subteam designs its systems in CAD and backs every decision with analysis.
+  - name: Review
+    description: Initial and engineering design reviews pressure-test every part before design freeze locks the car.
+  - name: Build
+    description: We cut, bend, weld, and machine the car in house and with industry partners until it stands as a rolling chassis.
+  - name: Test
+    description: From first drive on, we log data, break things on purpose, and fix them before the competition does.
+  - name: Compete
+    description: The car debuts at our spring Rollout, then races endurance, acceleration, hill climb, and design events against 100+ universities.
 buildSeason: 2026–27
 milestones:
   - name: Initial design review 1

@@ -1,0 +1,18 @@
+# Development page: our new-member development program and how to join.
+# status: shown as a badge at the top. Change it when the program launches (for example "Now enrolling").
+status: Launching soon
+intro: Texas A&M Baja started as a development path for the Formula team. We're building a program of our own that takes students with zero shop experience and turns them into engineers who can design, make, and race real parts.
+why:
+  - Most new members want to build something on day one but don't know where to start. The program gives every new member a clear path from their first meeting to owning a part on the car.
+  - It also gives our sponsors a stronger talent pipeline. Every student who comes through it leaves with hands-on design, machining, and teamwork experience.
+# The planned steps. Edit freely while the program is being designed.
+phases:
+  - name: Get in the shop
+    description: Shop safety, hand and power tools, and the training needed to work in the Fischer Engineering Design Center.
+  - name: Learn the tools
+    description: CAD, drawings, and basic analysis, taught by current members using real parts from past cars.
+  - name: Build a starter project
+    description: Small teams design and make a real component with a mentor from a subteam.
+  - name: Join a subteam
+    description: Pick the subteam that fits, from chassis to business, and start contributing to the next car.
+applyUrl: https://apply.tamusae.org/

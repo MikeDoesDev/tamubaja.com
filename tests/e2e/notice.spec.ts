@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-for (const path of ["/", "/sponsors", "/partners", "/car", "/team", "/give"]) {
+for (const path of ["/", "/sponsors", "/partners", "/car", "/team", "/give", "/development"]) {
   test(`${path} shows the under-construction notice`, async ({ page }) => {
     await page.goto(path);
     const notice = page.getByRole("region", { name: "Site notice" });

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BuildStatus } from "@/components/BuildStatus";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/Hero";
@@ -75,24 +76,22 @@ export default function HomePage() {
       </Section>
 
       <Section>
-        <div className="grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-sm">
-            <Image src={car.photo} alt={`The Texas A&M Baja ${car.season} car`} fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+            <Image src={car.photo} alt={`The Texas A&M Baja ${car.season} car`} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
           </div>
           <div>
-            <Eyebrow>{car.season} car</Eyebrow>
-            <SectionHeading>Meet the car</SectionHeading>
-            <dl className="mt-6 grid grid-cols-2 gap-4">
-              {car.specs.slice(0, 4).map((spec) => (
-                <div key={spec.label}>
-                  <dt className="text-xs uppercase tracking-[0.2em] text-muted">{spec.label}</dt>
-                  <dd className="font-display text-2xl font-bold uppercase">{spec.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-8">
+            <Eyebrow>Where we are now</Eyebrow>
+            <SectionHeading>Building the {car.buildSeason} car</SectionHeading>
+            <p className="mt-4 text-lg text-muted">
+              A new car every season, designed and built by students from a clean sheet. Here&apos;s where this one stands.
+            </p>
+            <div className="mt-6">
+              <BuildStatus milestones={car.milestones} buildSeason={car.buildSeason} />
+            </div>
+            <div className="mt-6">
               <ButtonLink href="/car" variant="secondary">
-                Full specs
+                Follow the car
               </ButtonLink>
             </div>
           </div>
