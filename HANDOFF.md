@@ -4,7 +4,7 @@ Pass this to the next business lead every spring. Every account is tied to the t
 
 | What | Where | Owner login | Notes |
 |---|---|---|---|
-| Team inbox | baja.sae.tamu@gmail.com | Business lead + project manager | Receives sponsor inquiries |
+| Team inbox | tamubajabusiness@gmail.com (public contact; replaced baja.sae.tamu@gmail.com in Oct 2026) | Business lead + project manager | Receives sponsor inquiries |
 | Code | GitHub organization `tamu-baja`, repo `tamubaja.com` | Team inbox owns the org; business lead + PM are owners | Transfer ownership before graduating |
 | Hosting | Vercel project `tamubaja-com` | Team inbox account | Web Analytics enabled; deploy hook used by the weekly workflow |
 | Domain | tamubaja.com | Registered to the team inbox | Auto-renew ON; confirm the card on file each August |

@@ -3,7 +3,7 @@ name: Texas A&M Baja SAE
 tagline: Engineered to conquer the toughest terrain.
 description: Texas A&M Baja SAE designs, builds, and races a new off-road vehicle every year against 100+ universities. Partner with the team behind car #51.
 url: https://tamubaja.com
-email: baja.sae.tamu@gmail.com
+email: tamubajabusiness@gmail.com
 socials:
   instagram: https://www.instagram.com/tamu.baja.sae/
   linktree: https://linktr.ee/tamu.baja.sae
@@ -12,7 +12,7 @@ packetPdf: /packet/tamu-baja-sponsor-packet-2026-27.pdf
 heroImage: /images/hero.jpg
 teamPhoto: /images/team.jpg
 logo: /images/logo-white.png
-# Free key from web3forms.com, requested with baja.sae.tamu@gmail.com.
+# Free key from web3forms.com. Request it with tamubajabusiness@gmail.com so inquiries land there.
 # While empty, the sponsor form opens the visitor's email app instead of sending.
 web3formsKey: ""
 # Banner shown above the header on every page. Set show: false (or delete these lines) at launch.
