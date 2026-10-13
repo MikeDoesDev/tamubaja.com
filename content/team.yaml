@@ -1,25 +1,249 @@
 # Team page content.
-# leads: add a lead only after they agree to appear on the site. Example:
+# Only list people who are OK appearing on the public site.
+# Never add emails, phone numbers, UINs, or social handles here. The repository may be public.
+#
+# leads: the leadership cards at the top of the Team page. Example:
 #   - name: Jordan Smith
 #     role: Project Manager
 #     major: Mechanical Engineering
 #     classYear: "2027"
 #     linkedin: https://www.linkedin.com/in/jordan-smith
 #     photo: /images/team/jordan-smith.jpg
+#
+# subteams: each one is a tile that opens to show its leads and members.
+#   Members only need a name. role, major, classYear, and photo are optional.
+#   Photos: upload a square JPG to public/images/team/ and add photo: /images/team/first-last.jpg
+#   Without a photo, the person's initials are shown.
 story:
   - Texas A&M Baja SAE grew out of the Texas A&M Racing Apprentices program as a development path for the university's Formula team. Since our first competition in Kansas in 2018, we've designed and built a new car every season.
   - The team is open to every major and class year. Engineers design, machine, and test real hardware; business members run sponsorships, finance, and media. Graduates leave with the kind of experience employers ask about in interviews.
-leads: []
+leads:
+  - name: Victor (Alex) Lugo
+    role: Project Manager
+    major: Mechanical Engineering
+    classYear: "2028"
+  - name: Keaton Dassanayake
+    role: Chief Engineer
+    major: Mechanical Engineering
+    classYear: "2028"
+  - name: Michael Coggins
+    role: Business Lead
+    major: Computer Engineering
+    classYear: "2028"
+  - name: Aaron Lerner
+    role: Chassis Lead
+    major: Mechanical Engineering
+    classYear: "2028"
+  - name: Rhett Schank
+    role: Suspension Lead
+    major: Manufacturing & Mechanical Engineering Technology
+    classYear: "2028"
+  - name: Reid Glynn
+    role: Powertrain Lead
+    major: Mechanical Engineering
+    classYear: "2028"
+  - name: Garrett Sugg
+    role: Controls Lead
+    major: Electrical Engineering
+    classYear: "2028"
+  - name: Rowan Cockrell
+    role: Manufacturing Lead
+    major: Manufacturing & Mechanical Engineering Technology
+    classYear: "2028"
 subteams:
   - name: Chassis
     description: Frame design, driver ergonomics, and safety.
+    details: Chassis designs the 4130 chromoly tube frame that keeps the driver safe and the car stiff, plus the carbon-fiber seat and body panels. Last season's frame came in at 84.6 lb.
+    leads:
+      - name: Aaron Lerner
+        role: Chassis Lead
+        major: Mechanical Engineering
+        classYear: "2028"
+    members:
+      - name: Nicolas Ortiz Carrion
+        major: Mechanical Engineering
+        classYear: "2028"
+      - name: Fabrizio Compean
+        major: Mechanical Engineering
+        classYear: "2028"
+      - name: Evan Snell
+        major: Mechanical Engineering
+        classYear: "2028"
+      - name: Owen Smith
+        major: Mechanical Engineering
+        classYear: "2028"
+      - name: Braden Meuth
+        major: Biological & Agricultural Engineering
+        classYear: "2029"
   - name: Suspension
     description: Geometry, shocks, hubs, and steering.
+    details: Suspension owns everything between the frame and the dirt. Last season's car ran front double A-arms and rear semi-trailing arms with 13 to 13.5 inches of travel to soak up rocks, logs, and hard landings.
+    leads:
+      - name: Rhett Schank
+        role: Suspension Lead
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2028"
+    members:
+      - name: Fernando Rodriguez
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2028"
+      - name: Evan Kobes
+        major: Mechanical Engineering
+        classYear: "2029"
+      - name: Pierce Bendikson
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2029"
+      - name: Kyle Stanislaus
+        major: Industrial & Systems Engineering
+        classYear: "2028"
+      - name: Ashish Malhotra
+        major: Mechanical Engineering
+        classYear: "2028"
+      - name: Oswaldo Alvarado
+        major: Mechanical Engineering
+        classYear: "2028"
+      - name: Lucas Poppelaars
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2028"
+      - name: Gavin Ordway
+        role: Suspension Apprentice
+        major: Mechanical Engineering
+        classYear: "2029"
+      - name: Kevin Chen
+        role: Suspension Apprentice
+        major: Mechanical Engineering
+        classYear: "2029"
   - name: Powertrain
     description: CVT, gearbox, axles, and driveline.
+    details: Powertrain gets the engine's power to the ground. Last season that meant an electronic CVT with about 80% less rotating inertia than an off-the-shelf unit, driving a custom two-stage gearbox with carburized 8620 steel gears and titanium axles.
+    leads:
+      - name: Reid Glynn
+        role: Powertrain Lead
+        major: Mechanical Engineering
+        classYear: "2028"
+    members:
+      - name: Prat Prakash
+        role: CVT
+        major: Mechanical Engineering
+        classYear: "2029"
+      - name: Adam Rahrich
+        role: CVT
+        major: Manufacturing & Mechanical Engineering Technology
+      - name: Joseph Harb
+        role: Gearbox Shafts
+        major: Mechanical Engineering
+        classYear: "2029"
+      - name: Grant Kester
+        role: 4x4 Gears
+        major: Mechanical Engineering
+        classYear: "2030"
+      - name: Sam Cedeno
+        role: Casing
+        major: Multidisciplinary Engineering Technology
+        classYear: "2028"
+      - name: Rowan Cockrell
+        role: 4x4 Shafts
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2028"
+      - name: Dominic Ferrara
+        major: Mechanical Engineering
+        classYear: "2029"
+      - name: Davi Araujo
+        major: Mechanical Engineering
+        classYear: "2029"
   - name: Controls
     description: Electronics, CVT control, sensors, and data.
+    details: Controls builds the electronic CVT control system and the sensors and data acquisition the team uses to validate every design in the dirt.
+    leads:
+      - name: Garrett Sugg
+        role: Controls Lead
+        major: Electrical Engineering
+        classYear: "2028"
+    members:
+      - name: Josh Emmet
+        major: Computer Engineering
+        classYear: "2028"
+      - name: Aibel Jomon
+        major: Mechanical Engineering
+        classYear: "2029"
+      - name: Angelo Reyes
+        major: Electrical Engineering
+        classYear: "2029"
+      - name: Vann Murray
+        major: Electrical Engineering
+        classYear: "2029"
+      - name: Shiv Nair
+        major: Electrical Engineering
+        classYear: "2029"
   - name: Manufacturing
     description: Fabrication, machining, and welding.
+    details: Manufacturing turns drawings into parts, in house and with industry partners, from tube bending and welding to gear hobbing and splining.
+    leads:
+      - name: Rowan Cockrell
+        role: Manufacturing Lead
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2028"
+    members:
+      - name: Antonio Contreras Ruelas
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2027"
+      - name: Ashish Malhotra
+        major: Mechanical Engineering
+        classYear: "2028"
+      - name: Roberto De La Fuente
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2027"
+      - name: Ryan Ziffra
+        major: General Engineering
+        classYear: "2029"
+      - name: Brennen Sherrod
+        major: Mechanical Engineering
+        classYear: "2027"
+      - name: Chris Appling
+        major: Mechanical Engineering
+        classYear: "2027"
+      - name: Madeline Holmes
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2029"
+      - name: Hayden Kaiser
+        major: General Engineering
+        classYear: "2030"
   - name: Business
     description: Sponsorships, finance, media, and outreach.
+    details: Business keeps the car funded and the team visible. We bring in and look after sponsors, manage the budget, run our social channels and photography, and represent the team on campus and in industry.
+    leads:
+      - name: Michael Coggins
+        role: Business Lead
+        major: Computer Engineering
+        classYear: "2028"
+      - name: Kyle Stanislaus
+        role: Sponsor Relations Lead
+        major: Industrial & Systems Engineering
+        classYear: "2028"
+      - name: Libby Tovar
+        role: Creative Design Lead
+        major: Financial Planning
+        classYear: "2026"
+    members:
+      - name: Grant Smith
+        role: Finance & Sponsor Relations
+      - name: Shriyans Muthyala
+        role: Photography, External Relations & Sponsor Relations
+        major: Statistics
+        classYear: "2030"
+      - name: Brendan Kolody
+        role: Sponsor Relations
+        major: Business Administration
+        classYear: "2030"
+      - name: Cole Swank
+        role: Sponsor Relations
+        major: Mechanical Engineering
+        classYear: "2029"
+      - name: Rishika Buddha
+        role: External Relations & Sponsor Relations
+        major: Finance
+        classYear: "2028"
+      - name: Ivanna Rueda
+        role: External Relations & Sponsor Relations
+        major: Mechanical Engineering
+        classYear: "2029"

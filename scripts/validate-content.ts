@@ -3,6 +3,7 @@ import path from "node:path";
 import {
   ContentError,
   getCar,
+  getDevelopment,
   getFaq,
   getSeasons,
   getSite,
@@ -40,6 +41,7 @@ const seasons = attempt(getSeasons);
 const car = attempt(getCar);
 const team = attempt(getTeam);
 attempt(getFaq);
+attempt(getDevelopment);
 
 if (site) {
   requireFile("site.yaml", "packetPdf", site.packetPdf);
@@ -62,6 +64,11 @@ if (car) {
   for (const sub of car.subsystems) requireFile("car.yaml", `${sub.name} → photo`, sub.photo);
 }
 for (const lead of team?.leads ?? []) requireFile("team.yaml", `${lead.name} → photo`, lead.photo);
+for (const subteam of team?.subteams ?? []) {
+  for (const person of [...subteam.leads, ...subteam.members]) {
+    requireFile("team.yaml", `${subteam.name} → ${person.name} → photo`, person.photo);
+  }
+}
 
 for (const warning of warnings) console.warn(`WARNING: ${warning}`);
 if (problems.length) {

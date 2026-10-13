@@ -21,6 +21,8 @@ export function initials(name: string): string {
   return name
     .trim()
     .split(/\s+/)
+    // Skip nicknames in parentheses, e.g. "Victor (Alex) Lugo" → VL.
+    .filter((part) => /^\p{L}/u.test(part))
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase() ?? "")
     .join("");

@@ -4,6 +4,7 @@ import { load } from "js-yaml";
 import type { z } from "zod";
 import {
   carSchema,
+  developmentSchema,
   faqSchema,
   seasonsSchema,
   siteSchema,
@@ -73,3 +74,4 @@ export const getSeasons = () => loadFile("seasons.yaml", seasonsSchema);
 export const getCar = () => loadFile("car.yaml", carSchema);
 export const getTeam = () => loadFile("team.yaml", teamSchema);
 export const getFaq = () => loadFile("faq.yaml", faqSchema);
+export const getDevelopment = () => loadFile("development.yaml", developmentSchema);

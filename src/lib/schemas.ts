@@ -107,12 +107,25 @@ export const carSchema = z.object({
   name: text,
   photo: publicPath,
   summary: text,
-  specs: z.array(z.object({ label: text, value: text })).min(1),
+  // Optional: the site no longer shows a spec sheet, but older files may still list specs.
+  specs: list(z.array(z.object({ label: text, value: text }))),
   subsystems: z.array(z.object({ name: text, description: text, photo: publicPath.optional() })).min(1),
+  // "How we build it": the steps every car goes through, in order.
+  buildProcess: list(z.array(z.object({ name: text, description: text }))),
   buildSeason: text,
   milestones: z
     .array(z.object({ name: text, date: isoDate, tentative: yesNo.optional() }))
     .min(1),
+});
+
+const classYear = stringish.pipe(z.string().regex(/^\d{4}$/, "must be a 4-digit graduation year like 2027"));
+
+const memberSchema = z.object({
+  name: text,
+  role: text.optional(),
+  major: text.optional(),
+  classYear: classYear.optional(),
+  photo: publicPath.optional(),
 });
 
 export const teamSchema = z.object({
@@ -123,13 +136,32 @@ export const teamSchema = z.object({
         name: text,
         role: text,
         major: text,
-        classYear: stringish.pipe(z.string().regex(/^\d{4}$/, "must be a 4-digit graduation year like 2027")),
+        classYear,
         linkedin: httpUrl.optional(),
         photo: publicPath.optional(),
       }),
     ),
   ),
-  subteams: z.array(z.object({ name: text, description: text })).min(1),
+  subteams: z
+    .array(
+      z.object({
+        name: text,
+        description: text,
+        // Optional longer paragraph shown when the subteam is opened.
+        details: text.optional(),
+        leads: list(z.array(memberSchema)),
+        members: list(z.array(memberSchema)),
+      }),
+    )
+    .min(1),
+});
+
+export const developmentSchema = z.object({
+  status: text.optional(),
+  intro: text,
+  why: z.array(text).min(1),
+  phases: z.array(z.object({ name: text, description: text })).min(1),
+  applyUrl: httpUrl,
 });
 
 export const faqSchema = z.array(z.object({ q: text, a: text })).min(1);
@@ -142,4 +174,7 @@ export type Season = z.infer<typeof seasonsSchema>[number];
 export type Car = z.infer<typeof carSchema>;
 export type Team = z.infer<typeof teamSchema>;
 export type Lead = Team["leads"][number];
+export type Subteam = Team["subteams"][number];
+export type Member = Subteam["members"][number];
+export type Development = z.infer<typeof developmentSchema>;
 export type FaqItem = z.infer<typeof faqSchema>[number];
