@@ -21,6 +21,19 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} — ${site.tagline}`, template: `%s | ${site.name}` },
   description: site.description,
+  // Google ignores meta keywords; Bing and some smaller engines still read them. Harmless either way.
+  keywords: [
+    "Texas A&M Baja SAE",
+    "TAMU Baja",
+    "Texas A&M Baja",
+    "Aggie Baja",
+    "Baja SAE",
+    "Texas A&M SAE",
+    "collegiate off-road racing",
+    "College Station engineering team",
+    "Texas A&M engineering student organization",
+    "sponsor Texas A&M students",
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

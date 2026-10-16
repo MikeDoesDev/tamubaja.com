@@ -6,7 +6,7 @@ import { getCar } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Our partners",
+  title: "Sponsors and partners",
   description:
     "The companies and organizations powering Texas A&M Baja SAE. Every part of car #51 is built with their support.",
   path: "/partners",

@@ -11,7 +11,7 @@ import { getFaq, getSite, getTiers } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Sponsor the team",
+  title: "Sponsor Texas A&M Baja SAE",
   description:
     "Sponsorship tiers from $500, in-kind partnerships, and recruiting access to Texas A&M engineers. Put your logo on car #51.",
   path: "/sponsors",
