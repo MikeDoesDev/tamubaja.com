@@ -18,9 +18,9 @@ export default function LinksPage() {
   const links: { href: string; label: string; note: string; primary?: boolean; external?: boolean }[] = [
     { href: "/sponsors", label: "Become a sponsor", note: "Tiers, benefits, and a quick inquiry form", primary: true },
     {
-      href: site.giving.foundationUrl,
+      href: "https://www.tamusae.org/sponsors",
       label: "Donate",
-      note: `Texas A&M Foundation · "Student Organization Gifts" · gift note ${site.giving.accountCode}`,
+      note: "Tax-deductible gifts through Texas A&M SAE and the A&M Foundation",
       external: true,
     },
     { href: dev.applyUrl, label: "Join the team", note: "Apply on Pitcrew, Texas A&M SAE's recruiting portal", external: true },
