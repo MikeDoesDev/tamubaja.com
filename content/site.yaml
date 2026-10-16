@@ -12,9 +12,9 @@ packetPdf: /packet/tamu-baja-sponsor-packet-2026-27.pdf
 heroImage: /images/hero.jpg
 teamPhoto: /images/team.jpg
 logo: /images/logo-white.png
-# Free key from web3forms.com. Request it with tamubajabusiness@gmail.com so inquiries land there.
-# While empty, the sponsor form opens the visitor's email app instead of sending.
-web3formsKey: ""
+# Web3Forms access key for tamubajabusiness@gmail.com (added Oct 2026). Inquiries go straight to that inbox.
+# This key is designed to be public in site code. If it's ever removed, the form falls back to opening the visitor's email app.
+web3formsKey: "e0c04bd1-491e-45c0-9def-fe22cbda4e65"
 # Banner shown above the header on every page. Set show: false (or delete these lines) at launch.
 notice:
   show: true
