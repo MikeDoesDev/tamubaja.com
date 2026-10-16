@@ -11,7 +11,8 @@
 #     photo: /images/team/jordan-smith.jpg
 #
 # subteams: each one is a tile that opens to show its leads and members.
-#   Members only need a name. role, major, classYear, and photo are optional.
+#   Members show name, major, and class year only (no subteam roles). Leads also show their role.
+#   Members only need a name; major, classYear, and photo are optional.
 #   Photos: upload a square JPG to public/images/team/ and add photo: /images/team/first-last.jpg
 #   Without a photo, the person's initials are shown.
 story:
@@ -106,11 +107,9 @@ subteams:
         major: Manufacturing & Mechanical Engineering Technology
         classYear: "2028"
       - name: Gavin Ordway
-        role: Suspension Apprentice
         major: Mechanical Engineering
         classYear: "2029"
       - name: Kevin Chen
-        role: Suspension Apprentice
         major: Mechanical Engineering
         classYear: "2029"
   - name: Powertrain
@@ -123,26 +122,20 @@ subteams:
         classYear: "2028"
     members:
       - name: Prat Prakash
-        role: CVT
         major: Mechanical Engineering
         classYear: "2029"
       - name: Adam Rahrich
-        role: CVT
         major: Manufacturing & Mechanical Engineering Technology
       - name: Joseph Harb
-        role: Gearbox Shafts
         major: Mechanical Engineering
         classYear: "2029"
       - name: Grant Kester
-        role: 4x4 Gears
         major: Mechanical Engineering
         classYear: "2030"
       - name: Sam Cedeno
-        role: Casing
         major: Multidisciplinary Engineering Technology
         classYear: "2028"
       - name: Rowan Cockrell
-        role: 4x4 Shafts
         major: Manufacturing & Mechanical Engineering Technology
         classYear: "2028"
       - name: Dominic Ferrara
@@ -226,24 +219,18 @@ subteams:
         classYear: "2026"
     members:
       - name: Grant Smith
-        role: Finance & Sponsor Relations
       - name: Shriyans Muthyala
-        role: Photography, External Relations & Sponsor Relations
         major: Statistics
         classYear: "2030"
       - name: Brendan Kolody
-        role: Sponsor Relations
         major: Business Administration
         classYear: "2030"
       - name: Cole Swank
-        role: Sponsor Relations
         major: Mechanical Engineering
         classYear: "2029"
       - name: Rishika Buddha
-        role: External Relations & Sponsor Relations
         major: Finance
         classYear: "2028"
       - name: Ivanna Rueda
-        role: External Relations & Sponsor Relations
         major: Mechanical Engineering
         classYear: "2029"

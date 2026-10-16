@@ -53,7 +53,7 @@ export default function DevelopmentPage() {
         </ol>
       </Section>
 
-      <section id="join" className="slash-top bg-maroon px-4 pb-20 pt-28 sm:px-6">
+      <section id="join" className="slash-y bg-maroon px-4 pb-28 pt-28 sm:px-6">
         <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2">
           <div>
             <h2 className="font-display text-4xl font-extrabold uppercase leading-none">Join the team</h2>

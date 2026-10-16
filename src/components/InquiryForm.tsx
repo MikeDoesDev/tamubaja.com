@@ -16,7 +16,7 @@ import {
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const INPUT =
-  "w-full rounded-sm border border-line bg-bg px-3 py-3 text-ink placeholder:text-muted/70 focus:border-accent";
+  "w-full rounded-sm border border-line bg-bg/70 px-4 py-3 text-ink placeholder:text-muted/60 transition-colors hover:border-muted/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 aria-[invalid=true]:border-red-400/70";
 
 type Status = "idle" | "sending" | "success" | "error";
 type Props = { accessKey: string; email: string };
@@ -37,7 +37,7 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-2 block text-sm font-semibold">
+      <label htmlFor={id} className="mb-2 block text-xs font-semibold uppercase tracking-[0.15em] text-muted">
         {label}
       </label>
       {children}
@@ -117,8 +117,9 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
 
   if (status === "success") {
     return (
-      <div ref={successRef} tabIndex={-1} role="status" className="rounded-sm border border-accent bg-panel p-8">
-        <p className="font-display text-3xl font-extrabold uppercase">Thanks — message received.</p>
+      <div ref={successRef} tabIndex={-1} role="status" className="flex h-full flex-col justify-center rounded-sm border border-accent/60 bg-bg/70 p-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">✓ Sent</p>
+        <p className="mt-2 font-display text-4xl font-extrabold uppercase">Thanks — message received.</p>
         <p className="mt-2 text-muted">We&apos;ll reply within 2 business days from {email}.</p>
       </div>
     );
@@ -145,16 +146,16 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
         </>
       )}
       <Field id="name" label="Your name" error={errors.name}>
-        <input id="name" name="name" autoComplete="name" value={fields.name} onChange={update("name")} aria-invalid={!!errors.name} aria-describedby={describedBy("name")} className={INPUT} />
+        <input id="name" name="name" autoComplete="name" placeholder="Jordan Smith" value={fields.name} onChange={update("name")} aria-invalid={!!errors.name} aria-describedby={describedBy("name")} className={INPUT} />
       </Field>
       <Field id="company" label="Company or organization" error={errors.company}>
-        <input id="company" name="company" autoComplete="organization" value={fields.company} onChange={update("company")} aria-invalid={!!errors.company} aria-describedby={describedBy("company")} className={INPUT} />
+        <input id="company" name="company" autoComplete="organization" placeholder="Acme Gear" value={fields.company} onChange={update("company")} aria-invalid={!!errors.company} aria-describedby={describedBy("company")} className={INPUT} />
       </Field>
       <Field id="email" label="Work email" error={errors.email}>
-        <input id="email" name="email" type="email" autoComplete="email" value={fields.email} onChange={update("email")} aria-invalid={!!errors.email} aria-describedby={describedBy("email")} className={INPUT} />
+        <input id="email" name="email" type="email" autoComplete="email" placeholder="you@company.com" value={fields.email} onChange={update("email")} aria-invalid={!!errors.email} aria-describedby={describedBy("email")} className={INPUT} />
       </Field>
       <Field id="interest" label="What are you interested in?" error={errors.interest}>
-        <select id="interest" name="interest" value={fields.interest} onChange={update("interest")} aria-invalid={!!errors.interest} aria-describedby={describedBy("interest")} className={INPUT}>
+        <select id="interest" name="interest" value={fields.interest} onChange={update("interest")} aria-invalid={!!errors.interest} aria-describedby={describedBy("interest")} className={`${INPUT} select-chevron`}>
           <option value="" disabled>
             Choose one…
           </option>
@@ -166,7 +167,7 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
         </select>
       </Field>
       <Field id="message" label="Message (optional)" className="sm:col-span-2">
-        <textarea id="message" name="message" rows={5} value={fields.message} onChange={update("message")} className={INPUT} />
+        <textarea id="message" name="message" rows={5} placeholder="Tell us about your goals: brand visibility, recruiting, parts or services you could provide…" value={fields.message} onChange={update("message")} className={INPUT} />
       </Field>
       <input
         type="checkbox"
@@ -178,11 +179,11 @@ function InquiryFormInner({ accessKey, email, initialInterest }: Props & { initi
         checked={fields.botcheck === "on"}
         onChange={(event) => setFields((current) => ({ ...current, botcheck: event.target.checked ? "on" : "" }))}
       />
-      <div className="flex flex-wrap items-center gap-4 sm:col-span-2">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6 sm:col-span-2">
         <button
           type="submit"
           disabled={status === "sending"}
-          className="rounded-sm bg-accent px-6 py-3 font-display text-lg font-bold uppercase tracking-wide text-bg transition-colors hover:bg-ink disabled:opacity-60"
+          className="w-full rounded-sm bg-accent px-8 py-3.5 font-display text-lg font-bold uppercase tracking-wide text-bg transition-colors hover:bg-ink disabled:opacity-60 sm:w-auto"
         >
           {status === "sending" ? "Sending…" : "Send inquiry"}
         </button>
