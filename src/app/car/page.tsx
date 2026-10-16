@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { BuildStatus } from "@/components/BuildStatus";
+import { Garage } from "@/components/Garage";
 import { CtaBand } from "@/components/CtaBand";
 import { MilestoneTimeline } from "@/components/MilestoneTimeline";
 import { PageHero } from "@/components/PageHero";
@@ -91,11 +92,21 @@ export default function CarPage() {
         </div>
       </Section>
 
+      {car.garage.length > 0 && (
+        <Section id="garage" className="topo-bg">
+          <Eyebrow>The garage</Eyebrow>
+          <SectionHeading>Every car has a number</SectionHeading>
+          <div className="mt-10">
+            <Garage cars={car.garage} />
+          </div>
+        </Section>
+      )}
+
       <Section id="history" className="bg-panel/40">
         <Eyebrow>Racing since 2018</Eyebrow>
         <SectionHeading>Past cars and results</SectionHeading>
         <div className="mt-10">
-          <SeasonTimeline seasons={seasons} />
+          <SeasonTimeline seasons={seasons} garage={car.garage} />
         </div>
       </Section>
 

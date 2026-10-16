@@ -63,7 +63,7 @@ export default function SponsorsPage() {
         </div>
       </Section>
 
-      <Section id="tiers" className="bg-panel/40">
+      <Section id="tiers" className="topo-bg">
         <Eyebrow>Financial sponsorship</Eyebrow>
         <SectionHeading>Sponsorship tiers</SectionHeading>
         <p className="mt-4 max-w-2xl text-muted">

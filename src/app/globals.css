@@ -257,3 +257,24 @@ li:target > div {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 1px var(--color-accent);
 }
+
+/* Livery details from car #51: faint topographic lines on dark sections, and racing number plates. */
+.topo-bg {
+  background-image: url("/images/topo.svg");
+  background-size: cover;
+  background-position: center;
+}
+.plate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25rem;
+  padding: 0.1rem 0.6rem 0;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #14181d;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.15;
+  box-shadow: inset 0 0 0 3px #14181d, 0 0 0 2px #fff;
+}

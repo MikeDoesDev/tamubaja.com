@@ -28,6 +28,21 @@ buildProcess:
     description: From first drive on, we log data, break things on purpose, and fix them before the competition does.
   - name: Compete
     description: The car debuts at our spring Rollout, then races endurance, acceleration, hill climb, and design events against 100+ universities.
+# "The garage": past cars by race number. Add `season:` (exactly as written in seasons.yaml)
+# to connect a car to its competition result on the Car page.
+garage:
+  - number: 51
+    photo: /images/cars/car-51-rear.jpg
+    description: Black livery with white topographic lines and Aggie script. Our most recent car.
+    livery: Black topo
+  - number: 124
+    photo: /images/cars/car-124-mud.jpg
+    description: A white car that never stayed white for long, through mud, hay bales, and hard landings.
+    livery: White
+  - number: 56
+    photo: /images/cars/car-56.jpg
+    description: Retro sunset stripes on a black body.
+    livery: Retro sunset
 buildSeason: 2026–27
 milestones:
   - name: Initial design review 1
