@@ -73,6 +73,11 @@ body {
   outline-offset: 3px;
 }
 
+/* Maroon bands slant on both edges so they hand off cleanly to the footer below. */
+.slash-y {
+  clip-path: polygon(0 3vw, 100% 0, 100% calc(100% - 3vw), 0 100%);
+}
+
 .slash-top {
   clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%);
 }
@@ -157,25 +162,26 @@ body {
     @apply font-sans;
   }
 }
-/* Social icons: a black pill of white icons that turn each network's color on hover, with a
-   white tooltip above. Based on a Uiverse.io design by firemonste_8052 (MIT). */
+/* Social icons: a pill of icons that turn each network's color on hover, with a white tooltip
+   above. Based on a Uiverse.io design by firemonste_8052 (MIT), recolored to the site palette. */
 .social-links {
   display: flex;
   justify-content: center;
   margin: 0;
   padding: 3rem 0 0;
-  list-style: none;
 }
 .social-links--start {
   justify-content: flex-start;
+  padding-top: 1.5rem;
 }
 .social-links__pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 10px 14px;
+  gap: 0.25rem;
+  padding: 6px 10px;
+  border: 1px solid var(--color-line);
   border-radius: 999px;
-  background-color: #000;
+  background-color: rgb(0 0 0 / 35%);
   list-style: none;
   margin: 0;
 }
@@ -186,20 +192,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   color: #fff;
-  background-color: #000;
   transition: all 0.3s ease-in-out;
 }
 .social-links__item a svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 .social-links__item a:hover,
 .social-links__item a:focus-visible {
-  box-shadow: 3px 2px 45px 0 rgb(0 0 0 / 12%);
+  background-color: rgb(255 255 255 / 8%);
 }
 .social-links__tooltip {
   position: absolute;
@@ -212,17 +217,18 @@ body {
   font-weight: 800;
   padding: 6px 10px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  z-index: 10;
   transition: all 0.3s ease;
 }
 .social-links__item:hover .social-links__tooltip,
 .social-links__item:focus-within .social-links__tooltip {
   opacity: 1;
   visibility: visible;
-  top: -46px;
+  top: -44px;
 }
 .social-links a[data-social="instagram"]:hover,
 .social-links a[data-social="instagram"]:focus-visible {
@@ -239,4 +245,18 @@ body {
 .social-links a[data-social="email"]:hover,
 .social-links a[data-social="email"]:focus-visible {
   color: var(--color-accent);
+}
+
+/* Form controls: a custom chevron for the select so it matches the text inputs. */
+.select-chevron {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239fb3c8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 1.1rem;
+  padding-right: 2.75rem;
+}
+.select-chevron option {
+  background: var(--color-panel);
+  color: var(--color-ink);
 }

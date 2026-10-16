@@ -99,23 +99,39 @@ export default function SponsorsPage() {
         </div>
       </Section>
 
-      <Section id="inquire" className="bg-panel/40">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            <Eyebrow>Get started</Eyebrow>
-            <SectionHeading>Become a sponsor</SectionHeading>
-            <p className="mt-4 text-muted">
-              Tell us a little about your company and we&apos;ll follow up with next steps. Want the full details first? Download our sponsorship packet.
+      <Section id="inquire">
+        <div className="grid overflow-hidden rounded-sm border border-line bg-panel lg:grid-cols-[1fr_1.45fr]">
+          <div className="relative bg-linear-to-br from-maroon to-[#2a0000] p-8 sm:p-10">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Get started</p>
+            <h2 className="font-display text-5xl font-extrabold uppercase leading-none">Become a sponsor</h2>
+            <p className="mt-4 text-white/85">
+              Tell us a little about your company. A member of our business team will reach out with next steps.
             </p>
-            <div className="mt-6">
+            <ol className="mt-8 space-y-5">
+              {[
+                ["Send an inquiry", "Takes about a minute. No commitment."],
+                ["We reply within 2 business days", `From ${site.email}.`],
+                ["Build your package", "Pick a tier or shape one around your goals."],
+              ].map(([title, body], index) => (
+                <li key={title} className="flex gap-4">
+                  <span className="w-10 shrink-0 font-display text-3xl font-extrabold leading-none text-white/40">{String(index + 1).padStart(2, "0")}</span>
+                  <span>
+                    <span className="block font-semibold">{title}</span>
+                    <span className="block text-sm text-white/70">{body}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-8">
               <ButtonLink href={site.packetPdf} variant="secondary" download>
                 Download the packet (PDF)
               </ButtonLink>
             </div>
-            <p className="mt-10 text-sm font-semibold uppercase tracking-[0.2em] text-muted">Or reach us directly</p>
             <SocialLinks site={site} align="start" />
           </div>
-          <InquiryForm accessKey={accessKey} email={site.email} />
+          <div className="p-8 sm:p-10">
+            <InquiryForm accessKey={accessKey} email={site.email} />
+          </div>
         </div>
       </Section>
     </>
