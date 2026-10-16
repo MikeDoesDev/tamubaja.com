@@ -1,10 +1,14 @@
 import { expect, test } from "@playwright/test";
 
-test("sponsor logos show in full color", async ({ page }) => {
+test("partner logos sit in white and turn full color on hover", async ({ page, isMobile }) => {
+  test.skip(isMobile, "hover needs a mouse");
   await page.goto("/partners");
   const tile = page.getByTestId("sponsor-grid").locator("[data-sponsor-tile]").first();
   test.skip((await tile.count()) === 0, "no sponsors are shown yet");
-  await expect(tile.locator("img")).not.toHaveCSS("filter", /grayscale\(1\)/);
+  const color = tile.locator("img[alt]:not([alt=''])");
+  await expect(color).toHaveCSS("opacity", "0");
+  await tile.hover();
+  await expect(color).toHaveCSS("opacity", "1");
 });
 
 test("footer logo strip loads near the footer, scrolls, is grey, and is decorative for screen readers", async ({ page }) => {
