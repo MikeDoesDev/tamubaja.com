@@ -10,7 +10,7 @@ import { newestFirst } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "The car",
+  title: "Our Baja SAE car: build, results, and history",
   description:
     "Follow Texas A&M Baja SAE's car from clean sheet to competition: where this season's build stands, how we build every car, and our full competition history.",
   path: "/car",

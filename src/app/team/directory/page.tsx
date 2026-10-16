@@ -7,7 +7,7 @@ import { buildDirectory } from "@/lib/directory";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Student directory",
+  title: "Student talent directory",
   description:
     "Browse the Texas A&M Baja SAE engineers and business students who design, build, and race our off-road car. Filter by subteam, major, and graduation year.",
   path: "/team/directory",

@@ -9,7 +9,7 @@ import { getSite, getTeam } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "The team",
+  title: "Meet the team",
   description:
     "Meet the Aggie engineers and business students who design, build, test, and fund Texas A&M Baja SAE's car every year.",
   path: "/team",

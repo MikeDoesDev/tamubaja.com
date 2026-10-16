@@ -5,7 +5,7 @@ import { getDevelopment, getSite } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Development",
+  title: "Join Texas A&M Baja: new member development program",
   description:
     "Texas A&M Baja SAE's development program takes new members from their first meeting to owning a part on the car. Open to every major and class year.",
   path: "/development",
