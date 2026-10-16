@@ -2,22 +2,17 @@ import Image from "next/image";
 import type { Sponsor } from "@/lib/schemas";
 
 const SIZES = {
-  lg: "h-28 w-56 p-5",
-  md: "h-24 w-48 p-4",
-  sm: "h-20 w-40 p-4",
+  lg: "h-32 p-6",
+  md: "h-28 p-5",
+  sm: "h-24 p-4",
 } as const;
 
 export type TileSize = keyof typeof SIZES;
 
-/**
- * A sponsor logo on a tile. On devices with a mouse, logos sit muted in grayscale and
- * light up in full color on hover or keyboard focus; touch devices always show color.
- */
-export function SponsorTile({ sponsor, size = "md" }: { sponsor: Sponsor; size?: TileSize }) {
+/** A sponsor logo in full color on a clean tile; lifts on hover. Fills its grid cell. */
+export function SponsorTile({ sponsor, size = "md", showName = false }: { sponsor: Sponsor; size?: TileSize; showName?: boolean }) {
   const dark = sponsor.tile === "dark";
-  const surface = dark ? "bg-panel-2 ring-1 ring-line" : "bg-white";
-  // Fading a light logo on a dark tile makes it unreadable, so dark tiles only go grayscale.
-  const muted = dark ? "pointer-fine:grayscale" : "pointer-fine:opacity-70 pointer-fine:grayscale";
+  const surface = dark ? "bg-[#0b0e11] ring-1 ring-line" : "bg-white";
   return (
     <a
       href={sponsor.url}
@@ -25,17 +20,21 @@ export function SponsorTile({ sponsor, size = "md" }: { sponsor: Sponsor; size?:
       rel="noopener noreferrer"
       title={sponsor.name}
       data-sponsor-tile
-      className={`group block shrink-0 rounded-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-2 hover:ring-accent focus-visible:-translate-y-1 focus-visible:ring-2 focus-visible:ring-accent ${surface} ${SIZES[size]}`}
+      className="group flex h-full flex-col overflow-hidden rounded-md shadow-[0_1px_0_rgb(255_255_255/4%)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgb(0_0_0/80%)] focus-visible:-translate-y-1 focus-visible:ring-2 focus-visible:ring-accent"
     >
-      <span className="relative block h-full w-full">
-        <Image
-          src={sponsor.logo}
-          alt={sponsor.name}
-          fill
-          sizes="224px"
-          className={`object-contain transition duration-300 ${muted} group-hover:opacity-100 group-hover:grayscale-0 group-focus-visible:opacity-100 group-focus-visible:grayscale-0`}
-        />
+      <span className={`relative block w-full ${surface} ${SIZES[size]}`}>
+        <span className="relative block h-full w-full">
+          <Image src={sponsor.logo} alt={sponsor.name} fill sizes="(min-width: 1024px) 240px, 45vw" className="object-contain transition duration-300 group-hover:scale-[1.04]" />
+        </span>
       </span>
+      {showName && (
+        <span className="flex items-center justify-between gap-2 border-t border-line bg-panel px-3 py-2 text-xs text-muted transition-colors group-hover:text-ink">
+          <span className="truncate">{sponsor.name}</span>
+          <span aria-hidden="true" className="text-accent opacity-0 transition-opacity group-hover:opacity-100">
+            ↗
+          </span>
+        </span>
+      )}
     </a>
   );
 }

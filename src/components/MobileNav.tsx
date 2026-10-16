@@ -37,10 +37,21 @@ export function MobileNav({ links }: { links: readonly NavLink[] }) {
                 <Link
                   href={link.href}
                   onClick={close}
-                  className="block border-b border-line py-4 font-display text-2xl font-bold uppercase"
+                  className={`block py-4 font-display text-2xl font-bold uppercase ${link.children ? "pb-2" : "border-b border-line"}`}
                 >
                   {link.label}
                 </Link>
+                {link.children && (
+                  <ul className="border-b border-line pb-3 pl-4">
+                    {link.children.map((child) => (
+                      <li key={child.href}>
+                        <Link href={child.href} onClick={close} className="block py-1.5 text-sm text-muted hover:text-ink">
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>

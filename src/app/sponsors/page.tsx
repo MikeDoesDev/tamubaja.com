@@ -40,8 +40,20 @@ export default function SponsorsPage() {
         }
       />
 
+      <Section id="partners" className="bg-panel/40">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <Eyebrow>In good company</Eyebrow>
+            <SectionHeading>Our current partners</SectionHeading>
+          </div>
+          <p className="max-w-md text-muted">From global manufacturers to local shops, these partners put car #51 on the dirt.</p>
+        </div>
+        <SponsorGrid featured />
+      </Section>
+
       <Section>
-        <div className="grid gap-8 md:grid-cols-3">
+        <Eyebrow>Why partner with us</Eyebrow>
+        <div className="mt-6 grid gap-8 md:grid-cols-3">
           {site.sponsorPillars.map((pillar) => (
             <div key={pillar.title} className="border-t-2 border-accent pt-5">
               <h2 className="font-display text-3xl font-extrabold uppercase">{pillar.title}</h2>
@@ -115,15 +127,7 @@ export default function SponsorsPage() {
         </div>
       </Section>
 
-      <Section className="bg-panel/40">
-        <Eyebrow>In good company</Eyebrow>
-        <SectionHeading>Current partners</SectionHeading>
-        <div className="mt-10">
-          <SponsorGrid />
-        </div>
-      </Section>
-
-      <Section id="donate">
+      <Section id="donate" className="bg-panel/40">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <div className="lg:pt-6">
             <Eyebrow>Individuals and alumni</Eyebrow>
@@ -142,7 +146,7 @@ export default function SponsorsPage() {
         </div>
       </Section>
 
-      <Section className="bg-panel/40">
+      <Section>
         <SectionHeading>Sponsor FAQ</SectionHeading>
         <div className="mt-8">
           <Faq items={faq} />
