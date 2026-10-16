@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import type { DirectoryPerson } from "@/lib/directory";
-import { initials } from "@/lib/format";
+import { PersonPlaceholder } from "./PersonPlaceholder";
 
 const SELECT =
   "select-chevron w-full rounded-sm border border-line bg-bg/70 px-4 py-3 text-sm text-ink transition-colors hover:border-muted/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30";
@@ -106,8 +106,8 @@ export function StudentDirectory({ people, subteams }: { people: DirectoryPerson
       ) : (
         <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {shown.map((person) => (
-            <li key={person.name} className="group overflow-hidden rounded-sm border border-line bg-panel transition-colors hover:border-accent/60">
-              <div className="relative aspect-square bg-linear-to-br from-maroon to-panel-2">
+            <li key={person.name} className="group overflow-hidden rounded-2xl border border-line bg-panel transition-colors hover:border-accent/60">
+              <div className="relative aspect-[4/5]">
                 {person.photo ? (
                   <Image
                     src={person.photo}
@@ -117,9 +117,7 @@ export function StudentDirectory({ people, subteams }: { people: DirectoryPerson
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
-                  <span aria-hidden="true" className="flex h-full w-full items-center justify-center font-display text-5xl font-extrabold text-white/80">
-                    {initials(person.name)}
-                  </span>
+                  <PersonPlaceholder />
                 )}
                 {person.titles.length > 0 && (
                   <span className="absolute left-2 top-2 rounded-sm bg-bg/85 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-accent">

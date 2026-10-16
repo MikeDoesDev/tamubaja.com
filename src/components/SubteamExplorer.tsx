@@ -25,7 +25,7 @@ export function SubteamExplorer({ subteams }: { subteams: Subteam[] }) {
 
   return (
     <div>
-      <ul className="grid gap-px overflow-hidden rounded-sm bg-line sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {subteams.map((subteam) => {
           const isOpen = open === subteam.name;
           const count = subteam.leads.length + subteam.members.length;
@@ -36,12 +36,12 @@ export function SubteamExplorer({ subteams }: { subteams: Subteam[] }) {
                 aria-expanded={isOpen}
                 aria-controls={`subteam-${slug(subteam.name)}`}
                 onClick={() => toggle(subteam.name)}
-                className={`group flex h-full w-full flex-col items-start p-6 text-left transition-colors ${
-                  isOpen ? "bg-maroon" : "bg-panel hover:bg-panel-2"
+                className={`group flex h-full w-full flex-col items-start rounded-2xl p-7 text-left transition-colors ${
+                  isOpen ? "bg-maroon" : "border border-line bg-panel hover:bg-panel-2"
                 }`}
               >
                 <span className="flex w-full items-center justify-between gap-4">
-                  <span className="font-display text-2xl font-extrabold uppercase">{subteam.name}</span>
+                  <span className="font-display text-4xl font-extrabold uppercase leading-none">{subteam.name}</span>
                   <span
                     aria-hidden="true"
                     className={`font-display text-2xl leading-none transition-transform ${isOpen ? "rotate-45" : "text-accent"}`}
@@ -68,7 +68,7 @@ export function SubteamExplorer({ subteams }: { subteams: Subteam[] }) {
             id={`subteam-${slug(subteam.name)}`}
             aria-label={`${subteam.name} subteam`}
             hidden={open !== subteam.name}
-            className="mt-6 rounded-sm border border-line bg-panel/60 p-6 sm:p-8"
+            className="mt-6 rounded-2xl border border-line bg-panel/80 p-6 sm:p-8"
           >
             <h3 className="font-display text-4xl font-extrabold uppercase">{subteam.name}</h3>
             {subteam.details && <p className="mt-3 max-w-3xl text-lg text-muted">{subteam.details}</p>}
