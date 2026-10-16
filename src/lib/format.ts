@@ -27,3 +27,8 @@ export function initials(name: string): string {
     .map((part) => part[0]?.toUpperCase() ?? "")
     .join("");
 }
+
+/** "2024–25" → "2024-25", for #season-2024-25 links on the Car page. */
+export function seasonSlug(season: string): string {
+  return season.replace(/[^0-9a-z]+/gi, "-").toLowerCase();
+}

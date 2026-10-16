@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ButtonLink } from "@/components/ButtonLink";
 import { LeadCard } from "@/components/LeadCard";
 import { PageHero } from "@/components/PageHero";
@@ -57,7 +58,13 @@ export default function TeamPage() {
       <Section>
         <Eyebrow>Six subteams, one car</Eyebrow>
         <SectionHeading>Meet the subteams</SectionHeading>
-        <p className="mt-4 max-w-2xl text-lg text-muted">Pick a subteam to see what it builds and who builds it.</p>
+        <p className="mt-4 max-w-2xl text-lg text-muted">
+          Pick a subteam to see what it builds and who builds it, or{" "}
+          <Link href="/team/directory" className="font-semibold text-accent underline underline-offset-4 hover:text-ink">
+            browse the full student directory
+          </Link>
+          .
+        </p>
         <div className="mt-8">
           <SubteamExplorer subteams={team.subteams} />
         </div>

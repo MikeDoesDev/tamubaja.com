@@ -41,8 +41,6 @@ sponsorPillars:
   - title: Tax-deductible
     body: Gifts are made through the Texas A&M Foundation and are tax-deductible. Every donor is invited to our spring Rollout.
 giving:
-  # Main "Donate" button on the Become a Sponsor page.
-  donateUrl: https://www.tamusae.org/sponsors
   foundationUrl: https://www.txamfoundation.com/give.aspx
   accountCode: 511361-20000
   steps:
