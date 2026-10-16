@@ -58,11 +58,11 @@ export default function DevelopmentPage() {
           <div>
             <h2 className="font-display text-4xl font-extrabold uppercase leading-none">Join the team</h2>
             <p className="mt-3 text-white/85">
-              Open to every major and class year, engineering or business. Applications run through Texas A&amp;M SAE.
+              Open to every major and class year, engineering or business. Applications run through Pitcrew, Texas A&amp;M SAE&apos;s recruiting portal.
             </p>
             <div className="mt-6">
               <ButtonLink href={dev.applyUrl} external>
-                Apply through Texas A&amp;M SAE
+                Apply on Pitcrew
               </ButtonLink>
             </div>
           </div>

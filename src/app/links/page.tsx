@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getCar, getSite } from "@/lib/content";
+import { getCar, getDevelopment, getSite } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -14,10 +14,17 @@ const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 export default function LinksPage() {
   const site = getSite();
   const car = getCar();
-  const links: { href: string; label: string; note: string; primary?: boolean }[] = [
+  const dev = getDevelopment();
+  const links: { href: string; label: string; note: string; primary?: boolean; external?: boolean }[] = [
     { href: "/sponsors", label: "Become a sponsor", note: "Tiers, benefits, and a quick inquiry form", primary: true },
-    { href: "/sponsors#donate", label: "Donate", note: "Tax-deductible through the Texas A&M Foundation" },
-    { href: "/development#join", label: "Join the team", note: "Open to every major and class year" },
+    {
+      href: site.giving.foundationUrl,
+      label: "Donate",
+      note: `Texas A&M Foundation · "Student Organization Gifts" · gift note ${site.giving.accountCode}`,
+      external: true,
+    },
+    { href: dev.applyUrl, label: "Join the team", note: "Apply on Pitcrew, Texas A&M SAE's recruiting portal", external: true },
+    { href: "/development", label: "Development program", note: "How new members go from first meeting to the car" },
     { href: "/car", label: `Follow the ${car.buildSeason} build`, note: "Where the car stands and what's next" },
     { href: "/team", label: "Meet the team", note: "Leads, subteams, and the student directory" },
     { href: "/", label: "tamubaja.com", note: "The full website" },
@@ -42,6 +49,7 @@ export default function LinksPage() {
             <li key={link.href}>
               <Link
                 href={link.href}
+                {...(link.external ? external : {})}
                 className={`group flex items-center justify-between gap-4 rounded-md px-5 py-4 text-left transition duration-200 hover:-translate-y-0.5 ${
                   link.primary
                     ? "bg-accent text-bg hover:bg-ink"
@@ -53,7 +61,7 @@ export default function LinksPage() {
                   <span className={`block text-xs ${link.primary ? "text-bg/75" : "text-white/60"}`}>{link.note}</span>
                 </span>
                 <span aria-hidden="true" className="text-lg transition-transform group-hover:translate-x-1">
-                  →
+                  {link.external ? "↗" : "→"}
                 </span>
               </Link>
             </li>
