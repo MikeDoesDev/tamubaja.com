@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
 import { DonateCard } from "@/components/DonateCard";
 import { Faq } from "@/components/Faq";
@@ -55,10 +56,17 @@ export default function SponsorsPage() {
         <Eyebrow>Why partner with us</Eyebrow>
         <div className="mt-6 grid gap-8 md:grid-cols-3">
           {site.sponsorPillars.map((pillar) => (
-            <div key={pillar.title} className="border-t-2 border-accent pt-5">
-              <h2 className="font-display text-3xl font-extrabold uppercase">{pillar.title}</h2>
-              <p className="mt-2 text-muted">{pillar.body}</p>
-            </div>
+            <article key={pillar.title} className="overflow-hidden rounded-2xl border border-line bg-panel">
+              {pillar.photo && (
+                <div className="relative aspect-[16/10]">
+                  <Image src={pillar.photo} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+                </div>
+              )}
+              <div className="p-6">
+                <h2 className="font-display text-3xl font-extrabold uppercase">{pillar.title}</h2>
+                <p className="mt-2 text-muted">{pillar.body}</p>
+              </div>
+            </article>
           ))}
         </div>
       </Section>
@@ -97,8 +105,10 @@ export default function SponsorsPage() {
       </Section>
 
       <Section id="inquire">
-        <div className="grid overflow-hidden rounded-sm border border-line bg-panel lg:grid-cols-[1fr_1.45fr]">
-          <div className="relative bg-linear-to-br from-maroon to-[#2a0000] p-8 sm:p-10">
+        <div className="grid overflow-hidden rounded-3xl border border-line bg-panel lg:grid-cols-[1fr_1.45fr]">
+          <div className="relative isolate overflow-hidden bg-maroon p-8 sm:p-10">
+            <Image src="/images/cars/car-51-rear.jpg" alt="" fill sizes="(min-width: 1024px) 40vw, 100vw" className="-z-20 object-cover opacity-40" />
+            <div aria-hidden="true" className="absolute inset-0 -z-10 bg-linear-to-t from-maroon via-maroon/90 to-maroon/40" />
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Get started</p>
             <h2 className="font-display text-5xl font-extrabold uppercase leading-none">Become a sponsor</h2>
             <p className="mt-4 text-white/85">

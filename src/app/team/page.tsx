@@ -25,6 +25,11 @@ export default function TeamPage() {
         eyebrow="The team"
         title="The team behind car #51"
         intro="Aggie engineers and business students who design, build, test, and fund a new off-road car every year."
+        image={site.teamPhoto}
+        imageAlt="Texas A&M Baja SAE team with the car"
+        actions={
+          <ButtonLink href="/team/directory">Browse the student directory</ButtonLink>
+        }
       />
 
       <Section>
@@ -37,7 +42,7 @@ export default function TeamPage() {
               ))}
             </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image src={site.teamPhoto} alt="Texas A&M Baja SAE team group photo" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
           </div>
         </div>
@@ -55,7 +60,7 @@ export default function TeamPage() {
         </Section>
       )}
 
-      <Section id="subteams">
+      <Section id="subteams" className="topo-bg">
         <Eyebrow>Six subteams, one car</Eyebrow>
         <SectionHeading>Meet the subteams</SectionHeading>
         <p className="mt-4 max-w-2xl text-lg text-muted">

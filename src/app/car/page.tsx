@@ -1,10 +1,9 @@
 import Image from "next/image";
 import { BuildStatus } from "@/components/BuildStatus";
-import { Garage } from "@/components/Garage";
 import { CtaBand } from "@/components/CtaBand";
 import { MilestoneTimeline } from "@/components/MilestoneTimeline";
 import { PageHero } from "@/components/PageHero";
-import { SeasonTimeline } from "@/components/SeasonTimeline";
+import { CarHistory } from "@/components/CarHistory";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { getCar, getSeasons } from "@/lib/content";
 import { newestFirst } from "@/lib/format";
@@ -92,21 +91,13 @@ export default function CarPage() {
         </div>
       </Section>
 
-      {car.garage.length > 0 && (
-        <Section id="garage" className="topo-bg">
-          <Eyebrow>The garage</Eyebrow>
-          <SectionHeading>Every car has a number</SectionHeading>
-          <div className="mt-10">
-            <Garage cars={car.garage} />
-          </div>
-        </Section>
-      )}
-
-      <Section id="history" className="bg-panel/40">
-        <Eyebrow>Racing since 2018</Eyebrow>
-        <SectionHeading>Past cars and results</SectionHeading>
+      <Section id="history" className="topo-bg">
+        <span id="garage" className="block scroll-mt-24" />
+        <Eyebrow>The garage · racing since 2018</Eyebrow>
+        <SectionHeading>Every car has a number</SectionHeading>
+        <p className="mt-4 max-w-2xl text-lg text-muted">Our cars and how each one finished, newest first.</p>
         <div className="mt-10">
-          <SeasonTimeline seasons={seasons} garage={car.garage} />
+          <CarHistory seasons={seasons} garage={car.garage} />
         </div>
       </Section>
 

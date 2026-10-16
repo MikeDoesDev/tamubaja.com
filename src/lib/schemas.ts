@@ -49,7 +49,7 @@ export const siteSchema = z.object({
   notice: z.object({ show: yesNo, title: text, message: text }).optional(),
   mission: z.array(text).min(1),
   homeStats: z.array(z.object({ value: text, label: text })).min(1).max(4),
-  sponsorPillars: z.array(z.object({ title: text, body: text })).min(1),
+  sponsorPillars: z.array(z.object({ title: text, body: text, photo: publicPath.optional() })).min(1),
   giving: z.object({
     foundationUrl: httpUrl,
     accountCode: text,

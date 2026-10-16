@@ -35,10 +35,13 @@ homeStats:
     label: Overall — 2024
 sponsorPillars:
   - title: Brand exposure
+    photo: /images/cars/car-51-front.jpg
     body: Your logo rides on the car, team uniforms, promotional materials, and our social channels, in front of competition crowds, industry judges, and the Aggie community.
   - title: Talent pipeline
+    photo: /images/team.jpg
     body: Meet engineers who design, machine, and test real hardware. Sponsors get access to our resume bank and can recruit directly at team meetings.
   - title: Tax-deductible
+    photo: /images/cars/car-124-corner.jpg
     body: Gifts are made through the Texas A&M Foundation and are tax-deductible. Every donor is invited to our spring Rollout.
 giving:
   foundationUrl: https://www.txamfoundation.com/give.aspx

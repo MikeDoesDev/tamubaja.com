@@ -1,12 +1,13 @@
 import Image from "next/image";
-import { initials } from "@/lib/format";
+import { PersonPlaceholder } from "./PersonPlaceholder";
+import { Plate } from "./Plate";
 import type { Lead } from "@/lib/schemas";
 
-/** Leadership card: a big headshot (or initials until photos come in), name, role, major and year. */
+/** Leadership card: a tall headshot (or the livery placeholder until photos come in), name, role, major and year. */
 export function LeadCard({ lead }: { lead: Lead }) {
   return (
-    <li className="overflow-hidden rounded-sm border border-line bg-panel">
-      <div className="relative aspect-square bg-linear-to-br from-maroon to-panel-2">
+    <li>
+      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line">
         {lead.photo ? (
           <Image
             src={lead.photo}
@@ -16,12 +17,11 @@ export function LeadCard({ lead }: { lead: Lead }) {
             className="object-cover"
           />
         ) : (
-          <span aria-hidden="true" className="flex h-full w-full items-center justify-center font-display text-7xl font-extrabold text-white/80">
-            {initials(lead.name)}
-          </span>
+          <PersonPlaceholder />
         )}
+        <Plate number={51} className="absolute bottom-3 right-3 !text-base" />
       </div>
-      <div className="p-5">
+      <div className="pt-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">{lead.role}</p>
         <p className="mt-1 font-display text-2xl font-extrabold uppercase leading-tight">{lead.name}</p>
         <p className="mt-1 text-sm text-muted">

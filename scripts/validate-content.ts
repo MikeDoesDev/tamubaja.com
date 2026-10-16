@@ -49,6 +49,7 @@ if (site) {
   requireFile("site.yaml", "heroVideo", site.heroVideo);
   requireFile("site.yaml", "teamPhoto", site.teamPhoto);
   requireFile("site.yaml", "logo", site.logo);
+  for (const pillar of site.sponsorPillars) requireFile("site.yaml", `sponsorPillars → ${pillar.title} → photo`, pillar.photo);
   if (!site.web3formsKey) {
     warnings.push(
       "site.yaml → web3formsKey is empty, so the sponsor form will open the visitor's email app instead of sending. Add the key before launch.",
