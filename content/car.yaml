@@ -36,10 +36,12 @@ garage:
     description: Black livery with white topographic lines and Aggie script. Our most recent car.
     livery: Black topo
   - number: 124
+    season: 2024–25
     photo: /images/cars/car-124-mud.jpg
     description: A white car that never stayed white for long, through mud, hay bales, and hard landings.
     livery: White
   - number: 56
+    season: 2023–24
     photo: /images/cars/car-56.jpg
     description: Retro sunset stripes on a black body.
     livery: Retro sunset
