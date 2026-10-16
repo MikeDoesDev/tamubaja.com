@@ -10,7 +10,6 @@ const PAGES = [
   { path: "/car", priority: 0.7 },
   { path: "/team", priority: 0.7 },
   { path: "/development", priority: 0.6 },
-  { path: "/give", priority: 0.5 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

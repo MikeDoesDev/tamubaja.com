@@ -33,7 +33,7 @@ export default function HomePage() {
     url: site.url,
     logo: `${site.url}${site.logo}`,
     email: site.email,
-    sameAs: [site.socials.instagram, site.socials.linktree, ...(site.socials.linkedin ? [site.socials.linkedin] : [])],
+    sameAs: [site.socials.instagram, ...(site.socials.linkedin ? [site.socials.linkedin] : [])],
   };
 
   return (
@@ -120,7 +120,6 @@ export default function HomePage() {
       <CtaBand
         title="Put your name on the car"
         body="Join the companies helping Aggie engineers design, build, and race car #51."
-        packetPdf={site.packetPdf}
       />
     </>
   );

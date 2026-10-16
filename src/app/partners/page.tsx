@@ -2,7 +2,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/Section";
 import { SponsorGrid } from "@/components/SponsorGrid";
-import { getCar, getSite } from "@/lib/content";
+import { getCar } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -13,7 +13,6 @@ export const metadata = pageMetadata({
 });
 
 export default function PartnersPage() {
-  const site = getSite();
   const car = getCar();
 
   return (
@@ -29,7 +28,6 @@ export default function PartnersPage() {
       <CtaBand
         title="Join them"
         body={`Put your logo on the ${car.buildSeason} car alongside these partners.`}
-        packetPdf={site.packetPdf}
       />
     </>
   );

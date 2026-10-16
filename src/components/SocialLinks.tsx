@@ -18,26 +18,11 @@ const LinkedInIcon = (
   </svg>
 );
 
-const LinktreeIcon = (
-  <svg {...svgProps} fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="square">
-    <path d="M12 2.5v19M4.5 9.5h15M6.5 4.5l11 10M17.5 4.5l-11 10" />
-  </svg>
-);
-
-const EmailIcon = (
-  <svg {...svgProps} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2.5" y="4.5" width="19" height="15" rx="2" />
-    <path d="m3 6 9 7 9-7" />
-  </svg>
-);
-
 /** A black pill of social icons that turn their brand color on hover, with a tooltip above. */
 export function SocialLinks({ site, align = "center" }: { site: Site; align?: "center" | "start" }) {
   const socials: Social[] = [
     { key: "instagram", label: "Instagram", href: site.socials.instagram, icon: InstagramIcon },
     ...(site.socials.linkedin ? [{ key: "linkedin", label: "LinkedIn", href: site.socials.linkedin, icon: LinkedInIcon }] : []),
-    { key: "linktree", label: "Linktree", href: site.socials.linktree, icon: LinktreeIcon },
-    { key: "email", label: "Email us", href: `mailto:${site.email}`, icon: EmailIcon },
   ];
 
   return (

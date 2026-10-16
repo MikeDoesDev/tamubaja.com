@@ -7,12 +7,14 @@ export function PageHero({
   intro,
   image,
   imageAlt = "",
+  actions,
 }: {
   eyebrow: string;
   title: string;
   intro?: string;
   image?: string;
   imageAlt?: string;
+  actions?: React.ReactNode;
 }) {
   return (
     <section className="relative isolate overflow-hidden border-b border-line">
@@ -26,6 +28,7 @@ export function PageHero({
         <Eyebrow>{eyebrow}</Eyebrow>
         <h1 className="max-w-4xl font-display text-5xl font-extrabold uppercase leading-[0.9] sm:text-7xl">{title}</h1>
         {intro && <p className="mt-6 max-w-2xl text-lg text-muted">{intro}</p>}
+        {actions && <div className="mt-8 flex flex-wrap gap-4">{actions}</div>}
       </div>
     </section>
   );
