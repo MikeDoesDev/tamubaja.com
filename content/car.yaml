@@ -4,18 +4,18 @@
 season: 2025–26
 name: The 2025–26 car
 photo: /images/car-current.jpg
-summary: Every season we start from a clean sheet. Our 2025–26 car pairs a 4130 chromoly chassis with a carbon-fiber seat and body, a custom two-stage gearbox, titanium axles, and an electronically controlled CVT.
+summary: Every season we start from a clean sheet. Each car is designed, analyzed, machined, and welded by students, then pushed to its limits in testing before it ever reaches a competition.
 subsystems:
   - name: Chassis
-    description: A 4130 chromoly tube frame weighing 84.6 lb, built for driver protection and stiffness, wrapped in a carbon-fiber seat and body panels.
+    description: A steel tube frame and driver cell built around safety and stiffness, with lightweight composite body panels and a seat shaped around the driver.
   - name: Suspension
-    description: Front double A-arms and rear semi-trailing arms with 13–13.5 inches of travel to absorb rocks, logs, and hard landings.
+    description: Long-travel suspension tuned to soak up rocks, logs, and hard landings while keeping the tires planted.
   - name: Powertrain
-    description: An electronic CVT with about 80% less rotating inertia than an off-the-shelf unit drives a custom two-stage reduction gearbox with carburized 8620 steel gears and titanium axles.
+    description: An in-house drivetrain that turns engine power into traction, from the CVT through a custom gearbox to the wheels.
   - name: Controls and electronics
-    description: Electronic CVT control plus the sensors and data acquisition we use to validate every design in the dirt.
+    description: Electronics, sensors, and data acquisition that help us tune the car and validate every design in the dirt.
   - name: Manufacturing
-    description: In-house fabrication and machining backed by industry partners, from tube bending and welding to gear hobbing and splining.
+    description: In-house fabrication and machining backed by industry partners, from tube bending and welding to precision machined parts.
 # "How we build it": the steps every car goes through, in order.
 buildProcess:
   - name: Design

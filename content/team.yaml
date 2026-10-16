@@ -54,7 +54,7 @@ leads:
 subteams:
   - name: Chassis
     description: Frame design, driver ergonomics, and safety.
-    details: Chassis designs the 4130 chromoly tube frame that keeps the driver safe and the car stiff, plus the carbon-fiber seat and body panels. Last season's frame came in at 84.6 lb.
+    details: Chassis designs the frame and driver cell that keep the driver safe and the car stiff, plus the body panels and seat. Every tube is placed to pass safety inspection and survive the roughest courses.
     leads:
       - name: Aaron Lerner
         role: Chassis Lead
@@ -78,7 +78,7 @@ subteams:
         classYear: "2029"
   - name: Suspension
     description: Geometry, shocks, hubs, and steering.
-    details: Suspension owns everything between the frame and the dirt. Last season's car ran front double A-arms and rear semi-trailing arms with 13 to 13.5 inches of travel to soak up rocks, logs, and hard landings.
+    details: Suspension owns everything between the frame and the dirt, from geometry and shocks to hubs and steering, so the car stays planted over rocks, logs, and jumps.
     leads:
       - name: Rhett Schank
         role: Suspension Lead
@@ -114,7 +114,7 @@ subteams:
         classYear: "2029"
   - name: Powertrain
     description: CVT, gearbox, axles, and driveline.
-    details: Powertrain gets the engine's power to the ground. Last season that meant an electronic CVT with about 80% less rotating inertia than an off-the-shelf unit, driving a custom two-stage gearbox with carburized 8620 steel gears and titanium axles.
+    details: Powertrain gets the engine's power to the ground through the CVT, a custom gearbox, axles, and the driveline, all designed and built in house.
     leads:
       - name: Reid Glynn
         role: Powertrain Lead
