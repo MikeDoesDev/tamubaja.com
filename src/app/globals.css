@@ -157,60 +157,49 @@ body {
     @apply font-sans;
   }
 }
-/* Footer social icons. Based on a Uiverse.io design by Artahs (MIT): white circles that fill
-   with each network's color from the bottom up, with a matching tooltip above. */
+/* Social icons: a black pill of white icons that turn each network's color on hover, with a
+   white tooltip above. Based on a Uiverse.io design by firemonste_8052 (MIT). */
 .social-links {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 1.25rem;
-  list-style: none;
   margin: 0;
   padding: 3rem 0 0;
+  list-style: none;
 }
 .social-links--start {
   justify-content: flex-start;
+}
+.social-links__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background-color: #000;
+  list-style: none;
+  margin: 0;
 }
 .social-links__item {
   position: relative;
 }
 .social-links__item a {
-  position: relative;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  color: #4d4d4d;
-  background-color: #fff;
-  transition: all 0.3s ease-in-out;
-}
-.social-links__item a svg {
-  position: relative;
-  z-index: 1;
-  width: 26px;
-  height: 26px;
-}
-.social-links__item a:hover,
-.social-links__item a:focus-visible {
   color: #fff;
-  box-shadow: 3px 2px 45px 0 rgb(0 0 0 / 12%);
-}
-.social-links__fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
   background-color: #000;
   transition: all 0.3s ease-in-out;
 }
-.social-links__item a:hover .social-links__fill,
-.social-links__item a:focus-visible .social-links__fill {
-  height: 100%;
+.social-links__item a svg {
+  width: 28px;
+  height: 28px;
+}
+.social-links__item a:hover,
+.social-links__item a:focus-visible {
+  box-shadow: 3px 2px 45px 0 rgb(0 0 0 / 12%);
 }
 .social-links__tooltip {
   position: absolute;
@@ -218,7 +207,9 @@ body {
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
+  font-weight: 800;
   padding: 6px 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -231,21 +222,21 @@ body {
 .social-links__item:focus-within .social-links__tooltip {
   opacity: 1;
   visibility: visible;
-  top: -42px;
+  top: -46px;
 }
-.social-links a[data-social="instagram"] .social-links__fill,
-.social-links a[data-social="instagram"] + .social-links__tooltip {
-  background: linear-gradient(45deg, #405de6, #5b51db, #b33ab4, #c135b4, #e1306c, #fd1f1f);
+.social-links a[data-social="instagram"]:hover,
+.social-links a[data-social="instagram"]:focus-visible {
+  color: #e1306c;
 }
-.social-links a[data-social="linkedin"] .social-links__fill,
-.social-links a[data-social="linkedin"] + .social-links__tooltip {
-  background-color: #0274b3;
+.social-links a[data-social="linkedin"]:hover,
+.social-links a[data-social="linkedin"]:focus-visible {
+  color: #2d9cdb;
 }
-.social-links a[data-social="linktree"] .social-links__fill,
-.social-links a[data-social="linktree"] + .social-links__tooltip {
-  background-color: #2ab24d;
+.social-links a[data-social="linktree"]:hover,
+.social-links a[data-social="linktree"]:focus-visible {
+  color: #43e55e;
 }
-.social-links a[data-social="email"] .social-links__fill,
-.social-links a[data-social="email"] + .social-links__tooltip {
-  background-color: var(--color-maroon);
+.social-links a[data-social="email"]:hover,
+.social-links a[data-social="email"]:focus-visible {
+  color: var(--color-accent);
 }

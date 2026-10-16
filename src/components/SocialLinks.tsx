@@ -31,7 +31,7 @@ const EmailIcon = (
   </svg>
 );
 
-/** Round social icons that fill with the brand color on hover, with a tooltip above. */
+/** A black pill of social icons that turn their brand color on hover, with a tooltip above. */
 export function SocialLinks({ site, align = "center" }: { site: Site; align?: "center" | "start" }) {
   const socials: Social[] = [
     { key: "instagram", label: "Instagram", href: site.socials.instagram, icon: InstagramIcon },
@@ -41,7 +41,8 @@ export function SocialLinks({ site, align = "center" }: { site: Site; align?: "c
   ];
 
   return (
-    <ul className={`social-links${align === "start" ? " social-links--start" : ""}`}>
+    <div className={`social-links${align === "start" ? " social-links--start" : ""}`}>
+      <ul className="social-links__pill">
       {socials.map((social) => {
         const external = !social.href.startsWith("mailto:");
         return (
@@ -52,7 +53,6 @@ export function SocialLinks({ site, align = "center" }: { site: Site; align?: "c
               aria-label={social.label}
               {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             >
-              <span className="social-links__fill" aria-hidden="true" />
               {social.icon}
             </a>
             <span className="social-links__tooltip" aria-hidden="true">
@@ -61,6 +61,7 @@ export function SocialLinks({ site, align = "center" }: { site: Site; align?: "c
           </li>
         );
       })}
-    </ul>
+      </ul>
+    </div>
   );
 }
