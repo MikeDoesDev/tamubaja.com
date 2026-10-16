@@ -60,7 +60,7 @@ export default function CarPage() {
       <Section id="inside">
         <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div className="lg:sticky lg:top-24">
-            <Eyebrow>{car.season} car</Eyebrow>
+            <Eyebrow>Inside the car</Eyebrow>
             <SectionHeading>What goes into a car</SectionHeading>
             <p className="mt-4 text-lg text-muted">{car.summary}</p>
             <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-sm">

@@ -20,7 +20,7 @@ export default function PartnersPage() {
       <PageHero
         eyebrow="Our sponsors"
         title="Powered by our partners"
-        intro="Every part of car #51, from the chromoly frame to the gearbox, is built with help from these companies. Thank you."
+        intro="Every part of car #51, from the frame to the gearbox, is built with help from these companies. Thank you."
       />
       <Section>
         <SponsorGrid showNames headingLevel="h2" />
