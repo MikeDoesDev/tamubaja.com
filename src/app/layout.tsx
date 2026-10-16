@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Saira_Condensed } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "@/components/Footer";
+import { SiteChrome } from "@/components/SiteChrome";
 import { Header } from "@/components/Header";
 import { SiteNotice } from "@/components/SiteNotice";
 import { getSite } from "@/lib/content";
@@ -46,10 +47,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
-        <SiteNotice />
-        <Header />
+        <SiteChrome>
+          <SiteNotice />
+          <Header />
+        </SiteChrome>
         <main id="main">{children}</main>
-        <Footer />
+        <SiteChrome>
+          <Footer />
+        </SiteChrome>
         <Analytics />
       </body>
     </html>
