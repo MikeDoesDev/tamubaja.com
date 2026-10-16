@@ -112,6 +112,19 @@ export const carSchema = z.object({
   subsystems: z.array(z.object({ name: text, description: text, photo: publicPath.optional() })).min(1),
   // "How we build it": the steps every car goes through, in order.
   buildProcess: list(z.array(z.object({ name: text, description: text }))),
+  // "The garage": past cars with their race number and photo. Add `season` (matching a season in
+  // seasons.yaml, e.g. "2023–24") to connect a car to its competition result.
+  garage: list(
+    z.array(
+      z.object({
+        number: stringish.pipe(z.string().trim().min(1)),
+        photo: publicPath,
+        description: text,
+        season: text.optional(),
+        livery: text.optional(),
+      }),
+    ),
+  ),
   buildSeason: text,
   milestones: z
     .array(z.object({ name: text, date: isoDate, tentative: yesNo.optional() }))
@@ -172,6 +185,7 @@ export type TiersFile = z.infer<typeof tiersSchema>;
 export type Tier = TiersFile["tiers"][number];
 export type Season = z.infer<typeof seasonsSchema>[number];
 export type Car = z.infer<typeof carSchema>;
+export type GarageCar = Car["garage"][number];
 export type Team = z.infer<typeof teamSchema>;
 export type Lead = Team["leads"][number];
 export type Subteam = Team["subteams"][number];

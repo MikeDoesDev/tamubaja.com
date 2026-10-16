@@ -23,15 +23,15 @@ const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 /** Bigger tiers get taller cells and fewer columns, so every tier uses the same wall format. */
 const WALL: Record<SponsorGroup["tier"], { height: string; logo: string; maxCols: number }> = {
-  platinum: { height: "h-44", logo: "h-20", maxCols: 4 },
-  gold: { height: "h-40", logo: "h-16", maxCols: 5 },
-  silver: { height: "h-36", logo: "h-14", maxCols: 5 },
-  bronze: { height: "h-32", logo: "h-12", maxCols: 5 },
-  inkind: { height: "h-32", logo: "h-12", maxCols: 5 },
+  platinum: { height: "h-60", logo: "h-28", maxCols: 3 },
+  gold: { height: "h-52", logo: "h-20", maxCols: 5 },
+  silver: { height: "h-44", logo: "h-16", maxCols: 5 },
+  bronze: { height: "h-40", logo: "h-16", maxCols: 4 },
+  inkind: { height: "h-36", logo: "h-14", maxCols: 5 },
 };
 
 const LG_COLS = ["", "lg:grid-cols-1", "lg:grid-cols-2", "lg:grid-cols-3", "lg:grid-cols-4", "lg:grid-cols-5"];
-const SM_COLS = ["", "sm:grid-cols-1", "sm:grid-cols-2", "sm:grid-cols-3", "sm:grid-cols-3", "sm:grid-cols-3"];
+const SM_COLS = ["", "sm:grid-cols-1", "sm:grid-cols-2", "sm:grid-cols-3", "sm:grid-cols-2", "sm:grid-cols-3"];
 
 /**
  * One tier as a wall of cells in the site's dark palette. Logos sit in soft white; hovering a cell
@@ -41,7 +41,7 @@ function LogoWall({ sponsors, tier }: { sponsors: Sponsor[]; tier: SponsorGroup[
   const layout = WALL[tier];
   const cols = Math.min(sponsors.length, layout.maxCols);
   return (
-    <ul className={`grid grid-cols-2 overflow-hidden rounded-md border-l border-t border-line bg-panel ${SM_COLS[cols]} ${LG_COLS[cols]}`}>
+    <ul className={`grid grid-cols-2 overflow-hidden rounded-2xl border-l border-t border-line bg-panel ${SM_COLS[cols]} ${LG_COLS[cols]}`}>
       {sponsors.map((sponsor) => {
         const dark = sponsor.tile === "dark";
         return (

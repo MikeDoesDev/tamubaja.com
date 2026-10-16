@@ -62,6 +62,13 @@ for (const season of seasons ?? []) requireFile("seasons.yaml", `${season.season
 if (car) {
   requireFile("car.yaml", "photo", car.photo);
   for (const sub of car.subsystems) requireFile("car.yaml", `${sub.name} → photo`, sub.photo);
+  for (const entry of car.garage) requireFile("car.yaml", `garage #${entry.number} → photo`, entry.photo);
+  const seasonNames = new Set((seasons ?? []).map((season) => season.season));
+  for (const entry of car.garage) {
+    if (entry.season && seasons && !seasonNames.has(entry.season)) {
+      problems.push(`Problem in content/car.yaml:\n  • garage #${entry.number} → season: "${entry.season}" doesn't match any season in seasons.yaml`);
+    }
+  }
 }
 for (const lead of team?.leads ?? []) requireFile("team.yaml", `${lead.name} → photo`, lead.photo);
 for (const subteam of team?.subteams ?? []) {

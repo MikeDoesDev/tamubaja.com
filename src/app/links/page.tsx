@@ -27,6 +27,7 @@ export default function LinksPage() {
     { href: "/development", label: "Development program", note: "How new members go from first meeting to the car" },
     { href: "/car", label: `Follow the ${car.buildSeason} build`, note: "Where the car stands and what's next" },
     { href: "/team", label: "Meet the team", note: "Leads, subteams, and the student directory" },
+    { href: "https://www.tamusae.org/baja", label: "Baja on tamusae.org", note: "Our page on the Texas A&M SAE site", external: true },
     { href: "/", label: "tamubaja.com", note: "The full website" },
   ];
 

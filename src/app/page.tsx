@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BuildStatus } from "@/components/BuildStatus";
+import { Garage } from "@/components/Garage";
+import { Plate } from "@/components/Plate";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/Hero";
@@ -44,6 +46,22 @@ export default function HomePage() {
       <Hero site={site} />
       <StatsStrip stats={site.homeStats} />
 
+      {/* Action strip: real competition photos, each tagged with its race number. */}
+      <div className="grid grid-cols-1 gap-1 bg-bg sm:grid-cols-[1.2fr_1fr_1fr]">
+        {[
+          { src: "/images/cars/car-124-mud.jpg", number: 124, alt: "Car #124 covered in mud at competition" },
+          { src: "/images/cars/car-124-corner.jpg", number: 124, alt: "Car #124 sliding through a turn" },
+          { src: "/images/cars/car-56.jpg", number: 56, alt: "Car #56 in its retro sunset livery" },
+        ].map((shot) => (
+          <figure key={shot.src} className="relative h-56 overflow-hidden sm:h-72">
+            <Image src={shot.src} alt={shot.alt} fill sizes="(min-width: 640px) 33vw, 100vw" className="object-cover" />
+            <figcaption className="absolute bottom-3 left-3">
+              <Plate number={shot.number} />
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
       <Section>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>
@@ -77,9 +95,9 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section>
+      <Section className="topo-bg">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image src={car.photo} alt={`The Texas A&M Baja ${car.season} car`} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
           </div>
           <div>
@@ -99,6 +117,16 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+
+      {car.garage.length > 0 && (
+        <Section>
+          <Eyebrow>The garage</Eyebrow>
+          <SectionHeading>Every car has a number</SectionHeading>
+          <div className="mt-10">
+            <Garage cars={car.garage} />
+          </div>
+        </Section>
+      )}
 
       <Section className="bg-panel/40">
         <Eyebrow>Best finishes</Eyebrow>
