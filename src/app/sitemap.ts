@@ -9,6 +9,7 @@ const PAGES = [
   { path: "/partners", priority: 0.8 },
   { path: "/car", priority: 0.7 },
   { path: "/team", priority: 0.7 },
+  { path: "/team/directory", priority: 0.6 },
   { path: "/development", priority: 0.6 },
 ];
 

@@ -1,4 +1,5 @@
 import { ButtonLink } from "@/components/ButtonLink";
+import { DonateCard } from "@/components/DonateCard";
 import { Faq } from "@/components/Faq";
 import { InquiryForm } from "@/components/InquiryForm";
 import { PageHero } from "@/components/PageHero";
@@ -72,9 +73,12 @@ export default function SponsorsPage() {
               </div>
             ))}
           </dl>
-          <div className="mt-6">
+          <div className="mt-6 flex flex-wrap gap-4">
             <ButtonLink href="/sponsors?interest=inkind#inquire" variant="secondary">
               Offer an in-kind donation
+            </ButtonLink>
+            <ButtonLink href="#donate" variant="secondary">
+              Make a monetary donation
             </ButtonLink>
           </div>
         </div>
@@ -120,55 +124,21 @@ export default function SponsorsPage() {
       </Section>
 
       <Section id="donate">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-center">
-          <div>
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-start">
+          <div className="lg:pt-6">
             <Eyebrow>Individuals and alumni</Eyebrow>
             <SectionHeading>Make a donation</SectionHeading>
             <p className="mt-4 text-lg text-muted">
               Not a company? Every gift helps buy materials, cover competition fees, and get the car to the start line.
-              Donations are tax-deductible.
+              Gifts go through the Texas A&amp;M Foundation and are tax-deductible.
             </p>
-            <div className="mt-8">
-              <ButtonLink href={site.giving.donateUrl} external>
-                Donate
-              </ButtonLink>
-            </div>
+            <ul className="mt-6 space-y-2 text-muted">
+              <li>▸ Raw materials and machining time</li>
+              <li>▸ Competition registration and travel</li>
+              <li>▸ Tools and safety gear for new members</li>
+            </ul>
           </div>
-          <details className="group rounded-sm border border-line bg-panel p-6 sm:p-8">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-2xl font-extrabold uppercase">
-              Give through the Texas A&amp;M Foundation or by check
-              <span aria-hidden="true" className="text-accent transition-transform group-open:rotate-45">+</span>
-            </summary>
-            <div className="mt-6 grid gap-8 sm:grid-cols-2">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Online</p>
-                <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-muted">
-                  {site.giving.steps.map((step) => (
-                    <li key={step}>{step}</li>
-                  ))}
-                </ol>
-                <p className="mt-4 text-sm text-muted">
-                  Account code <span className="font-display text-xl font-extrabold text-ink">{site.giving.accountCode}</span>
-                </p>
-                <a href={site.giving.foundationUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold text-accent underline underline-offset-4">
-                  Open the Foundation giving page
-                </a>
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">By check</p>
-                <p className="mt-3 text-sm text-muted">
-                  Payable to <strong className="text-ink">{site.giving.checkPayableTo}</strong>, mailed to:
-                </p>
-                <address className="mt-2 text-sm not-italic">
-                  {site.giving.checkAddress.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </address>
-              </div>
-            </div>
-          </details>
+          <DonateCard giving={site.giving} />
         </div>
       </Section>
 

@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { ordinal } from "@/lib/format";
+import { ordinal, seasonSlug } from "@/lib/format";
 import type { Season } from "@/lib/schemas";
 
 export function SeasonTimeline({ seasons }: { seasons: Season[] }) {
   return (
     <ol className="space-y-6 border-l-2 border-line pl-6 sm:pl-10">
       {seasons.map((season) => (
-        <li key={season.season} className="relative">
+        <li key={season.season} id={`season-${seasonSlug(season.season)}`} className="relative scroll-mt-24">
           <span aria-hidden="true" className="absolute -left-[33px] top-6 h-4 w-4 rounded-full border-2 border-accent bg-bg sm:-left-[49px]" />
           <div className="gap-6 rounded-sm border border-line bg-panel p-5 sm:flex sm:items-start sm:justify-between">
             <div className="flex-1">
