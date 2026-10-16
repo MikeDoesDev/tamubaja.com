@@ -1,18 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("sponsor logos light up on hover", async ({ page, isMobile }) => {
-  test.skip(isMobile, "hover needs a mouse");
-  await page.goto("/partners");
-  const tile = page.getByTestId("sponsor-grid").locator("[data-sponsor-tile]").first();
-  test.skip((await tile.count()) === 0, "no sponsors are shown yet");
-  const logo = tile.locator("img");
-  await expect(logo).toHaveCSS("filter", /grayscale\(1\)/);
-  await tile.hover();
-  await expect(logo).toHaveCSS("filter", /grayscale\(0\)/);
-});
-
-test("touch devices show logos in full color", async ({ page, isMobile }) => {
-  test.skip(!isMobile, "touch only");
+test("sponsor logos show in full color", async ({ page }) => {
   await page.goto("/partners");
   const tile = page.getByTestId("sponsor-grid").locator("[data-sponsor-tile]").first();
   test.skip((await tile.count()) === 0, "no sponsors are shown yet");

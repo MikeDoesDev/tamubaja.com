@@ -1,46 +1,68 @@
 import Link from "next/link";
-import { getCar, getSponsors } from "@/lib/content";
-import { groupSponsors } from "@/lib/sponsors";
+import { getCar, getSponsors, getTiers } from "@/lib/content";
+import { groupSponsors, type SponsorGroup } from "@/lib/sponsors";
 import { SponsorTile, type TileSize } from "./SponsorTile";
 
-const TILE_SIZE: Record<string, TileSize> = {
-  platinum: "lg",
-  gold: "lg",
-  silver: "md",
-  bronze: "sm",
-  inkind: "sm",
+const LAYOUT: Record<SponsorGroup["tier"], { size: TileSize; cols: string }> = {
+  platinum: { size: "lg", cols: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" },
+  gold: { size: "lg", cols: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" },
+  silver: { size: "md", cols: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" },
+  bronze: { size: "sm", cols: "grid-cols-2 sm:grid-cols-4 lg:grid-cols-6" },
+  inkind: { size: "sm", cols: "grid-cols-2 sm:grid-cols-4 lg:grid-cols-6" },
 };
 
+/**
+ * Sponsor logos grouped by tier, each tier with its color bar and count.
+ * `featured` shows only the top tiers plus a link to the full list (used above the tiers on /sponsors).
+ */
 export function SponsorGrid({
   showNames = false,
   headingLevel = "h3",
+  featured = false,
 }: {
   showNames?: boolean;
   headingLevel?: "h2" | "h3";
+  featured?: boolean;
 }) {
-  const groups = groupSponsors(getSponsors());
-  if (groups.length === 0) return <EmptyWall />;
+  const all = groupSponsors(getSponsors());
+  if (all.length === 0) return <EmptyWall />;
+  const tierColors = Object.fromEntries(getTiers().tiers.map((tier) => [tier.id, tier.badgeColor]));
+  const groups = featured ? all.filter((group) => ["platinum", "gold", "silver"].includes(group.tier)) : all;
+  const total = all.reduce((sum, group) => sum + group.sponsors.length, 0);
+  const shown = groups.reduce((sum, group) => sum + group.sponsors.length, 0);
   const Heading = headingLevel;
+
   return (
-    <div className="space-y-14" data-testid="sponsor-grid">
-      {groups.map((group) => (
-        <section key={group.tier} aria-labelledby={`sponsor-tier-${group.tier}`}>
-          <Heading
-            id={`sponsor-tier-${group.tier}`}
-            className="mb-6 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted"
-          >
-            {group.label}
-          </Heading>
-          <ul className="flex flex-wrap justify-center gap-5">
-            {group.sponsors.map((sponsor) => (
-              <li key={sponsor.name} className="flex flex-col items-center gap-2">
-                <SponsorTile sponsor={sponsor} size={TILE_SIZE[group.tier]} />
-                {showNames && <span className="text-xs text-muted">{sponsor.name}</span>}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+    <div className="space-y-12" data-testid="sponsor-grid">
+      {groups.map((group) => {
+        const layout = LAYOUT[group.tier];
+        return (
+          <section key={group.tier} aria-labelledby={`sponsor-tier-${group.tier}`}>
+            <div className="mb-5 flex items-center gap-3">
+              <span aria-hidden="true" className="h-5 w-1.5 rounded-full" style={{ backgroundColor: tierColors[group.tier] ?? "var(--color-accent)" }} />
+              <Heading id={`sponsor-tier-${group.tier}`} className="font-display text-2xl font-extrabold uppercase">
+                {group.label}
+              </Heading>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">{group.sponsors.length}</span>
+              <span aria-hidden="true" className="h-px flex-1 bg-line" />
+            </div>
+            <ul className={`grid gap-4 ${layout.cols}`}>
+              {group.sponsors.map((sponsor) => (
+                <li key={sponsor.name}>
+                  <SponsorTile sponsor={sponsor} size={layout.size} showName={showNames} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+      {featured && total > shown && (
+        <p className="text-center">
+          <Link href="/partners" className="inline-flex items-center gap-2 font-semibold text-ink underline decoration-accent underline-offset-4 hover:text-accent">
+            See all {total} partners, including our in-kind supporters <span aria-hidden="true">→</span>
+          </Link>
+        </p>
+      )}
     </div>
   );
 }

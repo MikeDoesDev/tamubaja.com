@@ -44,7 +44,7 @@ export default function TeamPage() {
       </Section>
 
       {team.leads.length > 0 && (
-        <Section className="bg-panel/40">
+        <Section id="leadership" className="bg-panel/40">
           <Eyebrow>Leadership</Eyebrow>
           <SectionHeading>Who runs the program</SectionHeading>
           <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -55,7 +55,7 @@ export default function TeamPage() {
         </Section>
       )}
 
-      <Section>
+      <Section id="subteams">
         <Eyebrow>Six subteams, one car</Eyebrow>
         <SectionHeading>Meet the subteams</SectionHeading>
         <p className="mt-4 max-w-2xl text-lg text-muted">

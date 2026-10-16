@@ -12,9 +12,9 @@ import type { Season } from "@/lib/schemas";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Texas A&M Baja SAE — Engineered to conquer the toughest terrain",
+  title: "Texas A&M Baja SAE | TAMU Baja Off-Road Racing Team",
   description:
-    "Texas A&M Baja SAE designs, builds, and races a new off-road car every year against 100+ universities. Sponsor the team behind car #51.",
+    "Texas A&M Baja SAE (TAMU Baja) is the Aggie student team in College Station that designs, builds, and races a new off-road car in the Baja SAE collegiate series. Sponsor car #51 or join the team.",
   path: "/",
   absolute: true,
 });

@@ -251,3 +251,9 @@ body {
   background: var(--color-panel);
   color: var(--color-ink);
 }
+
+/* Footer "Cars" links jump to a season on the Car page; highlight the one you landed on. */
+li:target > div {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
