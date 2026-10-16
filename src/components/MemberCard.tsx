@@ -19,7 +19,7 @@ export function MemberCard({ member, featured = false }: { member: Member; featu
       </div>
       <div className="min-w-0">
         <p className={`font-display font-extrabold uppercase leading-tight ${featured ? "text-2xl" : "text-xl"}`}>{member.name}</p>
-        {member.role && <p className="text-sm text-accent">{member.role}</p>}
+        {featured && member.role && <p className="text-sm text-accent">{member.role}</p>}
         {details && <p className="text-sm text-muted">{details}</p>}
       </div>
     </li>

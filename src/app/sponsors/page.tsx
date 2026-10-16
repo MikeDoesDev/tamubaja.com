@@ -3,6 +3,7 @@ import { Faq } from "@/components/Faq";
 import { InquiryForm } from "@/components/InquiryForm";
 import { MilestoneTimeline } from "@/components/MilestoneTimeline";
 import { PageHero } from "@/components/PageHero";
+import { SocialLinks } from "@/components/SocialLinks";
 import { SponsorGrid } from "@/components/SponsorGrid";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { TierCard } from "@/components/TierCard";
@@ -111,6 +112,8 @@ export default function SponsorsPage() {
                 Download the packet (PDF)
               </ButtonLink>
             </div>
+            <p className="mt-10 text-sm font-semibold uppercase tracking-[0.2em] text-muted">Or reach us directly</p>
+            <SocialLinks site={site} align="start" />
           </div>
           <InquiryForm accessKey={accessKey} email={site.email} />
         </div>

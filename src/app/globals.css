@@ -157,3 +157,95 @@ body {
     @apply font-sans;
   }
 }
+/* Footer social icons. Based on a Uiverse.io design by Artahs (MIT): white circles that fill
+   with each network's color from the bottom up, with a matching tooltip above. */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 3rem 0 0;
+}
+.social-links--start {
+  justify-content: flex-start;
+}
+.social-links__item {
+  position: relative;
+}
+.social-links__item a {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #4d4d4d;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+.social-links__item a svg {
+  position: relative;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+}
+.social-links__item a:hover,
+.social-links__item a:focus-visible {
+  color: #fff;
+  box-shadow: 3px 2px 45px 0 rgb(0 0 0 / 12%);
+}
+.social-links__fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: #000;
+  transition: all 0.3s ease-in-out;
+}
+.social-links__item a:hover .social-links__fill,
+.social-links__item a:focus-visible .social-links__fill {
+  height: 100%;
+}
+.social-links__tooltip {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.social-links__item:hover .social-links__tooltip,
+.social-links__item:focus-within .social-links__tooltip {
+  opacity: 1;
+  visibility: visible;
+  top: -42px;
+}
+.social-links a[data-social="instagram"] .social-links__fill,
+.social-links a[data-social="instagram"] + .social-links__tooltip {
+  background: linear-gradient(45deg, #405de6, #5b51db, #b33ab4, #c135b4, #e1306c, #fd1f1f);
+}
+.social-links a[data-social="linkedin"] .social-links__fill,
+.social-links a[data-social="linkedin"] + .social-links__tooltip {
+  background-color: #0274b3;
+}
+.social-links a[data-social="linktree"] .social-links__fill,
+.social-links a[data-social="linktree"] + .social-links__tooltip {
+  background-color: #2ab24d;
+}
+.social-links a[data-social="email"] .social-links__fill,
+.social-links a[data-social="email"] + .social-links__tooltip {
+  background-color: var(--color-maroon);
+}

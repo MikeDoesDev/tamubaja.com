@@ -1,5 +1,6 @@
 import { getSite } from "@/lib/content";
 import Link from "next/link";
+import { SocialLinks } from "./SocialLinks";
 import { SponsorMarquee } from "./SponsorMarquee";
 
 export function Footer() {
@@ -18,7 +19,7 @@ export function Footer() {
         </p>
       </div>
       <div className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
-        <div className="mt-14 grid gap-8 border-t border-line pt-10 text-sm text-muted sm:grid-cols-3">
+        <div className="mt-14 grid gap-8 border-t border-line pt-10 text-sm text-muted sm:grid-cols-2">
           <div>
             <p className="font-display text-xl font-bold uppercase text-ink">{site.name}</p>
             <p className="mt-2">{site.tagline}</p>
@@ -29,30 +30,9 @@ export function Footer() {
               {site.email}
             </a>
           </div>
-          <div>
-            <p className="font-semibold text-ink">Follow</p>
-            <ul className="mt-2 space-y-1">
-              <li>
-                <a href={site.socials.instagram} target="_blank" rel="noopener noreferrer" className={link}>
-                  Instagram
-                </a>
-              </li>
-              {site.socials.linkedin && (
-                <li>
-                  <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" className={link}>
-                    LinkedIn
-                  </a>
-                </li>
-              )}
-              <li>
-                <a href={site.socials.linktree} target="_blank" rel="noopener noreferrer" className={link}>
-                  Linktree
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
-        <p className="mt-10 text-xs text-muted">
+        <SocialLinks site={site} />
+        <p className="mt-10 text-center text-xs text-muted">
           Part of{" "}
           <a href="https://www.tamusae.org" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
             Texas A&amp;M SAE
