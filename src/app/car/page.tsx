@@ -5,7 +5,7 @@ import { MilestoneTimeline } from "@/components/MilestoneTimeline";
 import { PageHero } from "@/components/PageHero";
 import { SeasonTimeline } from "@/components/SeasonTimeline";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
-import { getCar, getSeasons, getSite } from "@/lib/content";
+import { getCar, getSeasons } from "@/lib/content";
 import { newestFirst } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
 
@@ -18,7 +18,6 @@ export const metadata = pageMetadata({
 
 export default function CarPage() {
   const car = getCar();
-  const site = getSite();
   const seasons = newestFirst(getSeasons());
 
   return (
@@ -103,7 +102,6 @@ export default function CarPage() {
       <CtaBand
         title="Put your name on the next car"
         body={`The ${car.buildSeason} car is being designed now. Partner with us to ride on it at Rollout and competition.`}
-        packetPdf={site.packetPdf}
       />
     </>
   );

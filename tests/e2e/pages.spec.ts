@@ -6,7 +6,6 @@ const ROUTES = [
   { path: "/partners", h1: /powered by our partners/i },
   { path: "/car", h1: /clean sheet/i },
   { path: "/team", h1: /team behind car #51/i },
-  { path: "/give", h1: /support the team/i },
   { path: "/development", h1: /development/i },
 ];
 

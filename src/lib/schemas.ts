@@ -36,8 +36,8 @@ export const siteSchema = z.object({
   email,
   socials: z.object({
     instagram: httpUrl,
-    linktree: httpUrl,
     linkedin: httpUrl.optional(),
+    saeBaja: httpUrl.optional(),
   }),
   packetPdf: publicPath,
   heroImage: publicPath,
@@ -51,6 +51,7 @@ export const siteSchema = z.object({
   homeStats: z.array(z.object({ value: text, label: text })).min(1).max(4),
   sponsorPillars: z.array(z.object({ title: text, body: text })).min(1),
   giving: z.object({
+    donateUrl: httpUrl,
     foundationUrl: httpUrl,
     accountCode: text,
     steps: z.array(text).min(1),

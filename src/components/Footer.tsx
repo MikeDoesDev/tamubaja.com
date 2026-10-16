@@ -31,7 +31,7 @@ export function Footer() {
             <Link href="/" aria-label={`${site.name} home`} className="relative block h-12 w-44">
               <Image src={site.logo} alt="" fill sizes="176px" className="object-contain object-left" />
             </Link>
-            <p className="mt-4 max-w-xs text-muted">{site.tagline} Designed, built, and raced by Aggies in College Station.</p>
+            <p className="mt-4 max-w-xs text-muted">{site.tagline}</p>
             <SocialLinks site={site} align="start" />
           </div>
 
@@ -45,31 +45,26 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/sponsors" className={link}>
-                  Become a Sponsor
-                </Link>
-              </li>
             </ul>
           </nav>
 
           <div>
-            <ColumnHeading>Get in touch</ColumnHeading>
+            <ColumnHeading>Support the team</ColumnHeading>
             <ul className="space-y-3">
+              <li>
+                <Link href="/sponsors" className={link}>
+                  Become a sponsor
+                </Link>
+              </li>
+              <li>
+                <Link href="/sponsors#donate" className={link}>
+                  Make a donation
+                </Link>
+              </li>
               <li>
                 <a href={`mailto:${site.email}`} className={`break-all ${link}`}>
                   {site.email}
                 </a>
-              </li>
-              <li>
-                <a href={site.packetPdf} download className={link}>
-                  Sponsor packet (PDF)
-                </a>
-              </li>
-              <li>
-                <Link href="/give" className={link}>
-                  Give through the A&amp;M Foundation
-                </Link>
               </li>
             </ul>
           </div>
@@ -78,7 +73,12 @@ export function Footer() {
         <div className="mt-14 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {site.name}. Part of{" "}
-            <a href="https://www.tamusae.org" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink">
+            <a
+              href={site.socials.saeBaja ?? "https://www.tamusae.org"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-ink"
+            >
               Texas A&amp;M SAE
             </a>
             .

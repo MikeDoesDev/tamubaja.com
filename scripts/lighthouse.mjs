@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
-const PAGES = ["/", "/sponsors", "/car", "/team", "/give"];
+const PAGES = ["/", "/sponsors", "/car", "/team", "/development"];
 const MINIMUMS = { performance: 0.9, accessibility: 0.95, seo: 0.95 };
 const outDir = path.join(process.cwd(), ".lighthouse");
 fs.mkdirSync(outDir, { recursive: true });
