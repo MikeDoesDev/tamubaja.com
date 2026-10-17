@@ -1,16 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BuildStatus } from "@/components/BuildStatus";
-import { Garage } from "@/components/Garage";
-import { Plate } from "@/components/Plate";
+import { CarCard } from "@/components/CarHistory";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/Hero";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
-import { StatsStrip } from "@/components/StatsStrip";
+import { PillarCards } from "@/components/PillarCards";
 import { getCar, getSeasons, getSite } from "@/lib/content";
-import { ordinal } from "@/lib/format";
-import type { Season } from "@/lib/schemas";
+import { buildCarYears, type CarYear } from "@/lib/cars";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -24,10 +22,9 @@ export const metadata = pageMetadata({
 export default function HomePage() {
   const site = getSite();
   const car = getCar();
-  const bestFinishes = getSeasons()
-    .filter((season): season is Season & { overall: number } => season.overall !== null)
-    .sort((a, b) => a.overall - b.overall)
-    .slice(0, 3);
+  const years = buildCarYears(getSeasons(), car.garage);
+  const featuredCars = years.filter((year): year is CarYear & { photo: string } => Boolean(year.photo)).slice(0, 3);
+  const earlier = years.filter((year) => !year.photo);
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -44,24 +41,6 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, "\u003c") }} />
       <Hero site={site} />
-      <StatsStrip stats={site.homeStats} />
-
-      {/* Action strip: real competition photos, each tagged with its race number. */}
-      <div className="grid grid-cols-1 gap-1 bg-bg sm:grid-cols-[1.2fr_1fr_1fr]">
-        {[
-          { src: "/images/cars/car-124-mud.jpg", number: 124, alt: "Car #124 covered in mud at competition" },
-          { src: "/images/cars/car-124-corner.jpg", number: 124, alt: "Car #124 sliding through a turn" },
-          { src: "/images/cars/car-56.jpg", number: 56, alt: "Car #56 in its retro sunset livery" },
-        ].map((shot) => (
-          <figure key={shot.src} className="relative h-56 overflow-hidden sm:h-72">
-            <Image src={shot.src} alt={shot.alt} fill sizes="(min-width: 640px) 33vw, 100vw" className="object-cover" />
-            <figcaption className="absolute bottom-3 left-3">
-              <Plate number={shot.number} />
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-
       <Section>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>
@@ -80,18 +59,20 @@ export default function HomePage() {
       </Section>
 
       <Section className="bg-panel/40">
-        <Eyebrow>Why sponsor</Eyebrow>
-        <SectionHeading>What your support gets you</SectionHeading>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {site.sponsorPillars.map((pillar) => (
-            <article key={pillar.title} className="rounded-sm border border-line bg-panel p-6">
-              <h3 className="font-display text-2xl font-extrabold uppercase">{pillar.title}</h3>
-              <p className="mt-2 text-muted">{pillar.body}</p>
-            </article>
-          ))}
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <Eyebrow>Why sponsor</Eyebrow>
+            <SectionHeading>Why partner with us</SectionHeading>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href="/sponsors#inquire">Become a Sponsor</ButtonLink>
+            <ButtonLink href="/sponsors#tiers" variant="secondary">
+              See the tiers
+            </ButtonLink>
+          </div>
         </div>
-        <div className="mt-8">
-          <ButtonLink href="/sponsors">See sponsorship tiers</ButtonLink>
+        <div className="mt-10">
+          <PillarCards pillars={site.sponsorPillars} />
         </div>
       </Section>
 
@@ -118,34 +99,32 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {car.garage.length > 0 && (
+      {featuredCars.length > 0 && (
         <Section>
-          <Eyebrow>The garage</Eyebrow>
-          <SectionHeading>Every car has a number</SectionHeading>
-          <div className="mt-10">
-            <Garage cars={car.garage} />
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Eyebrow>The garage · racing since 2018</Eyebrow>
+              <SectionHeading>Every car has a number</SectionHeading>
+            </div>
+            <Link href="/car#history" className="font-semibold text-accent underline underline-offset-4 hover:text-ink">
+              All cars and results
+            </Link>
           </div>
+          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredCars.map((year) => (
+              <CarCard key={year.slug} year={year} />
+            ))}
+          </ul>
+          {earlier.length > 0 && (
+            <p className="mt-6 text-sm text-muted">
+              Plus {earlier.length} earlier seasons, back to our first race in {earlier.at(-1)?.season}.{" "}
+              <Link href="/car#history" className="font-semibold text-ink underline decoration-accent underline-offset-4">
+                See them all
+              </Link>
+            </p>
+          )}
         </Section>
       )}
-
-      <Section className="bg-panel/40">
-        <Eyebrow>Best finishes</Eyebrow>
-        <SectionHeading>Racing against 100+ universities</SectionHeading>
-        <ul className="mt-10 grid gap-6 md:grid-cols-3">
-          {bestFinishes.map((season) => (
-            <li key={season.season} className="rounded-sm border border-line bg-panel p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">{season.season}</p>
-              <p className="mt-1 font-display text-2xl font-extrabold uppercase">{season.event}</p>
-              <p className="mt-3 font-display text-5xl font-extrabold text-accent">{ordinal(season.overall)}</p>
-              <p className="text-xs uppercase tracking-wide text-muted">Overall</p>
-              {season.highlights[0] && <p className="mt-3 text-sm text-muted">{season.highlights[0]}</p>}
-            </li>
-          ))}
-        </ul>
-        <Link href="/car#history" className="mt-8 inline-block font-semibold text-accent underline underline-offset-4">
-          Full competition history
-        </Link>
-      </Section>
 
       <CtaBand
         title="Put your name on the car"
