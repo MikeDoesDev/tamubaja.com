@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCar, getSeasons, getSite } from "@/lib/content";
-import { newestFirst, seasonSlug } from "@/lib/format";
+import { buildCarYears, carHref } from "@/lib/cars";
 import { SocialLinks } from "./SocialLinks";
 import { SponsorMarquee } from "./SponsorMarquee";
 
@@ -31,7 +31,7 @@ function FooterColumn({ title, links }: { title: string; links: { href: string; 
 export function Footer() {
   const site = getSite();
   const car = getCar();
-  const seasons = newestFirst(getSeasons());
+  const years = buildCarYears(getSeasons(), car.garage);
   return (
     <footer className="bg-bg">
       {/* The logo strip runs edge to edge; the rest of the footer keeps the content width. */}
@@ -76,7 +76,7 @@ export function Footer() {
             title="Cars"
             links={[
               { href: "/car#now", label: `${car.buildSeason} build` },
-              ...seasons.slice(0, 4).map((season) => ({ href: `/car#season-${seasonSlug(season.season)}`, label: `${season.season} car` })),
+              ...years.slice(0, 4).map((year) => ({ href: carHref(year), label: year.number ? `#${year.number} · ${year.season}` : `${year.season} car` })),
             ]}
           />
         </div>

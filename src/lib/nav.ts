@@ -25,9 +25,10 @@ export const NAV_LINKS: NavLink[] = [
     ],
   },
   {
-    href: "/partners",
+    href: "/sponsors",
     label: "Partners",
     children: [
+      { href: "/sponsors", label: "Partner with us", description: "Why sponsor, and how to start" },
       { href: "/partners", label: "Our partners", description: "The companies behind car #51" },
       { href: "/sponsors#tiers", label: "Sponsorship tiers", description: "What each level includes" },
       { href: "/sponsors#donate", label: "Donate", description: "Give as an individual or alum" },

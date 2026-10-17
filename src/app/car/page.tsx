@@ -4,9 +4,9 @@ import { CtaBand } from "@/components/CtaBand";
 import { MilestoneTimeline } from "@/components/MilestoneTimeline";
 import { PageHero } from "@/components/PageHero";
 import { CarHistory } from "@/components/CarHistory";
+import { buildCarYears } from "@/lib/cars";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { getCar, getSeasons } from "@/lib/content";
-import { newestFirst } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -18,7 +18,7 @@ export const metadata = pageMetadata({
 
 export default function CarPage() {
   const car = getCar();
-  const seasons = newestFirst(getSeasons());
+  const years = buildCarYears(getSeasons(), car.garage);
 
   return (
     <>
@@ -95,9 +95,9 @@ export default function CarPage() {
         <span id="garage" className="block scroll-mt-24" />
         <Eyebrow>The garage · racing since 2018</Eyebrow>
         <SectionHeading>Every car has a number</SectionHeading>
-        <p className="mt-4 max-w-2xl text-lg text-muted">Our cars and how each one finished, newest first.</p>
+        <p className="mt-4 max-w-2xl text-lg text-muted">Every car we&apos;ve raced and how it finished, newest first. Tap a car for its page.</p>
         <div className="mt-10">
-          <CarHistory seasons={seasons} garage={car.garage} />
+          <CarHistory years={years} />
         </div>
       </Section>
 

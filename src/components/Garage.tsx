@@ -9,7 +9,7 @@ export function Garage({ cars }: { cars: GarageCar[] }) {
   return (
     <ul className="grid gap-6 md:grid-cols-3">
       {cars.map((car) => {
-        const href = car.season ? `/car#season-${seasonSlug(car.season)}` : `/car#car-${car.number}`;
+        const href = car.season ? `/car/${seasonSlug(car.season)}` : "/car#history";
         return (
           <li key={car.number}>
             <Link href={href} className="group block overflow-hidden rounded-2xl border border-line bg-panel transition duration-300 hover:-translate-y-1 hover:border-accent/50">
@@ -32,7 +32,7 @@ export function Garage({ cars }: { cars: GarageCar[] }) {
                 )}
                 <span className="mt-3 block text-sm text-muted">{car.description}</span>
                 <span className="mt-4 block text-sm font-semibold text-ink underline decoration-accent underline-offset-4">
-                  {car.season ? "See its competition result" : "See the car"}
+                  See the car
                 </span>
               </span>
             </Link>
