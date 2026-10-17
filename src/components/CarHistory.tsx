@@ -42,7 +42,7 @@ function Arrow() {
 }
 
 /** A photo card: plate, year, placement, recognition. */
-function CarCard({ year }: { year: CarYear & { photo: string } }) {
+export function CarCard({ year }: { year: CarYear & { photo: string } }) {
   return (
     <li id={`season-${year.slug}`} className="scroll-mt-24">
       <Link
