@@ -17,6 +17,8 @@ export interface CarYear {
   highlights: string[];
   /** The season's biggest step forward: written in seasons.yaml, or the overall places gained. */
   improvement?: string;
+  specs: { label: string; value: string }[];
+  leads: { name: string; role: string }[];
 }
 
 /** Every season with a result or a garage car, newest first. */
@@ -33,11 +35,13 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
       fieldSize: s.fieldSize,
       highlights: s.highlights,
       improvement: s.improvement,
+      specs: s.specs,
+      leads: s.leads,
     });
   }
   for (const car of garage) {
     if (!car.season) continue;
-    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [] };
+    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], specs: [], leads: [] };
     years.set(car.season, {
       ...year,
       number: car.number,
