@@ -98,6 +98,7 @@ export const seasonsSchema = z.array(
     overall: z.number().int().positive().nullable(),
     fieldSize: z.number().int().positive().optional(),
     highlights: list(z.array(text)),
+    improvement: text.optional(),
     photo: publicPath.optional(),
   }),
 );

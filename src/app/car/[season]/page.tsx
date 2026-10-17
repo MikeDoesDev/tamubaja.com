@@ -127,6 +127,13 @@ export default async function CarYearPage({ params }: { params: Promise<{ season
               <Stat label="Livery">{year.livery ?? "—"}</Stat>
             </dl>
 
+            {year.improvement && (
+              <div className="mt-4 rounded-2xl border-l-4 border-maroon bg-maroon/25 p-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">Step forward</p>
+                <p className="mt-1 font-display text-2xl font-extrabold uppercase leading-tight">{year.improvement}</p>
+              </div>
+            )}
+
             {year.highlights.length > 0 && (
               <div className="mt-4 rounded-2xl border border-line bg-panel p-6">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Recognition</p>

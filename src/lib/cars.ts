@@ -15,6 +15,8 @@ export interface CarYear {
   overall?: number | null;
   fieldSize?: number;
   highlights: string[];
+  /** The season's biggest step forward: written in seasons.yaml, or the overall places gained. */
+  improvement?: string;
 }
 
 /** Every season with a result or a garage car, newest first. */
@@ -30,6 +32,7 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
       overall: s.overall,
       fieldSize: s.fieldSize,
       highlights: s.highlights,
+      improvement: s.improvement,
     });
   }
   for (const car of garage) {
@@ -43,7 +46,16 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
       description: car.description,
     });
   }
-  return newestFirst([...years.values()]);
+  const ordered = newestFirst([...years.values()]);
+  // No written improvement? Credit the climb in overall placing since the last ranked season.
+  ordered.forEach((year, index) => {
+    if (year.improvement || typeof year.overall !== "number") return;
+    const previous = ordered.slice(index + 1).find((older) => typeof older.overall === "number");
+    if (previous && typeof previous.overall === "number" && previous.overall > year.overall) {
+      year.improvement = `Up ${previous.overall - year.overall} places overall from ${previous.season}`;
+    }
+  });
+  return ordered;
 }
 
 export const carHref = (year: Pick<CarYear, "slug">) => `/car/${year.slug}`;

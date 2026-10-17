@@ -1,12 +1,16 @@
 # Competition history. Add the newest season at the top.
 # overall: the overall placing as a number, or null if there was no overall result.
+# highlights: awards and event finishes, written like "4th Design".
+# improvement (optional): the one biggest step forward that season, e.g. "First podium".
+#   Leave it out and the site shows how many places the team climbed overall, when it did.
 # Only add results the team has confirmed.
 - season: 2024–25
   event: Baja SAE Maryland
   location: Maryland
   overall: 31
+  improvement: First podium in team history
   highlights:
-    - 3rd Acceleration — first podium
+    - 3rd Acceleration
 - season: 2023–24
   event: Baja SAE Williamsport
   location: Williamsport, Pennsylvania
@@ -30,14 +34,14 @@
   location: Online
   overall: null
   highlights:
-    - 8th of 156 — Virtual Knowledge Event
+    - 8th of 156, Virtual Knowledge Event
 - season: 2019–20
   event: Virtual competition
   location: Online
   overall: 16
+  improvement: First four-wheel-drive car
   highlights:
-    - Team-record finish
-    - First four-wheel-drive car
+    - Team-record overall finish
 - season: 2018–19
   event: Baja SAE California
   location: California
@@ -50,6 +54,6 @@
   location: Kansas
   overall: 33
   fieldSize: 95
+  improvement: Our first Baja SAE competition
   highlights:
-    - First competition
     - 7th Maneuverability
