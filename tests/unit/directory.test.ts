@@ -17,9 +17,9 @@ const team: Team = {
 };
 
 describe("buildDirectory", () => {
-  it("lists each person once, merging subteams and titles, leads first", () => {
+  it("lists each person once, merging subteams and titles, alphabetical by last name", () => {
     const people = buildDirectory(team);
-    expect(people.map((p) => p.name)).toEqual(["Rowan Cockrell", "Bo Adams", "Ann Zed"]);
-    expect(people[0]).toMatchObject({ titles: ["Manufacturing Lead"], subteams: ["Powertrain", "Manufacturing"], major: "MMET" });
+    expect(people.map((p) => p.name)).toEqual(["Bo Adams", "Rowan Cockrell", "Ann Zed"]);
+    expect(people[1]).toMatchObject({ titles: ["Manufacturing Lead"], subteams: ["Powertrain", "Manufacturing"], major: "MMET" });
   });
 });
