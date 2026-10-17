@@ -66,7 +66,7 @@ if (car) {
   for (const entry of car.garage) requireFile("car.yaml", `garage #${entry.number} → photo`, entry.photo);
   const seasonNames = new Set((seasons ?? []).map((season) => season.season));
   for (const entry of car.garage) {
-    if (entry.season && seasons && !seasonNames.has(entry.season)) {
+    if (entry.season && seasons && !seasonNames.has(entry.season) && entry.season !== car.season) {
       problems.push(`Problem in content/car.yaml:\n  • garage #${entry.number} → season: "${entry.season}" doesn't match any season in seasons.yaml`);
     }
   }

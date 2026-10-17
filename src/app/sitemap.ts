@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getSite } from "@/lib/content";
+import { buildCarYears, carHref } from "@/lib/cars";
+import { getCar, getSeasons, getSite } from "@/lib/content";
 
 export const dynamic = "force-static";
 
@@ -15,7 +16,8 @@ const PAGES = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getSite().url;
-  return PAGES.map((page) => ({
+  const carPages = buildCarYears(getSeasons(), getCar().garage).map((year) => ({ path: carHref(year), priority: 0.5 }));
+  return [...PAGES, ...carPages].map((page) => ({
     url: `${base}${page.path}`,
     lastModified: new Date(),
     changeFrequency: "monthly",

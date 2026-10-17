@@ -29,11 +29,13 @@ buildProcess:
   - name: Compete
     description: The car debuts at our spring Rollout, then races endurance, acceleration, hill climb, and design events against 100+ universities.
 # "The garage": past cars by race number. Add `season:` (exactly as written in seasons.yaml)
-# to connect a car to its competition result on the Car page.
+# to connect a car to its competition result. Each season gets its own page at /car/<season>.
+# The current season (above) can be listed before its result is added to seasons.yaml.
 garage:
   - number: 51
+    season: 2025–26
     photo: /images/cars/car-51-rear.jpg
-    description: Black livery with white topographic lines and Aggie script. Our most recent car.
+    description: Black livery with white topographic lines and Aggie script.
     livery: Black topo
   - number: 124
     season: 2024–25

@@ -1,97 +1,137 @@
 import Image from "next/image";
-import { ordinal, seasonSlug } from "@/lib/format";
-import type { GarageCar, Season } from "@/lib/schemas";
+import Link from "next/link";
+import { carHref, type CarYear } from "@/lib/cars";
+import { ordinal } from "@/lib/format";
 import { Plate } from "./Plate";
 
-function Result({ season }: { season: Season }) {
-  if (season.overall === null) return null;
+/** "31st", or a muted note when there's no overall result. */
+export function Placement({ year, size = "lg" }: { year: CarYear; size?: "lg" | "sm" }) {
+  const big = size === "lg" ? "text-5xl" : "text-3xl";
+  if (year.overall === undefined) {
+    return (
+      <p className="text-right">
+        <span className={`block font-display ${big} font-extrabold leading-none text-muted`}>TBA</span>
+        <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Result coming</span>
+      </p>
+    );
+  }
+  if (year.overall === null) {
+    return (
+      <p className="text-right">
+        <span className={`block font-display ${big} font-extrabold leading-none text-muted`}>—</span>
+        <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">No overall</span>
+      </p>
+    );
+  }
   return (
-    <p className="shrink-0">
-      <span className="block font-display text-6xl font-extrabold leading-none text-accent">{ordinal(season.overall)}</span>
-      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-        Overall{season.fieldSize ? ` of ${season.fieldSize}` : ""}
+    <p className="text-right">
+      <span className={`block font-display ${big} font-extrabold leading-none text-accent`}>{ordinal(year.overall)}</span>
+      <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">
+        Overall{year.fieldSize ? ` of ${year.fieldSize}` : ""}
       </span>
     </p>
   );
 }
 
-function Highlights({ items }: { items: string[] }) {
-  if (items.length === 0) return null;
+function Arrow() {
   return (
-    <ul className="mt-4 flex flex-wrap gap-2">
-      {items.map((item) => (
-        <li key={item} className="rounded-full bg-panel-2 px-3 py-1 text-xs">
-          {item}
-        </li>
-      ))}
-    </ul>
+    <span aria-hidden="true" className="inline-block transition-transform group-hover:translate-x-1">
+      →
+    </span>
   );
 }
 
-/** A car with its photo, number plate, and (when known) the competition it raced. */
-function FeatureCard({ car, season, flip }: { car: GarageCar; season?: Season; flip: boolean }) {
+/** A photo card: plate, year, placement, recognition. */
+function CarCard({ year }: { year: CarYear & { photo: string } }) {
   return (
-    <article
-      id={season ? `season-${seasonSlug(season.season)}` : `car-${car.number}`}
-      className="grid scroll-mt-24 overflow-hidden rounded-3xl border border-line bg-panel lg:grid-cols-2"
-    >
-      <div className={`relative min-h-72 ${flip ? "lg:order-2" : ""}`}>
-        <Image src={car.photo} alt={`Texas A&M Baja car #${car.number}`} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
-      </div>
-      <div className="flex flex-col justify-center p-7 sm:p-10">
-        <div className="flex items-center gap-3">
-          <Plate number={car.number} className="!text-3xl" />
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            {[season?.season, car.livery].filter(Boolean).join(" · ")}
+    <li id={`season-${year.slug}`} className="scroll-mt-24">
+      <Link
+        href={carHref(year)}
+        className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition duration-300 hover:-translate-y-1 hover:border-accent/50"
+      >
+        <span className="relative block aspect-[4/3] overflow-hidden">
+          <Image
+            src={year.photo}
+            alt={`Texas A&M Baja car${year.number ? ` #${year.number}` : ""}, ${year.season}`}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          {year.number && <Plate number={year.number} className="absolute left-4 top-4" />}
+        </span>
+        <span className="flex flex-1 flex-col p-6">
+          <span className="flex items-end justify-between gap-4">
+            <span>
+              <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Season</span>
+              <span className="block font-display text-4xl font-extrabold leading-none">{year.season}</span>
+            </span>
+            <Placement year={year} />
           </span>
-        </div>
-        <h3 className="mt-5 font-display text-4xl font-extrabold uppercase leading-none sm:text-5xl">
-          {season ? season.event : `Car #${car.number}`}
-        </h3>
-        {season && <p className="mt-1 text-sm text-muted">{season.location}</p>}
-        <p className="mt-4 text-muted">{car.description}</p>
-        {season && <Highlights items={season.highlights} />}
-        {season && (
-          <div className="mt-6">
-            <Result season={season} />
-          </div>
-        )}
-      </div>
-    </article>
+          {year.highlights.length > 0 && (
+            <span className="mt-5 block space-y-1.5 border-t border-line pt-4">
+              {year.highlights.map((item) => (
+                <span key={item} className="flex gap-2 text-sm text-ink/85">
+                  <span aria-hidden="true" className="text-accent">
+                    ★
+                  </span>
+                  {item}
+                </span>
+              ))}
+            </span>
+          )}
+          <span className="mt-auto pt-5 text-sm font-semibold text-accent">
+            View the car <Arrow />
+          </span>
+        </span>
+      </Link>
+    </li>
   );
 }
 
-/**
- * The garage and competition history in one list, newest first. Seasons with a car photo get a
- * full card; older seasons without one get a compact row. Each season keeps its #season-… anchor.
- */
-export function CarHistory({ seasons, garage }: { seasons: Season[]; garage: GarageCar[] }) {
-  const unmatched = garage.filter((car) => !car.season || !seasons.some((season) => season.season === car.season));
-  let featureIndex = 0;
+/** A slim row for seasons we don't have a car photo for yet. */
+function SeasonRow({ year }: { year: CarYear }) {
   return (
-    <div className="space-y-5">
-      {unmatched.map((car) => (
-        <FeatureCard key={car.number} car={car} flip={featureIndex++ % 2 === 1} />
-      ))}
-      {seasons.map((season) => {
-        const car = garage.find((entry) => entry.season === season.season);
-        if (car) return <FeatureCard key={season.season} car={car} season={season} flip={featureIndex++ % 2 === 1} />;
-        return (
-          <article
-            key={season.season}
-            id={`season-${seasonSlug(season.season)}`}
-            className="flex scroll-mt-24 flex-col gap-4 rounded-2xl border border-line bg-panel p-6 sm:flex-row sm:items-center sm:justify-between"
-          >
-            <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">{season.season}</p>
-              <h3 className="mt-1 font-display text-3xl font-extrabold uppercase">{season.event}</h3>
-              <p className="text-sm text-muted">{season.location}</p>
-              <Highlights items={season.highlights} />
-            </div>
-            <Result season={season} />
-          </article>
-        );
-      })}
+    <li id={`season-${year.slug}`} className="scroll-mt-24">
+      <Link
+        href={carHref(year)}
+        className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-2 px-5 py-5 transition-colors hover:bg-panel-2 sm:grid-cols-[8.5rem_1fr_auto_1.5rem] sm:px-7"
+      >
+        <span className="col-start-1 row-start-1 font-display text-3xl font-extrabold leading-none">{year.season}</span>
+        <span className="col-span-2 col-start-1 row-start-2 text-sm text-ink/80 sm:col-span-1 sm:col-start-2 sm:row-start-1">
+          {year.highlights.join(" · ")}
+        </span>
+        <span className="col-start-2 row-start-1 sm:col-start-3">
+          <Placement year={year} size="sm" />
+        </span>
+        <span className="hidden text-accent sm:col-start-4 sm:row-start-1 sm:block">
+          <Arrow />
+        </span>
+      </Link>
+    </li>
+  );
+}
+
+/** Every car, newest first: photo cards for cars we have pictures of, slim rows for the rest. */
+export function CarHistory({ years }: { years: CarYear[] }) {
+  const withPhotos = years.filter((year): year is CarYear & { photo: string } => Boolean(year.photo));
+  const rest = years.filter((year) => !year.photo);
+  return (
+    <div>
+      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {withPhotos.map((year) => (
+          <CarCard key={year.slug} year={year} />
+        ))}
+      </ul>
+      {rest.length > 0 && (
+        <>
+          <p className="mb-4 mt-14 text-xs font-semibold uppercase tracking-[0.2em] text-accent">Earlier seasons</p>
+          <ul className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-panel">
+            {rest.map((year) => (
+              <SeasonRow key={year.slug} year={year} />
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
