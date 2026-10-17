@@ -3,6 +3,13 @@
 # highlights: awards and event finishes, written like "4th Design".
 # improvement (optional): the one biggest step forward that season, e.g. "First podium".
 #   Leave it out and the site shows how many places the team climbed overall, when it did.
+# specs and leads (optional) show on that season's car page. Don't add specs for a car that is still competing.
+#   specs:
+#     - label: Engine
+#       value: Briggs & Stratton 10 HP
+#   leads:
+#     - name: Jane Doe
+#       role: Chief Engineer
 # Only add results the team has confirmed.
 - season: 2024–25
   event: Baja SAE Maryland

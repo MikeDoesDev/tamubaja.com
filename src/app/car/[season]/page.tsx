@@ -152,7 +152,48 @@ export default async function CarYearPage({ params }: { params: Promise<{ season
           </div>
         </div>
 
-        <nav aria-label="More cars" className="mt-14 grid grid-cols-2 gap-4">
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
+            <h2 className="font-display text-3xl font-extrabold uppercase">Specs</h2>
+            {year.specs.length > 0 ? (
+              <dl className="mt-5 divide-y divide-line">
+                {year.specs.map((spec) => (
+                  <div key={spec.label} className="flex justify-between gap-6 py-3">
+                    <dt className="text-sm text-muted">{spec.label}</dt>
+                    <dd className="text-right font-semibold">{spec.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <p className="mt-3 text-muted">
+                We&apos;re pulling this car&apos;s spec sheet from the team archives. Check back soon.
+              </p>
+            )}
+          </div>
+          <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
+            <h2 className="font-display text-3xl font-extrabold uppercase">The team behind it</h2>
+            {year.leads.length > 0 ? (
+              <ul className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-2">
+                {year.leads.map((lead) => (
+                  <li key={`${lead.role}-${lead.name}`}>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{lead.role}</p>
+                    <p className="font-display text-xl font-bold uppercase">{lead.name}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-3 text-muted">
+                Led this car or know who did?{" "}
+                <a href={`mailto:${site.email}?subject=${encodeURIComponent(`${year.season} car leads`)}`} className="font-semibold text-ink underline decoration-accent underline-offset-4">
+                  Tell us
+                </a>{" "}
+                so we can credit the leads and members who built it.
+              </p>
+            )}
+          </div>
+        </div>
+
+        <nav aria-label="More cars" className="mt-10 grid grid-cols-2 gap-4">
           <Neighbor year={years[index - 1]} label="← Newer" align="left" />
           <Neighbor year={years[index + 1]} label="Older →" align="right" />
         </nav>
