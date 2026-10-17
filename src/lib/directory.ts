@@ -10,7 +10,7 @@ export interface DirectoryPerson {
   subteams: string[];
 }
 
-/** One entry per person across leadership and every subteam, sorted with leads first, then by last name. */
+/** One entry per person across leadership and every subteam, sorted alphabetically by last name (then first name). */
 export function buildDirectory(team: Team): DirectoryPerson[] {
   const people = new Map<string, DirectoryPerson>();
   const upsert = (
@@ -34,6 +34,6 @@ export function buildDirectory(team: Team): DirectoryPerson[] {
 
   const lastName = (name: string) => name.trim().split(/\s+/).at(-1) ?? name;
   return [...people.values()].sort(
-    (a, b) => Number(b.titles.length > 0) - Number(a.titles.length > 0) || lastName(a.name).localeCompare(lastName(b.name)),
+    (a, b) => lastName(a.name).localeCompare(lastName(b.name)) || a.name.localeCompare(b.name),
   );
 }
