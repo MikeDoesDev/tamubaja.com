@@ -4,7 +4,6 @@ import { DonateCard } from "@/components/DonateCard";
 import { Faq } from "@/components/Faq";
 import { InquiryForm } from "@/components/InquiryForm";
 import { PillarCards } from "@/components/PillarCards";
-import { PageHero } from "@/components/PageHero";
 import { SocialLinks } from "@/components/SocialLinks";
 import { SponsorGrid } from "@/components/SponsorGrid";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
@@ -28,19 +27,42 @@ export default function SponsorsPage() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Sponsorship"
-        title="Partner with Texas A&M Baja"
-        intro="Put your brand on a car designed, built, and raced by Aggie engineers, and meet the students behind it."
-        actions={
-          <>
-            <ButtonLink href="#inquire">Start a partnership</ButtonLink>
-            <ButtonLink href="#tiers" variant="secondary">
-              See the tiers
-            </ButtonLink>
-          </>
-        }
-      />
+      <section className="topo-bg border-b border-line">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-12 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:gap-14 lg:pb-20 lg:pt-16">
+          <div>
+            <Eyebrow>Sponsorship</Eyebrow>
+            <h1 className="font-display text-5xl font-extrabold uppercase leading-[0.9] sm:text-7xl">Partner with Texas A&amp;M Baja</h1>
+            <p className="mt-6 max-w-xl text-lg text-muted">
+              Put your brand on a car designed, built, and raced by Aggie engineers, and meet the students behind it.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <ButtonLink href="#inquire">Start a partnership</ButtonLink>
+              <ButtonLink href="#tiers" variant="secondary">
+                See the tiers
+              </ButtonLink>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="relative col-span-2 aspect-[16/9] overflow-hidden rounded-3xl border border-line">
+              <Image
+                src={site.heroImage}
+                alt="Car #51 racing with sponsor logos on its body panels"
+                fill
+                preload
+                quality={75}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover object-[50%_25%]"
+              />
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+              <Image src={site.teamPhoto} alt="The Texas A&M Baja SAE team" fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+              <Image src="/images/cars/car-124-corner.jpg" alt="Car #124 cornering at competition" fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Section id="partners" className="bg-panel/40">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
