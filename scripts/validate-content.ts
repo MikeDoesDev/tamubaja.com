@@ -63,7 +63,10 @@ for (const season of seasons ?? []) requireFile("seasons.yaml", `${season.season
 if (car) {
   requireFile("car.yaml", "photo", car.photo);
   for (const sub of car.subsystems) requireFile("car.yaml", `${sub.name} → photo`, sub.photo);
-  for (const entry of car.garage) requireFile("car.yaml", `garage #${entry.number} → photo`, entry.photo);
+  for (const entry of car.garage) {
+    requireFile("car.yaml", `garage #${entry.number} → photo`, entry.photo);
+    for (const extra of entry.gallery) requireFile("car.yaml", `garage #${entry.number} → gallery`, extra);
+  }
   for (const m of car.milestones) requireFile("car.yaml", `milestone ${m.name} → photo`, m.photo);
   const seasonNames = new Set((seasons ?? []).map((season) => season.season));
   for (const entry of car.garage) {
