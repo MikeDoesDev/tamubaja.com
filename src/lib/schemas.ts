@@ -43,8 +43,17 @@ export const siteSchema = z.object({
   heroImage: publicPath,
   heroVideo: publicPath.optional(),
   teamPhoto: publicPath,
-  // Optional YouTube video featured on the homepage (just the ID from the URL, e.g. QtTKpTljdL0).
-  featuredVideo: z.object({ youtubeId: z.string().regex(/^[\w-]{11}$/, "use the 11-character YouTube video ID"), eyebrow: text, title: text, body: text, poster: publicPath.optional() }).optional(),
+  // YouTube videos featured on the homepage ("Baja on screen"). The first one is shown largest.
+  videos: list(
+    z.array(
+      z.object({
+        youtubeId: z.string().regex(/^[\w-]{11}$/, "use the 11-character YouTube video ID"),
+        title: text,
+        body: text,
+        poster: publicPath.optional(),
+      }),
+    ),
+  ),
   logo: publicPath,
   web3formsKey: z.string(),
   // Optional banner above the header on every page (e.g. "under construction").

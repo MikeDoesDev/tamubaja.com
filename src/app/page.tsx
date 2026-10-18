@@ -59,23 +59,26 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {site.featuredVideo && (
+      {site.videos.length > 0 && (
         <Section className="topo-bg">
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.6fr]">
-            <div>
-              <Eyebrow>{site.featuredVideo.eyebrow}</Eyebrow>
-              <SectionHeading>{site.featuredVideo.title}</SectionHeading>
-              <p className="mt-4 text-lg text-muted">{site.featuredVideo.body}</p>
-              <a
-                href={`https://www.youtube.com/watch?v=${site.featuredVideo.youtubeId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-block font-semibold text-accent underline underline-offset-4 hover:text-ink"
-              >
-                Watch on YouTube
-              </a>
-            </div>
-            <VideoFeature youtubeId={site.featuredVideo.youtubeId} title={site.featuredVideo.title} poster={site.featuredVideo.poster} />
+          <Eyebrow>Baja on screen</Eyebrow>
+          <SectionHeading>See the team in action</SectionHeading>
+          <div className={`mt-10 grid gap-8 ${site.videos.length > 1 ? "lg:grid-cols-[1.5fr_1fr]" : ""}`}>
+            {site.videos.slice(0, 2).map((video, index) => (
+              <article key={video.youtubeId} className={index > 0 ? "lg:pt-16" : ""}>
+                <VideoFeature youtubeId={video.youtubeId} title={video.title} poster={video.poster} />
+                <h3 className={`mt-5 font-display font-extrabold uppercase leading-none ${index === 0 ? "text-3xl" : "text-2xl"}`}>{video.title}</h3>
+                <p className="mt-2 text-muted">{video.body}</p>
+                <a
+                  href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-block text-sm font-semibold text-accent underline underline-offset-4 hover:text-ink"
+                >
+                  Watch on YouTube
+                </a>
+              </article>
+            ))}
           </div>
         </Section>
       )}
