@@ -49,6 +49,7 @@ garage:
     photo: /images/cars/car-56-action.jpg
     gallery:
       - /images/cars/car-56.jpg
+      - /images/cars/car-56-team.jpg
     description: Retro sunset stripes on a black body.
     livery: Retro sunset
   - number: 68
