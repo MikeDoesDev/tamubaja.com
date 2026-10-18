@@ -18,7 +18,7 @@ logo: /images/logo-white.png
 web3formsKey: "e0c04bd1-491e-45c0-9def-fe22cbda4e65"
 # Banner shown above the header on every page. Set show: false (or delete these lines) at launch.
 notice:
-  show: true
+  show: false
   title: Site under construction
   message: We're still building this site, so some features may be limited or not work yet.
 mission:
