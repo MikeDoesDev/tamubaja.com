@@ -131,7 +131,18 @@ export const carSchema = z.object({
   ),
   buildSeason: text,
   milestones: z
-    .array(z.object({ name: text, date: isoDate, tentative: yesNo.optional() }))
+    .array(
+      z.object({
+        name: text,
+        date: isoDate,
+        tentative: yesNo.optional(),
+        // Optional: which stage of the season (Design, Build, Compete) and a photo from that milestone.
+        phase: text.optional(),
+        photo: publicPath.optional(),
+        // Optional: what sponsors get at this milestone. Keep it true to tiers.yaml.
+        sponsorNote: text.optional(),
+      }),
+    )
     .min(1),
 });
 

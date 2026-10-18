@@ -48,23 +48,40 @@ garage:
     description: Retro sunset stripes on a black body.
     livery: Retro sunset
 buildSeason: 2026–27
+# milestones: the build timeline. Optional per milestone: phase (Design, Build, or Compete) and
+#   photo: /images/build/<file>.jpg once there's a picture from it.
+#   sponsorNote: what sponsors get at that milestone (must match tiers.yaml).
+# Dates come from the team calendar; mark anything SAE or the team hasn't confirmed as tentative: true.
 milestones:
   - name: Initial design review 1
+    phase: Design
     date: 2026-08-09
   - name: Initial design review 2
+    phase: Design
     date: 2026-09-13
   - name: Engineering design review 1
+    phase: Design
     date: 2026-10-25
   - name: Engineering design review 2
+    phase: Design
     date: 2026-11-15
   - name: Design freeze
+    phase: Design
     date: 2026-11-22
   - name: Rolling chassis
+    phase: Build
     date: 2027-02-14
   - name: First drive
+    phase: Build
     date: 2027-02-28
+    sponsorNote: Platinum partners are invited to vehicle testing
   - name: SAE Rollout
+    phase: Compete
     date: 2027-04-18
     tentative: true
+    sponsorNote: Platinum partners get dedicated recognition, and every donor is invited
   - name: Competition
+    phase: Compete
     date: 2027-05-20
+    tentative: true
+    sponsorNote: Every sponsor's logo races on the car

@@ -219,6 +219,8 @@ subteams:
         classYear: "2026"
     members:
       - name: Grant Smith
+        major: Finance
+        classYear: "2029"
       - name: Shriyans Muthyala
         major: Statistics
         classYear: "2030"

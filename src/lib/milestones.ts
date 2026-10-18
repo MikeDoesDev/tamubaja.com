@@ -4,6 +4,9 @@ export interface Milestone {
   name: string;
   date: string;
   tentative?: boolean;
+  phase?: string;
+  photo?: string;
+  sponsorNote?: string;
 }
 
 export function withStatus<T extends Milestone>(

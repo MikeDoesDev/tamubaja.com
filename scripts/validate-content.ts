@@ -64,6 +64,7 @@ if (car) {
   requireFile("car.yaml", "photo", car.photo);
   for (const sub of car.subsystems) requireFile("car.yaml", `${sub.name} → photo`, sub.photo);
   for (const entry of car.garage) requireFile("car.yaml", `garage #${entry.number} → photo`, entry.photo);
+  for (const m of car.milestones) requireFile("car.yaml", `milestone ${m.name} → photo`, m.photo);
   const seasonNames = new Set((seasons ?? []).map((season) => season.season));
   for (const entry of car.garage) {
     if (entry.season && seasons && !seasonNames.has(entry.season) && entry.season !== car.season) {
