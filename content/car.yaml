@@ -56,6 +56,10 @@ garage:
     season: 2020–21
     photo: /images/cars/car-68-team.jpg
     description: The 2020–21 team with car #68.
+  - number: 22
+    season: 2022–23
+    photo: /images/cars/car-22-oregon.jpg
+    description: White car with the block ATM, racing in Oregon.
   - number: 54
     season: 2021–22
     photo: /images/cars/car-54-arena.jpg
