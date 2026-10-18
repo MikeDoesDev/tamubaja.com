@@ -1,11 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { NavLink } from "@/lib/nav";
 
+/**
+ * Phone menu: a full-screen sheet under the header. Each section is a big tap target that goes to
+ * the page; the chevron beside it opens that section's sub-links. The page behind doesn't scroll.
+ */
 export function MobileNav({ links }: { links: readonly NavLink[] }) {
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!open) return;
@@ -13,7 +20,12 @@ export function MobileNav({ links }: { links: readonly NavLink[] }) {
       if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previous;
+    };
   }, [open]);
 
   const close = () => setOpen(false);
@@ -24,44 +36,97 @@ export function MobileNav({ links }: { links: readonly NavLink[] }) {
         type="button"
         aria-expanded={open}
         aria-controls={open ? "mobile-menu" : undefined}
+        aria-label={open ? "Close" : "Menu"}
         onClick={() => setOpen((value) => !value)}
-        className="rounded-sm border border-line px-3 py-2 font-display text-sm font-bold uppercase"
+        className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-panel/70"
       >
-        {open ? "Close" : "Menu"}
+        <span aria-hidden="true" className="relative block h-3.5 w-5">
+          <span className={`absolute left-0 h-0.5 w-5 rounded-full bg-ink transition ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+          <span className={`absolute left-0 top-1.5 h-0.5 w-5 rounded-full bg-ink transition ${open ? "opacity-0" : ""}`} />
+          <span className={`absolute left-0 h-0.5 w-5 rounded-full bg-ink transition ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
+        </span>
       </button>
+
       {open && (
-        <nav id="mobile-menu" aria-label="Mobile" className="absolute inset-x-0 top-16 border-b border-line bg-bg px-4 pb-6 pt-2">
-          <ul>
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={close}
-                  className={`block py-4 font-display text-2xl font-bold uppercase ${link.children ? "pb-2" : "border-b border-line"}`}
-                >
-                  {link.label}
-                </Link>
-                {link.children && (
-                  <ul className="border-b border-line pb-3 pl-4">
-                    {link.children.map((child) => (
-                      <li key={child.href}>
-                        <Link href={child.href} onClick={close} className="block py-1.5 text-sm text-muted hover:text-ink">
-                          {child.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+        <nav
+          id="mobile-menu"
+          aria-label="Mobile"
+          className="topo-bg fixed inset-x-0 bottom-0 top-16 z-50 flex flex-col overflow-y-auto overscroll-contain border-t border-line bg-bg"
+        >
+          <ul className="flex-1 px-4 pt-4">
+            {links.map((link) => {
+              const isOpen = expanded === link.href;
+              const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+              return (
+                <li key={link.href} className="border-b border-line">
+                  <div className="flex items-center">
+                    <Link
+                      href={link.href}
+                      onClick={close}
+                      aria-current={active ? "page" : undefined}
+                      className={`flex-1 py-4 font-display text-3xl font-extrabold uppercase leading-none ${active ? "text-accent" : ""}`}
+                    >
+                      {link.label}
+                    </Link>
+                    {link.children && (
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        aria-label={`${isOpen ? "Hide" : "Show"} ${link.label} pages`}
+                        onClick={() => setExpanded(isOpen ? null : link.href)}
+                        className="flex h-11 w-11 items-center justify-center rounded-full border border-line"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                          className={`h-5 w-5 text-accent transition-transform ${isOpen ? "rotate-180" : ""}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2.5}
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                  {link.children && isOpen && (
+                    <ul className="mb-4 grid gap-2">
+                      {link.children.map((child) => (
+                        <li key={child.href}>
+                          <Link
+                            href={child.href}
+                            onClick={close}
+                            className="flex items-center justify-between rounded-xl border border-line bg-panel/80 px-4 py-3"
+                          >
+                            <span>
+                              <span className="block font-semibold">{child.label}</span>
+                              {child.description && <span className="block text-xs text-muted">{child.description}</span>}
+                            </span>
+                            <span aria-hidden="true" className="text-accent">
+                              →
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
-          <Link
-            href="/sponsors#inquire"
-            onClick={close}
-            className="mt-6 block rounded-sm bg-accent px-5 py-3 text-center font-display text-lg font-bold uppercase text-bg"
-          >
-            Become a Sponsor
-          </Link>
+
+          <div className="sticky bottom-0 border-t border-line bg-bg/95 px-4 pb-6 pt-4 backdrop-blur">
+            <Link
+              href="/sponsors#inquire"
+              onClick={close}
+              className="block rounded-sm bg-accent px-5 py-3.5 text-center font-display text-lg font-bold uppercase text-bg"
+            >
+              Become a Sponsor
+            </Link>
+            <Link href="/development#join" onClick={close} className="mt-3 block text-center text-sm font-semibold text-muted">
+              Want to join the team? <span className="text-ink underline decoration-accent underline-offset-4">Apply here</span>
+            </Link>
+          </div>
         </nav>
       )}
     </div>
