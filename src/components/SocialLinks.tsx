@@ -18,11 +18,27 @@ const LinkedInIcon = (
   </svg>
 );
 
+const MailIcon = (
+  <svg {...svgProps} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" />
+    <path d="m3 7 9 6.5L21 7" />
+  </svg>
+);
+
+const GlobeIcon = (
+  <svg {...svgProps} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="9.5" />
+    <path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z" />
+  </svg>
+);
+
 /** A black pill of social icons that turn their brand color on hover, with a tooltip above. */
 export function SocialLinks({ site, align = "center" }: { site: Site; align?: "center" | "start" }) {
   const socials: Social[] = [
     { key: "instagram", label: "Instagram", href: site.socials.instagram, icon: InstagramIcon },
     ...(site.socials.linkedin ? [{ key: "linkedin", label: "LinkedIn", href: site.socials.linkedin, icon: LinkedInIcon }] : []),
+    { key: "email", label: "Email us", href: `mailto:${site.email}`, icon: MailIcon },
+    ...(site.socials.saeBaja ? [{ key: "sae", label: "Texas A&M SAE", href: site.socials.saeBaja, icon: GlobeIcon }] : []),
   ];
 
   return (

@@ -77,23 +77,28 @@ export function Footer() {
                 links={[
                   { key: "team", href: "/team", label: "Meet the team" },
                   { key: "leadership", href: "/team#leadership", label: "Leadership" },
+                  { key: "subteams", href: "/team#subteams", label: "Subteams" },
                   { key: "directory", href: "/team/directory", label: "Student directory" },
                   { key: "partners", href: "/partners", label: "Our partners" },
+                  { key: "sae", href: site.socials.saeBaja ?? "https://www.tamusae.org", label: "Texas A&M SAE" },
                 ]}
               />
               <FooterColumn
                 title="Get involved"
                 links={[
-                  { key: "join", href: "/development", label: "Join the team" },
+                  { key: "join", href: "/development#join", label: "Join the team" },
+                  { key: "development", href: "/development", label: "Development program" },
                   { key: "sponsor", href: "/sponsors", label: "Become a sponsor" },
+                  { key: "tiers", href: "/sponsors#tiers", label: "Sponsorship tiers" },
                   { key: "donate", href: "/sponsors#donate", label: "Donate" },
-                  { key: "contact", href: `mailto:${site.email}`, label: "Contact us" },
+                  { key: "contact", href: `mailto:${site.email}`, label: "Email us" },
                 ]}
               />
               <FooterColumn
                 title="Cars"
                 links={[
                   { key: "build", href: "/car#now", label: `${car.buildSeason} build` },
+                  { key: "process", href: "/car#process", label: "How we build it" },
                   ...years.slice(0, 3).map((year) => ({
                     key: year.slug,
                     href: carHref(year),

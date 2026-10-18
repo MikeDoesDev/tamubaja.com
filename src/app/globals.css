@@ -238,6 +238,14 @@ body {
 .social-links a[data-social="linkedin"]:focus-visible {
   color: #2d9cdb;
 }
+.social-links a[data-social="email"]:hover,
+.social-links a[data-social="email"]:focus-visible {
+  color: var(--color-accent);
+}
+.social-links a[data-social="sae"]:hover,
+.social-links a[data-social="sae"]:focus-visible {
+  color: #f2c94c;
+}
 /* Form controls: a custom chevron for the select so it matches the text inputs. */
 .select-chevron {
   appearance: none;
