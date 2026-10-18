@@ -19,6 +19,7 @@ export interface CarYear {
   improvement?: string;
   specs: { label: string; value: string }[];
   leads: { name: string; role: string }[];
+  gallery: string[];
 }
 
 /** Every season with a result or a garage car, newest first. */
@@ -37,17 +38,19 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
       improvement: s.improvement,
       specs: s.specs,
       leads: s.leads,
+      gallery: [],
     });
   }
   for (const car of garage) {
     if (!car.season) continue;
-    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], specs: [], leads: [] };
+    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], specs: [], leads: [], gallery: [] };
     years.set(car.season, {
       ...year,
       number: car.number,
       photo: car.photo ?? year.photo,
       livery: car.livery,
       description: car.description,
+      gallery: car.gallery,
     });
   }
   const ordered = newestFirst([...years.values()]);

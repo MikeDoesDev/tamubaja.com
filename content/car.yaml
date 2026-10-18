@@ -39,14 +39,29 @@ garage:
     livery: Black topo
   - number: 124
     season: 2024–25
-    photo: /images/cars/car-124-mud.jpg
+    photo: /images/cars/car-124-cones.jpg
+    gallery:
+      - /images/cars/car-124-mud.jpg
     description: A white car that never stayed white for long, through mud, hay bales, and hard landings.
     livery: White
   - number: 56
     season: 2023–24
-    photo: /images/cars/car-56.jpg
+    photo: /images/cars/car-56-action.jpg
+    gallery:
+      - /images/cars/car-56.jpg
     description: Retro sunset stripes on a black body.
     livery: Retro sunset
+  - number: 29
+    season: 2022–23
+    photo: /images/cars/car-29-dirt.jpg
+    description: A white car with the maroon block ATM, kicking up dirt.
+    livery: White and maroon
+  - number: 19
+    season: 2021–22
+    photo: /images/cars/car-19-mud.jpg
+    gallery:
+      - /images/cars/car-19-campus.jpg
+    description: Raced through the mud, and posed on the steps on campus.
 buildSeason: 2026–27
 # milestones: the build timeline. Optional per milestone: phase (Design, Build, or Compete) and
 #   photo: /images/build/<file>.jpg once there's a picture from it.

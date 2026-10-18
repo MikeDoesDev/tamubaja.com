@@ -126,6 +126,8 @@ export const carSchema = z.object({
         description: text,
         season: text.optional(),
         livery: text.optional(),
+        // More photos of the same car, shown on its page.
+        gallery: list(z.array(publicPath)),
       }),
     ),
   ),

@@ -9,8 +9,8 @@ describe("buildCarYears", () => {
         { season: "2022–23", event: "Baja SAE Oregon", location: "OR", overall: 44, highlights: [], specs: [], leads: [] },
       ],
       [
-        { number: "51", season: "2025–26", photo: "/a.jpg", description: "x" },
-        { number: "56", season: "2023–24", photo: "/b.jpg", description: "y" },
+        { number: "51", season: "2025–26", photo: "/a.jpg", description: "x", gallery: [] },
+        { number: "56", season: "2023–24", photo: "/b.jpg", description: "y", gallery: [] },
       ],
     );
     expect(years.map((y) => [y.slug, y.number, y.overall])).toEqual([

@@ -99,6 +99,15 @@ export default async function CarYearPage({ params }: { params: Promise<{ season
                 <Image src={year.photo} alt={`${carName(year)}, ${year.season}`} fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
               </div>
             )}
+            {year.gallery.length > 0 && (
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                {year.gallery.map((src) => (
+                  <div key={src} className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+                    <Image src={src} alt={`${carName(year)}, ${year.season}`} fill sizes="(min-width: 1024px) 28vw, 50vw" className="object-cover" />
+                  </div>
+                ))}
+              </div>
+            )}
             {year.description && <p className={`${year.photo ? "mt-6" : ""} text-lg text-muted`}>{year.description}</p>}
             {!year.photo && (
               <p className={`${year.description ? "mt-4" : ""} rounded-2xl border border-dashed border-line p-8 text-muted`}>
