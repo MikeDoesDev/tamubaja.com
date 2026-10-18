@@ -3,14 +3,14 @@ import { expect, test } from "@playwright/test";
 test("sitemap lists every page on the production domain", async ({ request }) => {
   const body = await (await request.get("/sitemap.xml")).text();
   for (const path of ["", "/sponsors", "/partners", "/car", "/team", "/development"]) {
-    expect(body).toContain(`<loc>https://tamubaja.com${path}</loc>`);
+    expect(body).toContain(`<loc>https://www.tamubaja.com${path}</loc>`);
   }
 });
 
 test("robots.txt allows crawling and points at the sitemap", async ({ request }) => {
   const body = await (await request.get("/robots.txt")).text();
   expect(body).toContain("Allow: /");
-  expect(body).toContain("Sitemap: https://tamubaja.com/sitemap.xml");
+  expect(body).toContain("Sitemap: https://www.tamubaja.com/sitemap.xml");
 });
 
 for (const path of ["/", "/sponsors", "/partners", "/car", "/team", "/development"]) {
