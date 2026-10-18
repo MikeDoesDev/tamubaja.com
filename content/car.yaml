@@ -51,17 +51,32 @@ garage:
       - /images/cars/car-56.jpg
     description: Retro sunset stripes on a black body.
     livery: Retro sunset
-  - number: 29
-    season: 2022–23
-    photo: /images/cars/car-29-dirt.jpg
-    description: A white car with the maroon block ATM, kicking up dirt.
-    livery: White and maroon
-  - number: 19
+  - number: 68
+    season: 2020–21
+    photo: /images/cars/car-68-team.jpg
+    description: The 2020–21 team with car #68.
+  - number: 54
     season: 2021–22
+    photo: /images/cars/car-54-arena.jpg
+    description: Car #54, sponsor panels and all.
+  - number: 40
+    season: 2019–20
+    photo: /images/cars/car-40-render.jpg
+    description: A render of car #40, our first four-wheel-drive design.
+  - number: 19
+    season: 2018–19
     photo: /images/cars/car-19-mud.jpg
     gallery:
+      - /images/cars/car-19-texas.jpg
       - /images/cars/car-19-campus.jpg
-    description: Raced through the mud, and posed on the steps on campus.
+      - /images/cars/car-2018-19-california.jpg
+    description: Texas flag livery. Raced through the mud, lined up at competition in California, and posed on the steps on campus.
+  - number: 29
+    season: 2017–18
+    photo: /images/cars/car-29-mud.jpg
+    gallery:
+      - /images/cars/car-29-dirt.jpg
+    description: Our first car, at our first competition.
 buildSeason: 2026–27
 # milestones: the build timeline. Optional per milestone: phase (Design, Build, or Compete) and
 #   photo: /images/build/<file>.jpg once there's a picture from it.
