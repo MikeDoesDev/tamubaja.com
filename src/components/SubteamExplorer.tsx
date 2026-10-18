@@ -2,7 +2,9 @@
 
 import { useRef, useState } from "react";
 import type { Subteam } from "@/lib/schemas";
+import Image from "next/image";
 import { MemberCard } from "./MemberCard";
+import { PersonPlaceholder } from "./PersonPlaceholder";
 
 const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
@@ -50,6 +52,26 @@ export function SubteamExplorer({ subteams }: { subteams: Subteam[] }) {
                   </span>
                 </span>
                 <span className={`mt-1 text-sm ${isOpen ? "text-white/85" : "text-muted"}`}>{subteam.description}</span>
+                {subteam.leads.length > 0 && (
+                  <span className={`mt-5 flex w-full items-center gap-3 border-t pt-4 ${isOpen ? "border-white/20" : "border-line"}`}>
+                    <span className="flex -space-x-2">
+                      {subteam.leads.slice(0, 3).map((lead) => (
+                        <span key={lead.name} className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-panel bg-[#101214]">
+                          {lead.photo ? <Image src={lead.photo} alt="" fill sizes="40px" className="object-cover" /> : <PersonPlaceholder />}
+                        </span>
+                      ))}
+                    </span>
+                    <span className="min-w-0">
+                      <span className={`block text-[11px] font-semibold uppercase tracking-[0.2em] ${isOpen ? "text-white/75" : "text-accent"}`}>
+                        {subteam.leads.length === 1 ? "Led by" : "Leads"}
+                      </span>
+                      <span className="block truncate font-display text-lg font-bold uppercase leading-tight">
+                        {subteam.leads[0].name}
+                        {subteam.leads.length > 1 ? ` +${subteam.leads.length - 1}` : ""}
+                      </span>
+                    </span>
+                  </span>
+                )}
                 {count > 0 && (
                   <span className={`mt-4 text-xs font-semibold uppercase tracking-[0.2em] ${isOpen ? "text-white/85" : "text-accent"}`}>
                     {count} {count === 1 ? "member" : "members"} · {isOpen ? "Hide" : "Meet them"}

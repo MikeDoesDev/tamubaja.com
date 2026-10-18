@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { BuildStatus } from "@/components/BuildStatus";
 import { CtaBand } from "@/components/CtaBand";
 import { MilestoneTimeline } from "@/components/MilestoneTimeline";
@@ -30,15 +31,22 @@ export default function CarPage() {
         imageAlt={`The Texas A&M Baja ${car.season} car`}
       />
 
-      <Section id="now">
+      <Section id="now" className="topo-bg">
         <Eyebrow>Where we are now</Eyebrow>
         <SectionHeading>Building the {car.buildSeason} car</SectionHeading>
         <div className="mt-8">
           <BuildStatus milestones={car.milestones} buildSeason={car.buildSeason} />
         </div>
-        <div className="mt-6">
+        <div className="mt-10">
           <MilestoneTimeline milestones={car.milestones} />
         </div>
+        <p className="mt-4 text-sm text-muted">
+          Want your logo on this car?{" "}
+          <Link href="/sponsors#tiers" className="font-semibold text-ink underline decoration-accent underline-offset-4">
+            See what each sponsor tier includes
+          </Link>
+          .
+        </p>
       </Section>
 
       {car.buildProcess.length > 0 && (

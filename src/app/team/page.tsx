@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ButtonLink";
-import { LeadCard } from "@/components/LeadCard";
+import { PersonPlaceholder } from "@/components/PersonPlaceholder";
 import { PageHero } from "@/components/PageHero";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { SubteamExplorer } from "@/components/SubteamExplorer";
@@ -18,6 +18,9 @@ export const metadata = pageMetadata({
 export default function TeamPage() {
   const team = getTeam();
   const site = getSite();
+  // Leads who run a subteam appear on that subteam's tile; the rest (project manager, chief engineer) get their own cards.
+  const subteamLeadNames = new Set(team.subteams.flatMap((subteam) => subteam.leads.map((lead) => lead.name)));
+  const programLeads = team.leads.filter((lead) => !subteamLeadNames.has(lead.name));
 
   return (
     <>
@@ -48,29 +51,38 @@ export default function TeamPage() {
         </div>
       </Section>
 
-      {team.leads.length > 0 && (
-        <Section id="leadership" className="bg-panel/40">
-          <Eyebrow>Leadership</Eyebrow>
-          <SectionHeading>Who runs the program</SectionHeading>
-          <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {team.leads.map((lead) => (
-              <LeadCard key={lead.name} lead={lead} />
-            ))}
-          </ul>
-        </Section>
-      )}
-
       <Section id="subteams" className="topo-bg">
+        <span id="leadership" className="block scroll-mt-24" />
         <Eyebrow>Six subteams, one car</Eyebrow>
-        <SectionHeading>Meet the subteams</SectionHeading>
+        <SectionHeading>Who builds the car</SectionHeading>
         <p className="mt-4 max-w-2xl text-lg text-muted">
-          Pick a subteam to see what it builds and who builds it, or{" "}
+          Our program leads run the season; each subteam owns a part of the car. Pick a subteam to meet its people, or{" "}
           <Link href="/team/directory" className="font-semibold text-accent underline underline-offset-4 hover:text-ink">
             browse the full student directory
           </Link>
           .
         </p>
-        <div className="mt-8">
+
+        {programLeads.length > 0 && (
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+            {programLeads.map((lead) => (
+              <li key={lead.name} className="flex items-center gap-5 rounded-2xl border border-accent/40 bg-panel p-5">
+                <span className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-[#101214]">
+                  {lead.photo ? <Image src={lead.photo} alt="" fill sizes="80px" className="object-cover" /> : <PersonPlaceholder />}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{lead.role}</span>
+                  <span className="block font-display text-3xl font-extrabold uppercase leading-tight">{lead.name}</span>
+                  <span className="block text-sm text-muted">
+                    {[lead.major, lead.classYear && `Class of ${lead.classYear}`].filter(Boolean).join(" · ")}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div className="mt-4">
           <SubteamExplorer subteams={team.subteams} />
         </div>
       </Section>
