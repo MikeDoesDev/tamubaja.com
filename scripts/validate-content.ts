@@ -59,7 +59,7 @@ if (site) {
 for (const sponsor of sponsors ?? []) {
   if (sponsor.show) requireFile("sponsors.yaml", `${sponsor.name} → logo`, sponsor.logo);
 }
-if (site?.featuredVideo?.poster) requireFile("site.yaml", "featuredVideo → poster", site.featuredVideo.poster);
+for (const video of site?.videos ?? []) requireFile("site.yaml", `videos → ${video.title} → poster`, video.poster);
 for (const season of seasons ?? []) requireFile("seasons.yaml", `${season.season} → photo`, season.photo);
 if (car) {
   requireFile("car.yaml", "photo", car.photo);

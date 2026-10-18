@@ -12,13 +12,17 @@ socials:
 packetPdf: /packet/tamu-baja-sponsor-packet-2026-27.pdf
 heroImage: /images/hero.jpg
 teamPhoto: /images/team.jpg
-# Homepage video. youtubeId is the part after "watch?v=" in the YouTube link.
-featuredVideo:
-  youtubeId: QtTKpTljdL0
-  eyebrow: As seen on TV
-  title: Featured in Texas A&M's national commercial
-  body: 'Car #51 and our crew made it into "Working Together for the Good of America," the university''s national TV spot about what Aggies build together.'
-  poster: /images/commercial-poster.jpg
+# Homepage videos ("Baja on screen"). youtubeId is the part after "watch?v=" in the YouTube link.
+# The first video is shown largest.
+videos:
+  - youtubeId: H9nSFxNPi9k
+    title: Discovering Aggieland
+    body: Take a spin behind the wheel as host Carson Seiber hits the track with our chief engineer, Keaton Dassanayake, from the shop floor to the dirt.
+    poster: /images/discovering-aggieland-poster.jpg
+  - youtubeId: QtTKpTljdL0
+    title: Texas A&M's national commercial
+    body: 'Car #51 and our crew in "Working Together for the Good of America," the university''s national TV spot.'
+    poster: /images/commercial-poster.jpg
 logo: /images/logo-white.png
 # Web3Forms access key for tamubajabusiness@gmail.com (added Oct 2026). Inquiries go straight to that inbox.
 # This key is designed to be public in site code. If it's ever removed, the form falls back to opening the visitor's email app.
