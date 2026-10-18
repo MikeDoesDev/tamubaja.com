@@ -7,6 +7,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/Hero";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { PillarCards } from "@/components/PillarCards";
+import { VideoFeature } from "@/components/VideoFeature";
 import { getCar, getSeasons, getSite } from "@/lib/content";
 import { buildCarYears, type CarYear } from "@/lib/cars";
 import { pageMetadata } from "@/lib/seo";
@@ -57,6 +58,27 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+
+      {site.featuredVideo && (
+        <Section className="topo-bg">
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.6fr]">
+            <div>
+              <Eyebrow>{site.featuredVideo.eyebrow}</Eyebrow>
+              <SectionHeading>{site.featuredVideo.title}</SectionHeading>
+              <p className="mt-4 text-lg text-muted">{site.featuredVideo.body}</p>
+              <a
+                href={`https://www.youtube.com/watch?v=${site.featuredVideo.youtubeId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-block font-semibold text-accent underline underline-offset-4 hover:text-ink"
+              >
+                Watch on YouTube
+              </a>
+            </div>
+            <VideoFeature youtubeId={site.featuredVideo.youtubeId} title={site.featuredVideo.title} poster={site.featuredVideo.poster} />
+          </div>
+        </Section>
+      )}
 
       <Section className="bg-panel/40">
         <div className="flex flex-wrap items-end justify-between gap-6">
