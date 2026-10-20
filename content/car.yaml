@@ -36,6 +36,8 @@ garage:
   - number: 51
     season: 2025–26
     photo: /images/cars/car-51-rear.jpg
+    gallery:
+      - /images/team.jpg
     description: Black livery with white topographic lines and Aggie script.
     livery: Black topo
   - number: 124
