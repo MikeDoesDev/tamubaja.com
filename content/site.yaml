@@ -24,9 +24,9 @@ videos:
     body: 'Car #51 and our crew in "Working Together for the Good of America," the university''s national TV spot.'
     poster: /images/commercial-poster.jpg
 logo: /images/logo-white.png
-# Web3Forms access key for tamubajabusiness@gmail.com (added Oct 2026). Inquiries go straight to that inbox.
+# Web3Forms access key created with tamubajabusiness@gmail.com (replaced Oct 19, 2026). Inquiries go straight to that inbox.
 # This key is designed to be public in site code. If it's ever removed, the form falls back to opening the visitor's email app.
-web3formsKey: "e0c04bd1-491e-45c0-9def-fe22cbda4e65"
+web3formsKey: "089cbe2b-1186-46ea-85ac-01daf60c28c4"
 # Banner shown above the header on every page. Set show: false (or delete these lines) at launch.
 notice:
   show: false
