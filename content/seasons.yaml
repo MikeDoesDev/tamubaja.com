@@ -27,8 +27,39 @@
     - 19th Cost
     - 20th Business Presentation
   story:
-    - "Car #51 was designed and built from a clean sheet, with a custom gearbox and in-house hubs. Sponsors made parts we couldn't make alone, supplying gear hobbing and splining, tube bending and coping, material, and sensors."
+    - The program's ninth car was built by 44 students from 13 majors. Before designing anything, the team studied the previous eight competitions, found that acceleration scores most consistently and can be simulated with confidence, and set targets of top 3 in Acceleration, top 5 in Maneuverability, and top 10 in Endurance.
+    - "A new Controls subteam designed an electronic CVT: a ball-screw-actuated primary run by a Teensy microcontroller, paired with a Gaged secondary, and tuned on an engine dynamometer the team built itself. Car #51 also used titanium axles and suspension links, aluminum trailing arms, dual-rate coilovers, and a custom two-stage gearbox and in-house hubs. Sponsors made parts we couldn't make alone, supplying gear hobbing and splining, tube bending and coping, material, and sensors."
     - At Baja SAE Oregon the static events were the team's strongest in years, with top-20 finishes in Design, Cost, and Business Presentation and the best Business score the program has ever earned. Our endurance race ended early, three laps in.
+  specs:
+    - label: CVT
+      value: Team-designed electronic primary, Gaged GX9 secondary
+    - label: Gearbox
+      value: Custom two-stage reduction
+    - label: Front suspension
+      value: Double wishbone, titanium upper J-arm
+    - label: Rear suspension
+      value: Two-link aluminum trailing arm
+    - label: Shocks
+      value: Genesis G8 coilovers, dual-rate springs
+    - label: Axles
+      value: Titanium
+    - label: Chassis
+      value: Rear-braced 4130 chromoly
+  leads:
+    - name: Iain Gary
+      role: Project Manager
+    - name: Rohan Kataram
+      role: Chief Engineer
+    - name: John Tano
+      role: Chassis Lead
+    - name: Jaxon Bradford
+      role: Powertrain Lead
+    - name: Zachary Aronson
+      role: Controls Lead
+    - name: Evan Thompson
+      role: Suspension Lead
+    - name: Molly Breclaw
+      role: Manufacturing Lead
 - season: 2024–25
   event: Baja SAE Maryland
   location: Maryland
@@ -41,8 +72,36 @@
     - 17th Maneuverability
     - 18th Design
   story:
-    - "Car #124 scored 605 points at Baja SAE Maryland, the most in team history, and finished 31st of 98."
-    - Its 3rd-place run in Acceleration put Texas A&M Baja on an event podium for the first time. The car also finished inside the top 20 in Hill Climb, Maneuverability, and Design, and completed 33 laps of the four-hour endurance race.
+    - The 40-student 2024–25 team set out to finish top 10 in Acceleration and designed the car around it, benchmarking against the winning times of the previous three years. To cut rotating mass, it replaced the driveshaft and bevel gears with a chain-driven, selectable four-wheel drive and swapped the limited-slip front differential for one-way bearings, saving 11 pounds. A custom two-stage gearbox, titanium upper control arms, and a Raspberry Pi logging CVT data in testing rounded it out.
+    - "It worked. Car #124 took 3rd in Acceleration at Baja SAE Maryland, the program's first event podium, and scored 605 points, the most in team history, to finish 31st of 98. It also finished inside the top 20 in Hill Climb, Maneuverability, and Design, and completed 33 laps of the four-hour endurance race."
+  specs:
+    - label: CVT
+      value: Gaged GX9
+    - label: Drivetrain
+      value: Selectable four-wheel drive, chain-driven front
+    - label: Front differential
+      value: One-way bearing
+    - label: Gearbox
+      value: Custom two-stage reduction
+    - label: Front suspension
+      value: Double A-arm, titanium upper J-arm
+    - label: Rear suspension
+      value: H-arm with camber link
+    - label: Shocks
+      value: Fox Float 3 EVOL air
+  leads:
+    - name: Tyler Anderson
+      role: Project Manager
+    - name: Jaxon Baker
+      role: Chief Engineer
+    - name: Matthew Vanous
+      role: Chassis Lead
+    - name: Tyler Christensen
+      role: Powertrain Lead
+    - name: Jaxon Bradford
+      role: Suspension Lead
+    - name: TJ Brown
+      role: Manufacturing Lead
 - season: 2023–24
   event: Baja SAE Williamsport
   location: Williamsport, Pennsylvania
@@ -54,8 +113,38 @@
     - 16th Cost
     - 17th Acceleration
   story:
-    - "Car #56, in retro sunset stripes, gave the program its best in-person finish yet, 18th of 106 at Baja SAE Williamsport."
-    - The judges placed our design 4th, the team's best design result. On the track the car climbed to 10th in Hill Climb and ran 30 laps of endurance.
+    - The 39-student 2023–24 team designed for performance and simplicity, benchmarking every target against the top 10 cars from previous competitions and keeping joints, parts, and fasteners simple so the car could spend more time testing. The four-wheel-drive car split torque 50/50 through a custom double-reduction gearbox, on a chromoly frame stiffer than its targets.
+    - "Car #56, in retro sunset stripes, gave the program its best in-person finish yet, 18th of 106 at Baja SAE Williamsport. The judges placed its design 4th, the team's best design result, and on the track it climbed to 10th in Hill Climb and ran 30 laps of endurance."
+  specs:
+    - label: Engine
+      value: Kohler CH440
+    - label: CVT
+      value: Gaged GX9
+    - label: Drivetrain
+      value: Four-wheel drive, 50/50 torque split
+    - label: Gearbox
+      value: Custom double reduction
+    - label: Front differential
+      value: Limited-slip
+    - label: Shocks
+      value: Fox 2.0 air
+    - label: Chassis
+      value: 4130 chromoly
+  leads:
+    - name: Kevin Maze
+      role: Project Manager
+    - name: Keltan Forrest
+      role: Chief Engineer
+    - name: Lawson Canter
+      role: Chassis Lead
+    - name: Benito Tagle Ochoa
+      role: Powertrain Lead
+    - name: Liam Dassanayake
+      role: Suspension Lead
+    - name: Madeline Sellards
+      role: Manufacturing Lead
+    - name: Megan Mackey
+      role: Business Lead
 - season: 2022–23
   event: Baja SAE Oregon
   location: Oregon
@@ -63,8 +152,9 @@
   fieldSize: 86
   highlights:
     - Top 40 in Design, Cost, and Sales
+    - 26th Acceleration
   story:
-    - The 2022–23 team added two things the program still relies on, a Chief Engineer and a dedicated Manufacturing subteam to run in-house fabrication. It also brought on six apprentices, including Benito Tagle Ochoa, who later led Texas A&M's Formula SAE team to 2nd overall in 2025.
+    - The 2022–23 team added two things the program still relies on, a Chief Engineer and a dedicated Manufacturing subteam to run in-house fabrication. It also brought on six apprentices, including Benito Tagle Ochoa, who went on to lead Baja's powertrain and later Texas A&M's Formula SAE team, which finished 2nd overall in 2025.
     - "Car #22 raced Baja SAE Oregon and finished 44th of 86, placing in the top 40 in all three static events."
   leads:
     - name: Colton Lee
