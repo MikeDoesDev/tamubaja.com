@@ -33,6 +33,20 @@
   specs:
     - label: CVT
       value: Team-designed electronic primary, Gaged GX9 secondary
+    - label: Final drive
+      value: 7.79:1
+    - label: Dry weight (design)
+      value: 354 lb
+    - label: Weight split, front/rear (design)
+      value: 47/53
+    - label: Turning radius (design)
+      value: 4.5 ft
+    - label: Suspension travel (design)
+      value: 14 in front, 13 in rear
+    - label: Ground clearance (design)
+      value: 11 in
+    - label: Team
+      value: 44 students from 13 majors
     - label: Gearbox
       value: Custom two-stage reduction
     - label: Front suspension
@@ -89,6 +103,20 @@
       value: H-arm with camber link
     - label: Shocks
       value: Fox Float 3 EVOL air
+    - label: Final drive
+      value: 7.5:1
+    - label: Tires
+      value: CST Pulse 21x7-10
+    - label: Dry weight (design)
+      value: About 381 lb
+    - label: Wheelbase
+      value: 60 in
+    - label: Ground clearance (design)
+      value: 12.5 in
+    - label: Torsional rigidity (design)
+      value: 730 lb·ft/deg
+    - label: Team
+      value: 40 students
   leads:
     - name: Tyler Anderson
       role: Project Manager
@@ -130,6 +158,18 @@
       value: Fox 2.0 air
     - label: Chassis
       value: 4130 chromoly
+    - label: Engine output
+      value: About 9.5 hp, 18.5 lb·ft
+    - label: Top speed (design)
+      value: 32 mph
+    - label: Torsional rigidity (design)
+      value: 1,020 lb·ft/deg
+    - label: Chassis weight (design)
+      value: 68 lb
+    - label: Turning radius (design)
+      value: 6.5 ft
+    - label: Team
+      value: 39 students
   leads:
     - name: Kevin Maze
       role: Project Manager
