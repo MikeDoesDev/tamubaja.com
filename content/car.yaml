@@ -72,6 +72,7 @@ garage:
       - /images/cars/car-54-hill-climb.jpg
       - /images/cars/car-54-pits.jpg
       - /images/cars/car-54-team.jpg
+      - /images/cars/car-54-officers.jpg
     description: "Car #54, sponsor panels and all, through the woods of the Tennessee Tech endurance course and up the hill climb."
     livery: Black
   - number: 40
