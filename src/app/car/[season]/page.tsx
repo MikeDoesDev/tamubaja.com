@@ -109,6 +109,16 @@ export default async function CarYearPage({ params }: { params: Promise<{ season
               </div>
             )}
             {year.description && <p className={`${year.photo ? "mt-6" : ""} text-lg text-muted`}>{year.description}</p>}
+            {year.story.length > 0 && (
+              <div className="mt-8">
+                <h2 className="font-display text-3xl font-extrabold uppercase">The season</h2>
+                <div className="mt-4 space-y-4 text-lg leading-relaxed text-ink/85">
+                  {year.story.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            )}
             {!year.photo && (
               <p className={`${year.description ? "mt-4" : ""} rounded-2xl border border-dashed border-line p-8 text-muted`}>
                 We&apos;re still collecting photos and stories from this season. Raced on this car or have pictures?{" "}

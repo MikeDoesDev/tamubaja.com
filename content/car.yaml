@@ -29,6 +29,7 @@ buildProcess:
   - name: Compete
     description: The car debuts at our spring Rollout, then races endurance, acceleration, hill climb, and design events against 100+ universities.
 # "The garage": past cars by race number. Add `season:` (exactly as written in seasons.yaml)
+# Wrap any description that mentions a car number like "#54" in double quotes.
 # to connect a car to its competition result. Each season gets its own page at /car/<season>.
 # The current season (above) can be listed before its result is added to seasons.yaml.
 garage:
@@ -55,7 +56,10 @@ garage:
   - number: 68
     season: 2020–21
     photo: /images/cars/car-68-team.jpg
-    description: The 2020–21 team with car #68.
+    gallery:
+      - /images/cars/car-99-louisville.jpg
+    description: "Our first four-wheel-drive car to race. It ran as #68 in Arizona and as #99 at Louisville a month later."
+    livery: Black
   - number: 22
     season: 2022–23
     photo: /images/cars/car-22-oregon.jpg
@@ -63,11 +67,17 @@ garage:
   - number: 54
     season: 2021–22
     photo: /images/cars/car-54-arena.jpg
-    description: Car #54, sponsor panels and all.
+    gallery:
+      - /images/cars/car-54-endurance.jpg
+      - /images/cars/car-54-hill-climb.jpg
+      - /images/cars/car-54-pits.jpg
+      - /images/cars/car-54-team.jpg
+    description: "Car #54, sponsor panels and all, through the woods of the Tennessee Tech endurance course and up the hill climb."
+    livery: Black
   - number: 40
     season: 2019–20
     photo: /images/cars/car-40-render.jpg
-    description: A render of car #40, our first four-wheel-drive design.
+    description: "A render of car #40, our first four-wheel-drive design."
   - number: 19
     season: 2018–19
     photo: /images/cars/car-19-mud.jpg
@@ -75,6 +85,9 @@ garage:
       - /images/cars/car-19-texas.jpg
       - /images/cars/car-19-campus.jpg
       - /images/cars/car-2018-19-california.jpg
+      - /images/cars/car-19-mud-2.jpg
+      - /images/cars/team-2018-19-campus.jpg
+    livery: Texas flag
     description: Texas flag livery. Raced through the mud, lined up at competition in California, and posed on the steps on campus.
   - number: 29
     season: 2017–18

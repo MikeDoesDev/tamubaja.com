@@ -1,8 +1,12 @@
 # Competition history. Add the newest season at the top.
 # overall: the overall placing as a number, or null if there was no overall result.
+# fieldSize (optional): how many teams were ranked, so the site can say "31st of 98".
 # highlights: awards and event finishes, written like "4th Design".
 # improvement (optional): the one biggest step forward that season, e.g. "First podium".
 #   Leave it out and the site shows how many places the team climbed overall, when it did.
+# story (optional): a few short paragraphs about the season, shown on that season's car page.
+#   Any line with a car number like "#54" must be wrapped in double quotes, or everything after
+#   the # is dropped as a comment.
 # specs and leads (optional) show on that season's car page. Don't add specs for a car that is still competing.
 #   specs:
 #     - label: Engine
@@ -10,53 +14,187 @@
 #   leads:
 #     - name: Jane Doe
 #       role: Chief Engineer
-# Only add results the team has confirmed.
+# Only add results the team has confirmed. Results below come from the official Baja SAE results
+# (bajasae.net) and the team's earlier website.
+- season: 2025–26
+  event: Baja SAE Oregon
+  location: Oregon
+  overall: 34
+  fieldSize: 76
+  improvement: Best Business Presentation score in team history
+  highlights:
+    - 17th Design
+    - 19th Cost
+    - 20th Business Presentation
+  story:
+    - "Car #51 was designed and built from a clean sheet, with a custom gearbox and in-house hubs. Sponsors made parts we couldn't make alone, supplying gear hobbing and splining, tube bending and coping, material, and sensors."
+    - At Baja SAE Oregon the static events were the team's strongest in years, with top-20 finishes in Design, Cost, and Business Presentation and the best Business score the program has ever earned. Our endurance race ended early, three laps in.
 - season: 2024–25
   event: Baja SAE Maryland
   location: Maryland
   overall: 31
+  fieldSize: 98
   improvement: First podium in team history
   highlights:
     - 3rd Acceleration
+    - 16th Hill Climb
+    - 17th Maneuverability
+    - 18th Design
+  story:
+    - "Car #124 scored 605 points at Baja SAE Maryland, the most in team history, and finished 31st of 98."
+    - Its 3rd-place run in Acceleration put Texas A&M Baja on an event podium for the first time. The car also finished inside the top 20 in Hill Climb, Maneuverability, and Design, and completed 33 laps of the four-hour endurance race.
 - season: 2023–24
   event: Baja SAE Williamsport
   location: Williamsport, Pennsylvania
   overall: 18
+  fieldSize: 106
   highlights:
     - 4th Design
+    - 10th Hill Climb
+    - 16th Cost
+    - 17th Acceleration
+  story:
+    - "Car #56, in retro sunset stripes, gave the program its best in-person finish yet, 18th of 106 at Baja SAE Williamsport."
+    - The judges placed our design 4th, the team's best design result. On the track the car climbed to 10th in Hill Climb and ran 30 laps of endurance.
 - season: 2022–23
   event: Baja SAE Oregon
   location: Oregon
   overall: 44
+  fieldSize: 86
   highlights:
     - Top 40 in Design, Cost, and Sales
+  story:
+    - The 2022–23 team added two things the program still relies on, a Chief Engineer and a dedicated Manufacturing subteam to run in-house fabrication. It also brought on six apprentices, including Benito Tagle Ochoa, who later led Texas A&M's Formula SAE team to 2nd overall in 2025.
+    - "Car #22 raced Baja SAE Oregon and finished 44th of 86, placing in the top 40 in all three static events."
+  leads:
+    - name: Colton Lee
+      role: Project Manager
+    - name: Matthew Cain
+      role: Chief Engineer
+    - name: Preston Lovaasen
+      role: Chassis Lead
+    - name: Ben Smith
+      role: Powertrain Lead
+    - name: Kevin Maze
+      role: Suspension Lead
+    - name: Kenton Borgonah
+      role: Electrical Lead
+    - name: Madeline Sellards
+      role: Manufacturing Lead
 - season: 2021–22
-  event: Baja SAE Tennessee
+  event: Baja SAE Tennessee Tech
   location: Tennessee
   overall: 27
+  fieldSize: 93
+  improvement: First top-10 Design finish
   highlights:
-    - Strong static event results
+    - 7th Design
+    - 16th Cost
+  story:
+    - The 2021–22 team started from first principles. It broke down the competition and the lessons of earlier cars, wrote a design philosophy that guided every decision, and set out from day one to build a culture of cross-team communication and honest critique. It was also the first year with a dedicated shop manager.
+    - "Car #54 raced Baja SAE Tennessee Tech, finishing 27th of 93 and 7th in Design."
+  leads:
+    - name: Willians Pena
+      role: Project Manager
+    - name: Alyssa Byrd
+      role: Shop Manager
+    - name: Sophia Butsumyo
+      role: Chassis Lead
+    - name: Cole Ellis
+      role: Powertrain Lead
+    - name: Andrew Faust
+      role: Suspension Lead
+    - name: Kenton Borgonah
+      role: Electrical Lead
+    - name: Emma Morgan
+      role: Business & Logistics Lead
 - season: 2020–21
-  event: Virtual competition
+  event: Virtual Knowledge Event
   location: Online
-  overall: null
+  overall: 8
+  fieldSize: 156
+  improvement: First four-wheel-drive car to race
   highlights:
-    - 8th of 156, Virtual Knowledge Event
+    - 8th overall, Baja SAE Arizona Validation Event
+    - 20th overall, Baja SAE Louisville Validation Event
     - 3rd among non-capstone projects at Texas A&M
+  story:
+    - The 2020–21 team finished the four-wheel-drive car the pandemic had interrupted, and raced for the first time as Fightin' Texas Aggie Motorsports. At SAE's Virtual Knowledge Event the team placed 8th of 156, still the best finish in program history.
+    - "When in-person racing returned, the same car ran both of SAE's validation events, finishing 8th in Arizona as #68 and 20th in Louisville a month later as #99. To spend testing time on reliability instead of tuning, it paired its Briggs & Stratton engine with a manual gearbox in place of the usual CVT."
+    - This season also welcomed the team's first class of apprentices.
+  specs:
+    - label: Drivetrain
+      value: Four-wheel drive
+    - label: Engine
+      value: Briggs & Stratton
+    - label: Transmission
+      value: Manual gearbox (no CVT)
+  leads:
+    - name: Randall Schank
+      role: Project Manager
+    - name: Dominic Kinsey
+      role: Chassis Lead
+    - name: Leonardo Bush
+      role: Powertrain Lead
+    - name: Killian Loshelder
+      role: Suspension Lead
+    - name: Tobenna Uzeugbunam
+      role: Electrical Lead
+    - name: Hunter Scott
+      role: Business & Logistics Lead
 - season: 2019–20
-  event: Virtual competition
+  event: Baja SAE Louisville (virtual)
   location: Online
   overall: 16
-  improvement: First four-wheel-drive car
+  fieldSize: 100
+  improvement: First four-wheel-drive design
   highlights:
-    - Team-record overall finish
+    - Team-record overall finish at the time
+  story:
+    - Midway through design, SAE announced rules that rewarded four-wheel drive ahead of making it required. As only a third-year team, we saw a chance to level the field against schools with decades of two-wheel-drive experience, voted unanimously to make the switch, and started the car over.
+    - The team built suspension models, tolerance calculators, and acceleration simulations through the fall, then welded and machined nearly every day of the spring semester. The chassis was fully welded and the suspension was going on when COVID-19 closed the shops and SAE canceled in-person racing.
+    - The team competed in the virtual Baja SAE Louisville event instead, presenting its designs to industry judges, and finished 16th of 100, the best result in program history at the time.
+  specs:
+    - label: Drivetrain
+      value: Four-wheel drive (designed)
+  leads:
+    - name: Christopher Larson
+      role: Project Manager
+    - name: Matthew Dorn
+      role: Chassis Lead
+    - name: Ni Jay
+      role: Powertrain Lead
+    - name: Randall Schank
+      role: Suspension Lead
+    - name: Nicholas King
+      role: Electrical Lead
+    - name: Hunter Scott
+      role: Business Lead
 - season: 2018–19
   event: Baja SAE California
   location: California
   overall: 52
+  fieldSize: 99
   highlights:
     - 9th Cost
+    - 15th Design
     - 16th Sales
+  story:
+    - Year two added a Business subteam, the first to run sponsorship and the sales presentation.
+    - "Car #19, in a Texas flag livery, raced Baja SAE California and finished 52nd of 99. The static events carried the season, with top-20 finishes in Cost, Design, and Sales."
+  leads:
+    - name: Luke Szrama
+      role: Project Manager
+    - name: Hunter Scott
+      role: Business Lead
+    - name: Miles Eldred
+      role: Chassis Lead
+    - name: Rachel Tucker
+      role: Powertrain Lead
+    - name: Cody Richter
+      role: Suspension Lead
+    - name: Kyle Patrick
+      role: Electrical Lead
 - season: 2017–18
   event: Baja SAE Kansas
   location: Kansas
@@ -65,3 +203,21 @@
   improvement: Our first Baja SAE competition
   highlights:
     - 7th Maneuverability
+    - 25th Acceleration
+    - 27th Endurance
+  story:
+    - The team formed in spring 2017 out of the Texas A&M Racing Apprentices program, with 27 sophomores and juniors, two faculty advisors, and no class attached. Families and local supporters funded most of that first car.
+    - At Baja SAE Kansas in May 2018 the team finished 33rd of 95 against programs with two decades of experience, and placed 7th in Maneuverability. One of the design judges sought the team out afterward to congratulate them.
+  leads:
+    - name: Will Swain
+      role: Project Manager
+    - name: Hunter Hakala
+      role: Powertrain Lead
+    - name: Michael Bailey
+      role: Chassis Lead
+    - name: Patrick Cygan
+      role: Suspension Lead
+    - name: Matthew Fisseler
+      role: Electrical Lead
+    - name: Matthew Urdahl
+      role: Pit Crew Lead

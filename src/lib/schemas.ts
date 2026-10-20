@@ -110,6 +110,8 @@ export const seasonsSchema = z.array(
     fieldSize: z.number().int().positive().optional(),
     highlights: list(z.array(text)),
     improvement: text.optional(),
+    // Optional: a few short paragraphs telling that season's story, shown on its car page.
+    story: list(z.array(text)),
     // Optional, shown on that season's car page.
     specs: list(z.array(z.object({ label: text, value: stringish.pipe(z.string().trim().min(1)) }))),
     leads: list(z.array(z.object({ name: text, role: text }))),

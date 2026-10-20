@@ -17,6 +17,8 @@ export interface CarYear {
   highlights: string[];
   /** The season's biggest step forward: written in seasons.yaml, or the overall places gained. */
   improvement?: string;
+  /** Short paragraphs telling the season's story. */
+  story: string[];
   specs: { label: string; value: string }[];
   leads: { name: string; role: string }[];
   gallery: string[];
@@ -36,6 +38,7 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
       fieldSize: s.fieldSize,
       highlights: s.highlights,
       improvement: s.improvement,
+      story: s.story,
       specs: s.specs,
       leads: s.leads,
       gallery: [],
@@ -43,7 +46,7 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
   }
   for (const car of garage) {
     if (!car.season) continue;
-    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], specs: [], leads: [], gallery: [] };
+    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], story: [], specs: [], leads: [], gallery: [] };
     years.set(car.season, {
       ...year,
       number: car.number,
