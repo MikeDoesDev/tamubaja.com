@@ -101,8 +101,11 @@ export default async function CarYearPage({ params }: { params: Promise<{ season
             )}
             {year.gallery.length > 0 && (
               <div className="mt-3 grid grid-cols-2 gap-3">
-                {year.gallery.map((src) => (
-                  <div key={src} className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+                {year.gallery.map((src, i) => (
+                  <div
+                    key={src}
+                    className={`relative overflow-hidden rounded-2xl border border-line ${year.gallery.length % 2 === 1 && i === year.gallery.length - 1 ? "col-span-2 aspect-[2/1]" : "aspect-[4/3]"}`}
+                  >
                     <Image src={src} alt={`${carName(year)}, ${year.season}`} fill sizes="(min-width: 1024px) 28vw, 50vw" className="object-cover" />
                   </div>
                 ))}
@@ -171,60 +174,81 @@ export default async function CarYearPage({ params }: { params: Promise<{ season
           </div>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
-            <h2 className="font-display text-3xl font-extrabold uppercase">Specs</h2>
-            {year.specs.length > 0 ? (
-              <dl className="mt-5 divide-y divide-line">
-                {year.specs.map((spec) => (
-                  <div key={spec.label} className="flex justify-between gap-6 py-3">
-                    <dt className="text-sm text-muted">{spec.label}</dt>
-                    <dd className="text-right font-semibold">{spec.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            ) : (
-              <p className="mt-3 text-muted">
-                We&apos;re pulling this car&apos;s spec sheet from the team archives. Check back soon.
-              </p>
+        <section aria-labelledby="specs" className="mt-14 rounded-2xl border border-line bg-panel p-6 sm:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <h2 id="specs" className="font-display text-3xl font-extrabold uppercase">Specs</h2>
+            {year.specs.some((spec) => spec.label.includes("(design)")) && (
+              <p className="text-xs text-muted">Design-review values; the built car can differ in the details.</p>
             )}
           </div>
-          <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
-            <h2 className="font-display text-3xl font-extrabold uppercase">The team behind it</h2>
-            {year.leads.length > 0 ? (
-              <ul className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-2">
-                {year.leads.map((lead) => (
-                  <li key={`${lead.role}-${lead.name}`}>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{lead.role}</p>
-                    <p className="font-display text-xl font-bold uppercase">{lead.name}</p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-3 text-muted">
-                Led this car or know who did?{" "}
-                <a href={`mailto:${site.email}?subject=${encodeURIComponent(`${year.season} car leads`)}`} className="font-semibold text-ink underline decoration-accent underline-offset-4">
-                  Tell us
-                </a>{" "}
-                so we can credit the leads and members who built it.
-              </p>
-            )}
-          </div>
-        </div>
-
-        {year.roster.length > 0 && (
-          <div className="mt-6 rounded-2xl border border-line bg-panel p-6 sm:p-8">
-            <h2 className="font-display text-3xl font-extrabold uppercase">Full roster</h2>
-            <dl className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
-              {year.roster.map((group) => (
-                <div key={group.team}>
-                  <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{group.team}</dt>
-                  <dd className="mt-1.5 text-sm leading-relaxed text-ink/85">{group.members.join(", ")}</dd>
+          {year.specs.length > 0 ? (
+            <dl className="mt-5 grid gap-x-12 sm:grid-cols-2">
+              {year.specs.map((spec) => (
+                <div key={spec.label} className="flex items-baseline justify-between gap-6 border-b border-line py-3">
+                  <dt className="shrink-0 text-sm text-muted">{spec.label.replace(" (design)", "")}</dt>
+                  <dd className="text-right font-semibold">{spec.value}</dd>
                 </div>
               ))}
             </dl>
-          </div>
-        )}
+          ) : (
+            <p className="mt-3 text-muted">
+              We&apos;re pulling this car&apos;s spec sheet from the team archives. Check back soon.
+            </p>
+          )}
+        </section>
+
+        <section aria-labelledby="team" className="mt-6 rounded-2xl border border-line bg-panel p-6 sm:p-8">
+          <h2 id="team" className="font-display text-3xl font-extrabold uppercase">The team behind it</h2>
+          {year.leads.length > 0 ? (
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {year.leads.map((lead) => (
+                <li key={`${lead.role}-${lead.name}`} className="rounded-xl border border-line border-l-maroon border-l-4 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{lead.role}</p>
+                  <p className="mt-1 font-display text-lg font-bold uppercase leading-tight">{lead.name}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 text-muted">
+              Led this car or know who did?{" "}
+              <a href={`mailto:${site.email}?subject=${encodeURIComponent(`${year.season} car leads`)}`} className="font-semibold text-ink underline decoration-accent underline-offset-4">
+                Tell us
+              </a>{" "}
+              so we can credit the leads and members who built it.
+            </p>
+          )}
+
+          {year.roster.length > 0 && (
+            <>
+              <h3 className="mt-10 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">
+                Full roster · {year.roster.reduce((sum, group) => sum + group.members.length, 0)} names
+              </h3>
+              <dl className="mt-4 grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-3">
+                {year.roster.map((group) => (
+                  <div key={group.team}>
+                    <dt className="border-b border-line pb-2 font-display text-lg font-bold uppercase">{group.team}</dt>
+                    <dd className="mt-3 flex flex-wrap gap-1.5">
+                      {group.members.map((member) => {
+                        const tag = member.match(/\(([^)]+)\)$/)?.[1];
+                        const name = member.replace(/\s*\([^)]+\)$/, "");
+                        const isLead = tag?.toLowerCase().includes("lead");
+                        return (
+                          <span
+                            key={member}
+                            className={`rounded-full border px-2.5 py-1 text-xs ${isLead ? "border-maroon bg-maroon/30 font-semibold text-ink" : "border-line text-ink/80"}`}
+                          >
+                            {name}
+                            {tag && <span className="ml-1 text-muted">· {tag}</span>}
+                          </span>
+                        );
+                      })}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          )}
+        </section>
 
         <nav aria-label="More cars" className="mt-10 grid grid-cols-2 gap-4">
           <Neighbor year={years[index - 1]} label="← Newer" align="left" />
