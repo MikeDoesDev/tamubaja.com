@@ -5,8 +5,8 @@ describe("buildCarYears", () => {
   it("joins garage cars to seasons, keeps unraced seasons, newest first", () => {
     const years = buildCarYears(
       [
-        { season: "2023–24", event: "Baja SAE Williamsport", location: "PA", overall: 18, highlights: ["4th Design"], specs: [], leads: [] },
-        { season: "2022–23", event: "Baja SAE Oregon", location: "OR", overall: 44, highlights: [], specs: [], leads: [] },
+        { season: "2023–24", event: "Baja SAE Williamsport", location: "PA", overall: 18, highlights: ["4th Design"], story: [], specs: [], leads: [], roster: [] },
+        { season: "2022–23", event: "Baja SAE Oregon", location: "OR", overall: 44, highlights: [], story: [], specs: [], leads: [], roster: [] },
       ],
       [
         { number: "51", season: "2025–26", photo: "/a.jpg", description: "x", gallery: [] },
