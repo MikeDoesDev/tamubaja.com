@@ -212,6 +212,20 @@ export default async function CarYearPage({ params }: { params: Promise<{ season
           </div>
         </div>
 
+        {year.roster.length > 0 && (
+          <div className="mt-6 rounded-2xl border border-line bg-panel p-6 sm:p-8">
+            <h2 className="font-display text-3xl font-extrabold uppercase">Full roster</h2>
+            <dl className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+              {year.roster.map((group) => (
+                <div key={group.team}>
+                  <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{group.team}</dt>
+                  <dd className="mt-1.5 text-sm leading-relaxed text-ink/85">{group.members.join(", ")}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+
         <nav aria-label="More cars" className="mt-10 grid grid-cols-2 gap-4">
           <Neighbor year={years[index - 1]} label="← Newer" align="left" />
           <Neighbor year={years[index + 1]} label="Older →" align="right" />

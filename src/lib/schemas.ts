@@ -115,6 +115,8 @@ export const seasonsSchema = z.array(
     // Optional, shown on that season's car page.
     specs: list(z.array(z.object({ label: text, value: stringish.pipe(z.string().trim().min(1)) }))),
     leads: list(z.array(z.object({ name: text, role: text }))),
+    // Optional: everyone on that season's team, grouped by subteam, shown on its car page.
+    roster: list(z.array(z.object({ team: text, members: z.array(text).min(1) }))),
     photo: publicPath.optional(),
   }),
 );

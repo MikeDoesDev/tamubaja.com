@@ -21,6 +21,8 @@ export interface CarYear {
   story: string[];
   specs: { label: string; value: string }[];
   leads: { name: string; role: string }[];
+  /** Everyone on the team that season, by subteam. */
+  roster: { team: string; members: string[] }[];
   gallery: string[];
 }
 
@@ -41,12 +43,13 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
       story: s.story,
       specs: s.specs,
       leads: s.leads,
+      roster: s.roster,
       gallery: [],
     });
   }
   for (const car of garage) {
     if (!car.season) continue;
-    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], story: [], specs: [], leads: [], gallery: [] };
+    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], story: [], specs: [], leads: [], roster: [], gallery: [] };
     years.set(car.season, {
       ...year,
       number: car.number,
