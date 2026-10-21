@@ -3,8 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/CtaBand";
 import { Plate } from "@/components/Plate";
-import { Eyebrow } from "@/components/Section";
-import { buildCarYears, carHref, carName, type CarYear } from "@/lib/cars";
+import { buildCarYears, carHref, carName } from "@/lib/cars";
 import { getCar, getSeasons, getSite } from "@/lib/content";
 import { ordinal } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
@@ -17,11 +16,20 @@ export function generateStaticParams() {
   return allYears().map((year) => ({ season: year.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ season: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ season: string }>;
+}) {
   const { season } = await params;
   const year = allYears().find((entry) => entry.slug === season);
   if (!year) return {};
-  const result = typeof year.overall === "number" ? `, ${ordinal(year.overall)} overall at ${year.event}` : year.event ? ` at ${year.event}` : "";
+  const result =
+    typeof year.overall === "number"
+      ? `, ${ordinal(year.overall)} overall at ${year.event}`
+      : year.event
+        ? ` at ${year.event}`
+        : "";
   return pageMetadata({
     title: `${carName(year)} (${year.season}) | Texas A&M Baja SAE`,
     description: `Texas A&M Baja SAE's ${year.season} off-road car${result}.${year.highlights.length ? ` ${year.highlights.join(". ")}.` : ""}`,
@@ -29,38 +37,106 @@ export async function generateMetadata({ params }: { params: Promise<{ season: s
   });
 }
 
-/** Section label like a race stage: "01 / The season". */
-function StageHeading({ n, id, children }: { n: string; id: string; children: React.ReactNode }) {
+const label =
+  "text-[11px] font-semibold uppercase tracking-[0.18em] text-muted";
+
+/** A report section: number and title in the left column, content on the right, ruled on top. */
+function ReportSection({
+  n,
+  id,
+  title,
+  children,
+}: {
+  n: string;
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="flex items-center gap-4">
-      <span className="font-display text-sm font-bold tracking-[0.2em] text-accent">{n}</span>
-      <span aria-hidden="true" className="hazard h-3 w-10 rounded-sm" />
-      <h2 id={id} className="font-display text-4xl font-extrabold uppercase leading-none sm:text-5xl">
-        {children}
-      </h2>
-    </div>
+    <section
+      aria-labelledby={id}
+      className="grid gap-6 border-t border-line py-12 sm:py-14 lg:grid-cols-[14rem_1fr] lg:gap-12"
+    >
+      <div>
+        <p className="font-display text-sm font-bold tracking-[0.15em] text-accent">
+          {n}
+        </p>
+        <h2
+          id={id}
+          className="mt-1 font-display text-2xl font-bold uppercase leading-tight"
+        >
+          {title}
+        </h2>
+      </div>
+      <div className="min-w-0">{children}</div>
+    </section>
   );
 }
 
-function BoardCell({ label, children, wide }: { label: string; children: React.ReactNode; wide?: boolean }) {
+/** A two-column ruled table: label on the left, value on the right. */
+function RuledTable({
+  rows,
+  head,
+}: {
+  rows: {
+    key: string;
+    label: React.ReactNode;
+    value: React.ReactNode;
+    strong?: boolean;
+  }[];
+  head?: [string, string];
+}) {
   return (
-    <div className={`bg-bg/80 p-4 backdrop-blur sm:p-5 ${wide ? "col-span-2" : ""}`}>
-      <dt className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">{label}</dt>
-      <dd className="mt-1.5 font-display text-xl font-extrabold uppercase leading-tight sm:text-2xl">{children}</dd>
-    </div>
+    <table className="w-full border-collapse text-left">
+      {head && (
+        <thead>
+          <tr className="border-b border-ink/40">
+            <th
+              scope="col"
+              className={`${label} w-2/5 pb-2 pr-6 font-semibold`}
+            >
+              {head[0]}
+            </th>
+            <th scope="col" className={`${label} pb-2 font-semibold`}>
+              {head[1]}
+            </th>
+          </tr>
+        </thead>
+      )}
+      <tbody>
+        {rows.map((row) => (
+          <tr key={row.key} className="border-b border-line align-top">
+            <th
+              scope="row"
+              className={`w-2/5 py-3 pr-6 text-sm font-normal text-muted ${row.strong ? "!font-semibold !text-ink" : ""}`}
+            >
+              {row.label}
+            </th>
+            <td
+              className={`py-3 text-[15px] ${row.strong ? "font-semibold" : ""}`}
+            >
+              {row.value}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
-/** "17th Design" -> ["17th", "Design"]; anything else stays whole. */
-function splitPlacing(item: string): [string | null, string] {
+/** "17th Design" -> ["17th", "Design"]; anything else returns null. */
+function splitPlacing(item: string): [string, string] | null {
   const match = item.match(/^(\d+(?:st|nd|rd|th))\s+(.+)$/);
-  return match ? [match[1], match[2]] : [null, item];
+  return match ? [match[1], match[2]] : null;
 }
 
-const KEY_SPECS = ["Dry weight", "Suspension travel", "Ground clearance", "Top speed", "Final drive", "Turning radius", "Engine output"];
-const cleanLabel = (label: string) => label.replace(" (design)", "");
+const cleanLabel = (text: string) => text.replace(" (design)", "");
 
-export default async function CarYearPage({ params }: { params: Promise<{ season: string }> }) {
+export default async function CarYearPage({
+  params,
+}: {
+  params: Promise<{ season: string }>;
+}) {
   const { season } = await params;
   const years = allYears();
   const index = years.findIndex((entry) => entry.slug === season);
@@ -68,361 +144,333 @@ export default async function CarYearPage({ params }: { params: Promise<{ season
   const year = years[index];
   const site = getSite();
 
-  const keySpecs = KEY_SPECS.map((key) => year.specs.find((spec) => cleanLabel(spec.label) === key))
-    .filter((spec): spec is CarYear["specs"][number] => Boolean(spec))
-    .slice(0, 4);
-  const sheetSpecs = year.specs.filter((spec) => !keySpecs.includes(spec));
-  const hasDesignValues = year.specs.some((spec) => spec.label.includes("(design)"));
   const ranked = typeof year.overall === "number";
-  const beat = ranked && year.fieldSize ? year.fieldSize - (year.overall as number) : null;
-  const rosterCount = year.roster.reduce((sum, group) => sum + group.members.length, 0);
-  const photos = year.gallery;
-  const stages = [
-    { id: "season", label: "The season" },
-    { id: "results", label: "Results" },
-    { id: "specs", label: "Spec sheet" },
-    { id: "team", label: "Pit crew" },
+  const overallText = ranked
+    ? `${ordinal(year.overall as number)}${year.fieldSize ? ` of ${year.fieldSize}` : ""}`
+    : year.overall === null
+      ? "No overall result"
+      : "To be announced";
+  const placings = year.highlights
+    .map(splitPlacing)
+    .filter((p): p is [string, string] => p !== null);
+  const recognition = year.highlights.filter((item) => !splitPlacing(item));
+  const hasDesignValues = year.specs.some((spec) =>
+    spec.label.includes("(design)"),
+  );
+  const rosterCount = year.roster.reduce(
+    (sum, group) => sum + group.members.length,
+    0,
+  );
+  const newer = years[index - 1];
+  const older = years[index + 1];
+
+  const summary = [
+    { k: "Overall finish", v: overallText },
+    { k: "Competition", v: year.event ?? "To be announced" },
+    { k: "Location", v: year.location ?? "—" },
+    {
+      k: rosterCount ? "Team" : "Livery",
+      v: rosterCount ? `${rosterCount} members` : (year.livery ?? "—"),
+    },
   ];
 
   return (
     <>
-      {/* HERO: photo, number, and the timing board */}
       <section className="relative isolate overflow-hidden border-b border-line">
         {year.photo ? (
           <>
-            <Image src={year.photo} alt="" fill preload quality={70} sizes="100vw" className="-z-20 object-cover" />
-            <div className="absolute inset-0 -z-10 bg-linear-to-t from-bg via-bg/75 to-bg/30" />
-            <div className="absolute inset-0 -z-10 bg-linear-to-r from-bg/80 via-transparent to-transparent" />
+            <Image
+              src={year.photo}
+              alt=""
+              fill
+              preload
+              quality={70}
+              sizes="100vw"
+              className="-z-20 object-cover opacity-50"
+            />
+            <div className="absolute inset-0 -z-10 bg-linear-to-t from-bg via-bg/80 to-bg/40" />
           </>
         ) : (
-          <div className="topo-bg absolute inset-0 -z-10 opacity-60" />
+          <div className="topo-bg absolute inset-0 -z-10 opacity-40" />
         )}
-        {year.number && (
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-6 bottom-24 -z-10 select-none font-display text-[16rem] font-extrabold leading-none text-transparent opacity-40 [-webkit-text-stroke:2px_rgba(255,255,255,0.35)] sm:text-[22rem] lg:bottom-10"
+        <div className="mx-auto max-w-6xl px-4 pb-10 pt-12 sm:px-6 sm:pt-16">
+          <Link
+            href="/car#history"
+            className="text-sm font-semibold text-muted hover:text-ink"
           >
-            {year.number}
-          </span>
-        )}
-        <div className="mx-auto max-w-6xl px-4 pb-8 pt-12 sm:px-6 sm:pt-20">
-          <Link href="/car#history" className="text-sm font-semibold text-muted hover:text-ink">
             ← All our cars
           </Link>
-          <div className="mt-16 flex flex-wrap items-center gap-4 sm:mt-24">
-            {year.number && <Plate number={year.number} className="!text-3xl" />}
-            <span className="hazard h-4 w-16 rounded-sm" aria-hidden="true" />
-            <Eyebrow>{year.season} season</Eyebrow>
+          <p className={`${label} mt-16 sm:mt-24`}>
+            Car history · {year.season} season
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-4">
+            {year.number && (
+              <Plate number={year.number} className="!text-3xl" />
+            )}
+            <h1 className="font-display text-5xl font-extrabold uppercase leading-none sm:text-7xl">
+              {carName(year)}
+            </h1>
           </div>
-          <h1 className="mt-1 font-display text-6xl font-extrabold uppercase leading-[0.85] sm:text-8xl lg:text-9xl">{carName(year)}</h1>
-          {year.description && <p className="mt-5 max-w-2xl text-lg text-ink/80">{year.description}</p>}
+          {year.description && (
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">
+              {year.description}
+            </p>
+          )}
 
-          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
-            <BoardCell label="Overall finish">
-              {ranked ? (
-                <>
-                  <span className="text-accent">{ordinal(year.overall as number)}</span>
-                  {year.fieldSize && <span className="text-base text-muted"> / {year.fieldSize}</span>}
-                </>
-              ) : year.overall === null ? (
-                <span className="text-muted">No overall</span>
-              ) : (
-                <span className="text-muted">TBA</span>
-              )}
-            </BoardCell>
-            <BoardCell label="Competition">{year.event ?? "To be announced"}</BoardCell>
-            <BoardCell label="Location">{year.location ?? "—"}</BoardCell>
-            <BoardCell label="Livery">{year.livery ?? "—"}</BoardCell>
+          <dl className="mt-10 grid grid-cols-2 border-t border-ink/40 sm:grid-cols-4">
+            {summary.map((item, i) => (
+              <div
+                key={item.k}
+                className={`border-b border-line py-4 pr-4 sm:border-b-0 ${i > 0 ? "sm:border-l sm:pl-5" : ""}`}
+              >
+                <dt className={label}>{item.k}</dt>
+                <dd
+                  className={`mt-1.5 text-lg font-semibold leading-snug ${i === 0 && ranked ? "text-accent" : ""}`}
+                >
+                  {item.v}
+                </dd>
+              </div>
+            ))}
           </dl>
         </div>
       </section>
 
-      {/* STAGE NAV */}
-      <nav aria-label="On this page" className="sticky top-[65px] z-30 border-b border-line bg-bg/95 backdrop-blur">
-        <div className="no-scrollbar mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 sm:px-6">
-          {stages.map((stage, i) => (
-            <a
-              key={stage.id}
-              href={`#${stage.id}`}
-              className="shrink-0 border-b-2 border-transparent px-3 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition-colors hover:border-maroon hover:text-ink"
-            >
-              <span className="text-accent">0{i + 1}</span> {stage.label}
-            </a>
-          ))}
-        </div>
-      </nav>
-
-      {/* 01 THE SEASON */}
-      <section aria-labelledby="season" className="scroll-mt-28 px-4 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-6xl">
-          <StageHeading n="01" id="season">
-            The season
-          </StageHeading>
-          <div className="mt-10 grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
-            <div>
-              {year.improvement && (
-                <figure className="mb-8 border-l-4 border-maroon pl-5">
-                  <figcaption className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">Step forward</figcaption>
-                  <p className="mt-1 font-display text-3xl font-extrabold uppercase leading-tight">{year.improvement}</p>
-                </figure>
-              )}
-              {year.story.length > 0 ? (
-                <div className="max-w-prose space-y-5 text-[17px] leading-[1.75] text-ink/85">
-                  {year.story.map((paragraph, i) => (
-                    <p key={paragraph} className={i === 0 ? "text-lg text-ink" : ""}>
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              ) : (
-                <p className="rounded-xl border border-dashed border-line p-6 text-muted">
-                  We&apos;re still writing this season&apos;s story. Raced on this car or have pictures?{" "}
-                  <a href={`mailto:${site.email}`} className="font-semibold text-ink underline decoration-accent underline-offset-4">
-                    Send them our way
-                  </a>
-                  .
+      <div className="px-4 sm:px-6">
+        <div className="mx-auto max-w-6xl pb-8 pt-4">
+          <ReportSection n="01" id="season" title="Season overview">
+            {year.improvement && (
+              <div className="mb-8 border-l-2 border-accent pl-5">
+                <p className={label}>Key takeaway</p>
+                <p className="mt-1.5 text-xl font-semibold leading-snug">
+                  {year.improvement}
                 </p>
-              )}
-            </div>
-
-            <div className="space-y-3">
-              {year.photo && (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line">
-                  <Image src={year.photo} alt={`${carName(year)}, ${year.season}`} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
-                </div>
-              )}
-              {photos.length > 0 && (
-                <div className="grid grid-cols-2 gap-3">
-                  {photos.map((src, i) => (
-                    <div
-                      key={src}
-                      className={`relative overflow-hidden rounded-xl border border-line ${photos.length % 2 === 1 && i === photos.length - 1 ? "col-span-2 aspect-[2/1]" : "aspect-[4/3]"}`}
-                    >
-                      <Image src={src} alt={`${carName(year)}, ${year.season}`} fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
-                    </div>
+              </div>
+            )}
+            {year.story.length > 0 ? (
+              <div className="max-w-[68ch] space-y-5 text-base leading-[1.75] text-ink/85">
+                {year.story.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            ) : (
+              <p className="max-w-[68ch] text-muted">
+                We&apos;re still writing this season&apos;s story. Raced on this
+                car or have pictures?{" "}
+                <a
+                  href={`mailto:${site.email}`}
+                  className="font-semibold text-ink underline decoration-accent underline-offset-4"
+                >
+                  Send them our way
+                </a>
+                .
+              </p>
+            )}
+            {(year.photo || year.gallery.length > 0) && (
+              <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
+                {[year.photo, ...year.gallery]
+                  .filter((src): src is string => Boolean(src))
+                  .map((src, i) => (
+                    <figure key={src}>
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-line">
+                        <Image
+                          src={src}
+                          alt={`${carName(year)}, ${year.season}`}
+                          fill
+                          sizes="(min-width: 1024px) 25vw, 50vw"
+                          className="object-cover"
+                        />
+                      </div>
+                      <figcaption className="mt-2 text-xs text-muted">
+                        Exhibit 1.{i + 1} · {carName(year)}, {year.season}
+                      </figcaption>
+                    </figure>
                   ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+              </div>
+            )}
+          </ReportSection>
 
-      {/* 02 RESULTS */}
-      <section aria-labelledby="results" className="relative isolate scroll-mt-28 border-y border-line bg-panel px-4 py-16 sm:px-6 sm:py-24">
-        <div className="topo-bg absolute inset-0 -z-10 opacity-15" />
-        <div className="mx-auto max-w-6xl">
-          <StageHeading n="02" id="results">
-            Results
-          </StageHeading>
-
-          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">{year.event ?? "Competition"}</p>
-              <p className="mt-2 font-display text-8xl font-extrabold uppercase leading-none text-accent sm:text-9xl">
-                {ranked ? ordinal(year.overall as number) : year.overall === null ? "—" : "TBA"}
-              </p>
-              <p className="mt-2 font-display text-xl font-bold uppercase">
-                {ranked ? `Overall${year.fieldSize ? ` out of ${year.fieldSize} teams` : ""}` : year.overall === null ? "No overall result" : "Result coming"}
-              </p>
-              {beat !== null && beat > 0 && <p className="mt-3 text-muted">Ahead of {beat} of the {year.fieldSize} teams in the field.</p>}
-            </div>
-
+          <ReportSection n="02" id="results" title="Results">
+            <RuledTable
+              head={["Event", "Placing"]}
+              rows={[
+                {
+                  key: "overall",
+                  label: `Overall${year.event ? ` · ${year.event}` : ""}`,
+                  value: overallText,
+                  strong: true,
+                },
+                ...placings.map(([place, event]) => ({
+                  key: event,
+                  label: event,
+                  value: place,
+                })),
+              ]}
+            />
             {ranked && year.fieldSize && (
-              <div aria-hidden="true">
-                <div className="flex justify-between text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">
-                  <span>1st</span>
-                  <span>Field of {year.fieldSize}</span>
-                  <span>{ordinal(year.fieldSize)}</span>
-                </div>
-                <div className="relative mt-3 h-14">
-                  <div className="track-line absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2" />
+              <div className="mt-8" aria-hidden="true">
+                <div className="relative h-1.5 rounded-full bg-line">
                   <div
-                    className="absolute inset-y-0 left-0 rounded-l-lg bg-linear-to-r from-maroon/0 to-maroon/60"
-                    style={{ width: `${((year.overall as number) / year.fieldSize) * 100}%` }}
+                    className="absolute inset-y-0 left-0 rounded-full bg-accent/60"
+                    style={{
+                      width: `${((year.overall as number) / year.fieldSize) * 100}%`,
+                    }}
                   />
                   <div
-                    className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
-                    style={{ left: `${((year.overall as number) / year.fieldSize) * 100}%` }}
-                  >
-                    {year.number ? <Plate number={year.number} className="!text-xl shadow-lg" /> : <span className="block h-5 w-5 rounded-full bg-ink" />}
-                  </div>
+                    className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-bg bg-accent"
+                    style={{
+                      left: `${((year.overall as number) / year.fieldSize) * 100}%`,
+                    }}
+                  />
                 </div>
-                <div className="flex justify-between text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">
-                  <span>← Front of the pack</span>
-                  <span>Back of the pack →</span>
+                <div className="mt-2 flex justify-between text-xs text-muted">
+                  <span>1st</span>
+                  <span>
+                    Finish position in a field of {year.fieldSize}: ahead of{" "}
+                    {year.fieldSize - (year.overall as number)} teams
+                  </span>
+                  <span>{ordinal(year.fieldSize)}</span>
                 </div>
               </div>
             )}
-          </div>
-
-          {year.highlights.length > 0 && (
-            <ul className="mt-12 grid grid-cols-2 gap-3 lg:grid-cols-4">
-              {year.highlights.map((item) => {
-                const [place, event] = splitPlacing(item);
-                return (
-                  <li key={item} className="rounded-xl border border-line bg-bg/60 p-5">
-                    {place ? (
-                      <>
-                        <p className="font-display text-4xl font-extrabold uppercase leading-none">{place}</p>
-                        <p className="mt-2 text-sm font-semibold uppercase tracking-[0.15em] text-muted">{event}</p>
-                      </>
-                    ) : (
-                      <p className="flex gap-2 font-semibold leading-snug">
-                        <span aria-hidden="true" className="text-accent">
-                          ★
-                        </span>
-                        {item}
-                      </p>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-      </section>
-
-      {/* 03 SPEC SHEET */}
-      <section aria-labelledby="specs" className="scroll-mt-28 px-4 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-6xl">
-          <StageHeading n="03" id="specs">
-            Spec sheet
-          </StageHeading>
-          {year.specs.length > 0 ? (
-            <>
-              {keySpecs.length > 0 && (
-                <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line lg:grid-cols-4">
-                  {keySpecs.map((spec) => (
-                    <div key={spec.label} className="bg-panel p-5 sm:p-6">
-                      <dt className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">{cleanLabel(spec.label)}</dt>
-                      <dd className="mt-2 font-display text-2xl font-extrabold uppercase leading-tight sm:text-4xl">{spec.value}</dd>
-                    </div>
+            {recognition.length > 0 && (
+              <div className="mt-8">
+                <p className={label}>Also recognized</p>
+                <ul className="mt-3 space-y-2 text-[15px]">
+                  {recognition.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span aria-hidden="true" className="text-accent">
+                        —
+                      </span>
+                      {item}
+                    </li>
                   ))}
-                </dl>
-              )}
-              {sheetSpecs.length > 0 && (
-                <div className="mt-6 overflow-hidden rounded-xl border border-line">
-                  <div className="flex items-center justify-between border-b border-line bg-panel-2 px-5 py-3">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">Tech sheet · {carName(year)}</p>
-                    <span className="hazard h-3 w-12 rounded-sm" aria-hidden="true" />
-                  </div>
-                  <dl className="grid sm:grid-cols-2">
-                    {sheetSpecs.map((spec, i) => (
-                      <div
-                        key={spec.label}
-                        className={`grid grid-cols-[7rem_1fr] gap-4 border-b border-line px-5 py-3.5 sm:grid-cols-[10rem_1fr] ${i % 2 === 0 ? "sm:border-r" : ""}`}
-                      >
-                        <dt className="text-xs font-semibold uppercase tracking-[0.15em] text-muted">{cleanLabel(spec.label)}</dt>
-                        <dd className="font-semibold leading-snug">{spec.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              )}
-              {hasDesignValues && <p className="mt-3 text-xs text-muted">Weights, travel, clearance and similar figures are design-review targets; the built car can differ.</p>}
-            </>
-          ) : (
-            <p className="mt-8 rounded-xl border border-dashed border-line p-6 text-muted">We&apos;re pulling this car&apos;s spec sheet from the team archives. Check back soon.</p>
-          )}
-        </div>
-      </section>
+                </ul>
+              </div>
+            )}
+          </ReportSection>
 
-      {/* 04 PIT CREW */}
-      <section aria-labelledby="team" className="scroll-mt-28 border-t border-line bg-panel px-4 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-6xl">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <StageHeading n="04" id="team">
-              Pit crew
-            </StageHeading>
-            {rosterCount > 0 && (
-              <p className="font-display text-lg font-bold uppercase text-muted">
-                <span className="text-ink">{rosterCount}</span> names on the roster
+          <ReportSection n="03" id="specs" title="Specifications">
+            {year.specs.length > 0 ? (
+              <>
+                <RuledTable
+                  head={["System", "Specification"]}
+                  rows={year.specs.map((spec) => ({
+                    key: spec.label,
+                    label: cleanLabel(spec.label),
+                    value: spec.value,
+                  }))}
+                />
+                {hasDesignValues && (
+                  <p className="mt-3 text-xs text-muted">
+                    Weights, travel, clearance and similar figures are
+                    design-review targets; the built car can differ.
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="text-muted">
+                We&apos;re pulling this car&apos;s spec sheet from the team
+                archives. Check back soon.
               </p>
             )}
-          </div>
+          </ReportSection>
 
-          {year.leads.length > 0 ? (
-            <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {year.leads.map((lead) => (
-                <li key={`${lead.role}-${lead.name}`} className="relative overflow-hidden rounded-xl border border-line bg-bg p-5">
-                  <span aria-hidden="true" className="hazard absolute inset-x-0 top-0 h-1.5" />
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-accent">{lead.role}</p>
-                  <p className="mt-1.5 font-display text-xl font-bold uppercase leading-tight">{lead.name}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="mt-8 text-muted">
-              Led this car or know who did?{" "}
-              <a href={`mailto:${site.email}?subject=${encodeURIComponent(`${year.season} car leads`)}`} className="font-semibold text-ink underline decoration-accent underline-offset-4">
-                Tell us
-              </a>{" "}
-              so we can credit the leads and members who built it.
-            </p>
-          )}
-
-          {year.roster.length > 0 && (
-            <dl className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-              {year.roster.map((group) => (
-                <div key={group.team}>
-                  <dt className="flex items-baseline justify-between border-b border-line pb-2">
-                    <span className="font-display text-lg font-bold uppercase">{group.team}</span>
-                    <span className="text-xs text-muted">{group.members.length}</span>
-                  </dt>
-                  <dd className="mt-3 flex flex-wrap gap-1.5">
-                    {group.members.map((member) => {
-                      const tag = member.match(/\(([^)]+)\)$/)?.[1];
+          <ReportSection n="04" id="team" title="Team">
+            {year.leads.length > 0 ? (
+              <>
+                <p className={`${label} mb-3`}>Leadership</p>
+                <RuledTable
+                  rows={year.leads.map((lead) => ({
+                    key: `${lead.role}-${lead.name}`,
+                    label: lead.role,
+                    value: lead.name,
+                  }))}
+                />
+              </>
+            ) : (
+              <p className="text-muted">
+                Led this car or know who did?{" "}
+                <a
+                  href={`mailto:${site.email}?subject=${encodeURIComponent(`${year.season} car leads`)}`}
+                  className="font-semibold text-ink underline decoration-accent underline-offset-4"
+                >
+                  Tell us
+                </a>{" "}
+                so we can credit the leads and members who built it.
+              </p>
+            )}
+            {year.roster.length > 0 && (
+              <div className="mt-10">
+                <p className={`${label} mb-3`}>
+                  Full roster · {rosterCount} members
+                </p>
+                <RuledTable
+                  rows={year.roster.map((group) => ({
+                    key: group.team,
+                    label: (
+                      <>
+                        {group.team}{" "}
+                        <span className="text-muted/70">
+                          ({group.members.length})
+                        </span>
+                      </>
+                    ),
+                    value: group.members.map((member, i) => {
+                      const isLead = /\(.*lead.*\)$/i.test(member);
                       const name = member.replace(/\s*\([^)]+\)$/, "");
-                      const isLead = tag?.toLowerCase().includes("lead");
+                      const tag = member.match(/\(([^)]+)\)$/)?.[1];
                       return (
-                        <span
-                          key={member}
-                          className={`rounded-full border px-2.5 py-1 text-xs ${isLead ? "border-maroon bg-maroon/40 font-semibold text-ink" : "border-line bg-bg/50 text-ink/80"}`}
-                        >
-                          {name}
-                          {tag && <span className="ml-1 text-muted">· {tag}</span>}
+                        <span key={member}>
+                          {i > 0 && ", "}
+                          <span
+                            className={isLead ? "font-semibold" : "text-ink/85"}
+                          >
+                            {name}
+                          </span>
+                          {tag && <span className="text-muted"> ({tag})</span>}
                         </span>
                       );
-                    })}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          )}
-        </div>
-      </section>
+                    }),
+                  }))}
+                />
+              </div>
+            )}
+          </ReportSection>
 
-      {/* SEASON STRIP */}
-      <nav aria-label="Every car" className="border-t border-line px-4 py-12 sm:px-6">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">Every car we&apos;ve built</p>
-          <ol className="no-scrollbar mt-4 flex gap-2 overflow-x-auto pb-2">
-            {years.map((entry) => {
-              const current = entry.slug === year.slug;
-              return (
-                <li key={entry.slug} className="shrink-0">
-                  <Link
-                    href={carHref(entry)}
-                    aria-current={current ? "page" : undefined}
-                    className={`flex min-w-28 flex-col items-start gap-2 rounded-xl border p-3 transition-colors ${current ? "border-maroon bg-maroon/40" : "border-line bg-panel hover:border-accent/50"}`}
-                  >
-                    {entry.number ? <Plate number={entry.number} className="!text-base" /> : <span className="h-7 text-xs text-muted">No. —</span>}
-                    <span className="font-display text-sm font-bold uppercase">{entry.season}</span>
-                    <span className="text-[11px] text-muted">{typeof entry.overall === "number" ? `${ordinal(entry.overall)} overall` : entry.overall === null ? "No overall" : "In build"}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ol>
-          <div className="mt-6 flex justify-between text-sm font-semibold">
-            {years[index - 1] ? <Link href={carHref(years[index - 1])} className="text-muted hover:text-ink">← Newer: {years[index - 1].season}</Link> : <span />}
-            {years[index + 1] ? <Link href={carHref(years[index + 1])} className="text-muted hover:text-ink">Older: {years[index + 1].season} →</Link> : <span />}
-          </div>
+          <nav
+            aria-label="More cars"
+            className="grid grid-cols-2 gap-6 border-t border-line pt-8"
+          >
+            {newer ? (
+              <Link href={carHref(newer)} className="group">
+                <span className={label}>← Newer</span>
+                <span className="mt-1 block font-semibold group-hover:text-accent">
+                  {newer.season}
+                  {newer.number ? ` · Car #${newer.number}` : ""}
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {older ? (
+              <Link href={carHref(older)} className="group text-right">
+                <span className={label}>Older →</span>
+                <span className="mt-1 block font-semibold group-hover:text-accent">
+                  {older.season}
+                  {older.number ? ` · Car #${older.number}` : ""}
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+          </nav>
         </div>
-      </nav>
+      </div>
 
-      <CtaBand title="Put your name on the next car" body="Partner with us to ride on the next car at Rollout and competition." />
+      <CtaBand
+        title="Put your name on the next car"
+        body="Partner with us to ride on the next car at Rollout and competition."
+      />
     </>
   );
 }
