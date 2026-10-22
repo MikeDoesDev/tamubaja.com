@@ -35,10 +35,10 @@ export default function CarPage() {
         <Eyebrow>Where we are now</Eyebrow>
         <SectionHeading>Building the {car.buildSeason} car</SectionHeading>
         <div className="mt-8">
-          <BuildStatus milestones={car.milestones} buildSeason={car.buildSeason} />
+          <BuildStatus milestones={car.milestones} buildSeason={car.buildSeason} builtAt={new Date().toISOString()} />
         </div>
         <div className="mt-10">
-          <MilestoneTimeline milestones={car.milestones} />
+          <MilestoneTimeline milestones={car.milestones} builtAt={new Date().toISOString()} />
         </div>
         <p className="mt-4 text-sm text-muted">
           Want your logo on this car?{" "}

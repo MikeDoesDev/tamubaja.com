@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatMilestoneDate, withStatus } from "@/lib/milestones";
+import { daysUntil, formatMilestoneDate, teamDate, withStatus } from "@/lib/milestones";
 
 const milestones = [
   { name: "Design freeze", date: "2026-11-22" },
@@ -41,5 +41,18 @@ describe("withStatus", () => {
 describe("formatMilestoneDate", () => {
   it("formats ISO dates as short US dates", () => {
     expect(formatMilestoneDate("2026-11-22")).toBe("Nov 22, 2026");
+  });
+});
+
+describe("team-time dates", () => {
+  it("uses Central time, so evening in College Station is still the same day", () => {
+    // 9 pm CDT on Oct 22 is already Oct 23 in UTC
+    expect(teamDate(new Date("2026-10-23T02:00:00Z"))).toBe("2026-10-22");
+  });
+
+  it("counts whole days to a milestone", () => {
+    expect(daysUntil("2026-10-25", new Date("2026-10-22T19:00:00Z"))).toBe(3);
+    expect(daysUntil("2026-10-25", new Date("2026-10-25T15:00:00Z"))).toBe(0);
+    expect(daysUntil("2026-10-25", new Date("2026-10-26T15:00:00Z"))).toBe(-1);
   });
 });

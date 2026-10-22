@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { formatMilestoneDate, withStatus, type Milestone } from "@/lib/milestones";
+import { useToday } from "@/lib/useToday";
 
 const LABELS = { done: "Done", next: "Up next", upcoming: "Upcoming" } as const;
 
@@ -7,7 +10,8 @@ const LABELS = { done: "Done", next: "Up next", upcoming: "Upcoming" } as const;
  * The season as a track: milestones grouped by phase (Design → Build → Compete), each a stop on the
  * line. Finished stops are filled in; a milestone with a photo shows it.
  */
-export function MilestoneTimeline({ milestones, today = new Date() }: { milestones: Milestone[]; today?: Date }) {
+export function MilestoneTimeline({ milestones, builtAt }: { milestones: Milestone[]; builtAt: string }) {
+  const today = useToday(builtAt);
   const items = withStatus(milestones, today);
   const phases: { name: string; items: typeof items }[] = [];
   for (const item of items) {

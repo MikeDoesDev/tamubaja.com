@@ -113,7 +113,7 @@ export default function HomePage() {
               A new car every season, designed and built by students from a clean sheet. Here&apos;s where this one stands.
             </p>
             <div className="mt-6">
-              <BuildStatus milestones={car.milestones} buildSeason={car.buildSeason} />
+              <BuildStatus milestones={car.milestones} buildSeason={car.buildSeason} builtAt={new Date().toISOString()} />
             </div>
             <div className="mt-6">
               <ButtonLink href="/car" variant="secondary">
