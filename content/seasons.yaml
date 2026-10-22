@@ -14,13 +14,51 @@
 #   leads:
 #     - name: Jane Doe
 #       role: Chief Engineer
+# points, teamSize, results and sponsors (optional) also show on the car page:
+#   points: 605            total out of 1,000
+#   teamSize: 40           students on the team (the roster may name fewer)
+#   results:               every event; place: null when SAE didn't publish one
+#     - event: Endurance
+#       place: 36
+#       points: 210.2
+#       note: 33 laps
+#   sponsors:
+#     - General Motors
 # Only add results the team has confirmed. Results below come from the official Baja SAE results
 # (bajasae.net) and the team's earlier website.
 - season: 2025–26
   event: Baja SAE Oregon
-  location: Oregon
+  location: Washougal, Washington
   overall: 34
   fieldSize: 76
+  points: 357
+  teamSize: 44
+  results:
+    - event: Design
+      place: 17
+      points: 90
+    - event: Cost
+      place: 19
+      points: 77.6
+    - event: Business Presentation
+      place: 20
+      points: 58.1
+    - event: Acceleration
+      place: 22
+      points: 50.5
+    - event: Maneuverability
+      place: 21
+      points: 51.4
+    - event: Hill climb / pull
+      place: null
+      points: 8.6
+    - event: Suspension / rock crawl
+      place: null
+      points: 5
+    - event: Endurance
+      place: 59
+      points: 15.4
+      note: 3 laps, disqualified after rollovers
   improvement: Best Business Presentation score in team history
   highlights:
     - 17th Design
@@ -47,8 +85,6 @@
       value: 14 in front, 13 in rear
     - label: Ground clearance (design)
       value: 11 in
-    - label: Team
-      value: 44 students from 13 majors
     - label: Gearbox
       value: Custom two-stage reduction
     - label: Front suspension
@@ -123,9 +159,37 @@
         - Libby Tovar
 - season: 2024–25
   event: Baja SAE Maryland
-  location: Maryland
+  location: Budds Creek, Maryland
   overall: 31
   fieldSize: 98
+  points: 605
+  teamSize: 40
+  results:
+    - event: Design
+      place: 18
+      points: 90
+    - event: Cost
+      place: 39
+      points: 60.9
+    - event: Business Presentation
+      place: 43
+      points: 48.7
+    - event: Acceleration
+      place: 3
+      points: 66.9
+    - event: Maneuverability
+      place: 17
+      points: 64.6
+    - event: Hill climb / pull
+      place: 16
+      points: 59.9
+    - event: Suspension / rock crawl
+      place: 52
+      points: 4
+    - event: Endurance
+      place: 36
+      points: 210.2
+      note: 33 laps
   improvement: First podium in team history
   highlights:
     - 3rd Acceleration
@@ -162,8 +226,6 @@
       value: 12.5 in
     - label: Torsional rigidity (design)
       value: 730 lb·ft/deg
-    - label: Team
-      value: 40 students
   leads:
     - name: Tyler Anderson
       role: Project Manager
@@ -214,6 +276,35 @@
   location: Williamsport, Pennsylvania
   overall: 18
   fieldSize: 106
+  points: 599
+  teamSize: 39
+  results:
+    - event: Design
+      place: 4
+      points: 130
+    - event: Cost
+      place: 16
+      points: 77
+    - event: Business Presentation
+      place: 56
+      points: 15
+      note: tied
+    - event: Acceleration
+      place: 17
+      points: 54.8
+    - event: Maneuverability
+      place: 31
+      points: 37
+    - event: Hill climb / pull
+      place: 10
+      points: 59.3
+    - event: Suspension / rock crawl
+      place: 36
+      points: 19.1
+    - event: Endurance
+      place: 25
+      points: 207.1
+      note: 30 laps
   highlights:
     - 4th Design
     - 10th Hill Climb
@@ -247,8 +338,6 @@
       value: 68 lb
     - label: Turning radius (design)
       value: 6.5 ft
-    - label: Team
-      value: 39 students
   leads:
     - name: Kevin Maze
       role: Project Manager
@@ -305,6 +394,33 @@
   location: Oregon
   overall: 44
   fieldSize: 86
+  points: 355
+  results:
+    - event: Design
+      place: 31
+      points: 70
+    - event: Cost
+      place: null
+      points: 60
+    - event: Sales Presentation
+      place: null
+      points: 44
+    - event: Acceleration
+      place: 26
+      points: 50.5
+    - event: Maneuverability
+      place: null
+      points: 0
+    - event: Hill climb / pull
+      place: null
+      points: 25.1
+    - event: Suspension / rock crawl
+      place: null
+      points: 2.2
+    - event: Endurance
+      place: 52
+      points: 102.9
+      note: 10 laps, chassis failure
   highlights:
     - Top 40 in Design, Cost, and Sales
     - 26th Acceleration
@@ -378,6 +494,43 @@
   location: Tennessee
   overall: 27
   fieldSize: 93
+  points: 564
+  results:
+    - event: Design
+      place: 7
+      points: 110
+    - event: Cost
+      place: 16
+      points: 71.2
+    - event: Sales Presentation
+      place: 45
+      points: 50.2
+    - event: Acceleration
+      place: null
+      points: 21.2
+    - event: Maneuverability
+      place: 22
+      points: 54.7
+    - event: Hill climb / pull
+      place: null
+      points: 25.2
+    - event: Suspension / rock crawl
+      place: null
+      points: 12.4
+    - event: Endurance
+      place: 36
+      points: 139.1
+      note: 17 laps
+    - event: Four-wheel-drive bonus
+      place: null
+      points: 80
+  sponsors:
+    - General Motors
+    - Texas A&M Mechanical Engineering
+    - Toyota
+    - SKF
+    - Bend-It
+    - East Lake Axle
   improvement: First top-10 Design finish
   highlights:
     - 7th Design
@@ -437,6 +590,18 @@
   location: Online
   overall: 8
   fieldSize: 156
+  results:
+    - event: Design
+      place: null
+      points: 110
+    - event: Cost
+      place: null
+      points: 88.6
+    - event: Sales Presentation
+      place: null
+      points: 41.3
+  sponsors:
+    - Fischer Engineering Design Center
   improvement: First four-wheel-drive car to race
   highlights:
     - 8th overall, Baja SAE Arizona Validation Event
@@ -516,6 +681,29 @@
   location: Online
   overall: 16
   fieldSize: 100
+  results:
+    - event: Design
+      place: null
+      points: 90
+    - event: Cost
+      place: null
+      points: 70.2
+    - event: Sales Presentation
+      place: null
+      points: 37.1
+  sponsors:
+    - General Motors
+    - Texas A&M Mechanical Engineering
+    - US Sprocket & Gear
+    - Caterpillar
+    - SKF
+    - Bend-It
+    - Elka
+    - East Lake Axle
+    - Ryerson
+    - ESPI
+    - ACME
+    - BLM
   improvement: First four-wheel-drive design
   highlights:
     - Team-record overall finish at the time
@@ -586,6 +774,32 @@
   location: California
   overall: 52
   fieldSize: 99
+  points: 460
+  results:
+    - event: Design
+      place: 15
+      points: 110
+    - event: Cost
+      place: 9
+      points: 85
+    - event: Sales Presentation
+      place: 16
+      points: 42
+    - event: Acceleration
+      place: 56
+      points: 47.2
+    - event: Maneuverability
+      place: null
+      points: 0
+    - event: Hill climb / pull
+      place: 38
+      points: 42.5
+    - event: Suspension / rock crawl
+      place: 63
+      points: 38.5
+    - event: Endurance
+      place: 65
+      points: 94.7
   highlights:
     - 9th Cost
     - 15th Design
@@ -647,9 +861,38 @@
         - Nicholas King
 - season: 2017–18
   event: Baja SAE Kansas
-  location: Kansas
+  location: Pittsburg, Kansas
   overall: 33
   fieldSize: 95
+  points: 556
+  teamSize: 27
+  results:
+    - event: Design
+      place: 25
+      points: 100
+    - event: Cost
+      place: null
+      points: 52.1
+    - event: Sales Presentation
+      place: null
+      points: 30.3
+    - event: Acceleration
+      place: 25
+      points: 49.4
+    - event: Maneuverability
+      place: 7
+      points: 65
+    - event: Hill climb / pull
+      place: null
+      points: 0
+    - event: Suspension / rock crawl
+      place: null
+      points: 22.9
+    - event: Endurance
+      place: 27
+      points: 236.4
+  sponsors:
+    - Automated Fabrication and Design Lab
   improvement: Our first Baja SAE competition
   highlights:
     - 7th Maneuverability

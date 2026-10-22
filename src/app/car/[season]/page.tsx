@@ -132,6 +132,35 @@ function splitPlacing(item: string): [string, string] | null {
 
 const cleanLabel = (text: string) => text.replace(" (design)", "");
 
+/** Spec rows grouped the way an engineer reads a car: what drives it, what holds it up, how big it is. */
+const SPEC_GROUPS: { name: string; match: RegExp }[] = [
+  { name: "Powertrain", match: /engine|drivetrain|cvt|gearbox|final drive|axle|differential|transmission|top speed/i },
+  { name: "Chassis & suspension", match: /chassis|frame|suspension|shock|wheel(?!base)|tire|steering|brake|upright|clearance|rigidity/i },
+  { name: "Size & weight", match: /weight|turning|wheelbase|width|track|size/i },
+];
+
+function groupSpecs(specs: { label: string; value: string }[]) {
+  const groups = SPEC_GROUPS.map((group) => ({ name: group.name, rows: [] as typeof specs }));
+  const other: typeof specs = [];
+  for (const spec of specs) {
+    const index = SPEC_GROUPS.findIndex((group) => group.match.test(spec.label));
+    if (index === -1) other.push(spec);
+    else groups[index].rows.push(spec);
+  }
+  if (other.length) groups.push({ name: "Other", rows: other });
+  return groups.filter((group) => group.rows.length > 0);
+}
+
+/** A placing chip: top-10 results stand out. */
+function Place({ place }: { place: number | null }) {
+  if (place === null) return <span className="text-muted">—</span>;
+  return place <= 10 ? (
+    <span className="inline-block rounded bg-maroon px-2 py-0.5 font-semibold text-white">{ordinal(place)}</span>
+  ) : (
+    <span>{ordinal(place)}</span>
+  );
+}
+
 export default async function CarYearPage({
   params,
 }: {
@@ -164,15 +193,24 @@ export default async function CarYearPage({
   const newer = years[index - 1];
   const older = years[index + 1];
 
+  const teamText = year.teamSize
+    ? `${year.teamSize} students`
+    : rosterCount
+      ? `${rosterCount} named`
+      : null;
+  const pointsText =
+    typeof year.points === "number"
+      ? `${Math.round(year.points)} of 1,000`
+      : null;
   const summary = [
     { k: "Overall finish", v: overallText },
-    { k: "Competition", v: year.event ?? "To be announced" },
+    pointsText
+      ? { k: "Points", v: pointsText }
+      : { k: "Competition", v: year.event ?? "To be announced" },
+    { k: "Team", v: teamText ?? "—" },
     { k: "Location", v: year.location ?? "—" },
-    {
-      k: rosterCount ? "Team" : "Livery",
-      v: rosterCount ? `${rosterCount} members` : (year.livery ?? "—"),
-    },
   ];
+  const specGroups = groupSpecs(year.specs);
 
   return (
     <>
@@ -201,7 +239,7 @@ export default async function CarYearPage({
             ← All our cars
           </Link>
           <p className={`${label} mt-16 sm:mt-24`}>
-            Car history · {year.season} season
+            {year.season} season{year.event ? ` · ${year.event}` : ""}
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-4">
             {year.number && (
@@ -269,19 +307,19 @@ export default async function CarYearPage({
               <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
                 {[year.photo, ...year.gallery]
                   .filter((src): src is string => Boolean(src))
-                  .map((src, i) => (
+                  .map((src) => (
                     <figure key={src}>
                       <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-line">
                         <Image
                           src={src}
-                          alt={`${carName(year)}, ${year.season}`}
+                          alt={year.captions[src] ?? `${carName(year)}, ${year.season}`}
                           fill
                           sizes="(min-width: 1024px) 25vw, 50vw"
                           className="object-cover"
                         />
                       </div>
                       <figcaption className="mt-2 text-xs text-muted">
-                        Exhibit 1.{i + 1} · {carName(year)}, {year.season}
+                        {year.captions[src] ?? `${carName(year)}, ${year.season}`}
                       </figcaption>
                     </figure>
                   ))}
@@ -290,25 +328,65 @@ export default async function CarYearPage({
           </ReportSection>
 
           <ReportSection n="02" id="results" title="Results">
-            <RuledTable
-              head={["Event", "Placing"]}
-              rows={[
-                {
-                  key: "overall",
-                  label: `Overall${year.event ? ` · ${year.event}` : ""}`,
-                  value: overallText,
-                  strong: true,
-                },
-                ...placings.map(([place, event]) => ({
-                  key: event,
-                  label: event,
-                  value: place,
-                })),
-              ]}
-            />
+            {year.results.length > 0 ? (
+              <>
+                <table className="w-full border-collapse text-left">
+                  <thead>
+                    <tr className="border-b border-ink/40">
+                      <th scope="col" className={`${label} pb-2 pr-4 font-semibold`}>Event</th>
+                      <th scope="col" className={`${label} w-24 pb-2 pr-4 font-semibold`}>Place</th>
+                      <th scope="col" className={`${label} w-20 pb-2 text-right font-semibold`}>Points</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-line">
+                      <th scope="row" className="py-3 pr-4 text-[15px] font-semibold">
+                        Overall
+                      </th>
+                      <td className="py-3 pr-4 text-[15px] font-semibold text-accent">{overallText}</td>
+                      <td className="py-3 text-right text-[15px] font-semibold tabular-nums">
+                        {typeof year.points === "number" ? Math.round(year.points) : "—"}
+                      </td>
+                    </tr>
+                    {year.results.map((result) => (
+                      <tr key={result.event} className="border-b border-line align-top">
+                        <th scope="row" className="py-3 pr-4 text-sm font-normal text-ink/85">
+                          {result.event}
+                          {result.note && <span className="block text-xs text-muted">{result.note}</span>}
+                        </th>
+                        <td className="py-3 pr-4 text-sm">
+                          <Place place={result.place} />
+                        </td>
+                        <td className="py-3 text-right text-sm tabular-nums text-ink/85">{result.points}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="mt-3 text-xs text-muted">
+                  Official Baja SAE results. A dash means SAE didn&apos;t publish a place for that event; top-10 finishes are highlighted.
+                </p>
+              </>
+            ) : (
+              <RuledTable
+                head={["Event", "Placing"]}
+                rows={[
+                  {
+                    key: "overall",
+                    label: `Overall${year.event ? ` · ${year.event}` : ""}`,
+                    value: overallText,
+                    strong: true,
+                  },
+                  ...placings.map(([place, event]) => ({
+                    key: event,
+                    label: event,
+                    value: place,
+                  })),
+                ]}
+              />
+            )}
             {ranked && year.fieldSize && (
-              <div className="mt-8" aria-hidden="true">
-                <div className="relative h-1.5 rounded-full bg-line">
+              <div className="mt-8">
+                <div className="relative h-1.5 rounded-full bg-line" aria-hidden="true">
                   <div
                     className="absolute inset-y-0 left-0 rounded-full bg-accent/60"
                     style={{
@@ -324,12 +402,12 @@ export default async function CarYearPage({
                 </div>
                 <div className="mt-2 flex justify-between text-xs text-muted">
                   <span>1st</span>
-                  <span>
-                    Finish position in a field of {year.fieldSize}: ahead of{" "}
-                    {year.fieldSize - (year.overall as number)} teams
-                  </span>
                   <span>{ordinal(year.fieldSize)}</span>
                 </div>
+                <p className="mt-2 text-sm text-ink/85">
+                  Finished {ordinal(year.overall as number)} of {year.fieldSize}, ahead of{" "}
+                  {year.fieldSize - (year.overall as number)} teams.
+                </p>
               </div>
             )}
             {recognition.length > 0 && (
@@ -352,14 +430,20 @@ export default async function CarYearPage({
           <ReportSection n="03" id="specs" title="Specifications">
             {year.specs.length > 0 ? (
               <>
-                <RuledTable
-                  head={["System", "Specification"]}
-                  rows={year.specs.map((spec) => ({
-                    key: spec.label,
-                    label: cleanLabel(spec.label),
-                    value: spec.value,
-                  }))}
-                />
+                <div className="grid gap-x-12 gap-y-10 xl:grid-cols-2">
+                  {specGroups.map((group) => (
+                    <div key={group.name}>
+                      <p className={`${label} mb-2 !text-accent`}>{group.name}</p>
+                      <RuledTable
+                        rows={group.rows.map((spec) => ({
+                          key: spec.label,
+                          label: cleanLabel(spec.label),
+                          value: spec.value,
+                        }))}
+                      />
+                    </div>
+                  ))}
+                </div>
                 {hasDesignValues && (
                   <p className="mt-3 text-xs text-muted">
                     Weights, travel, clearance and similar figures are
@@ -402,7 +486,9 @@ export default async function CarYearPage({
             {year.roster.length > 0 && (
               <div className="mt-10">
                 <p className={`${label} mb-3`}>
-                  Full roster · {rosterCount} members
+                  {year.teamSize && year.teamSize > rosterCount
+                    ? `Named on the roster · ${rosterCount} of ${year.teamSize}`
+                    : `Full roster · ${rosterCount} members`}
                 </p>
                 <RuledTable
                   rows={year.roster.map((group) => ({
@@ -436,6 +522,24 @@ export default async function CarYearPage({
               </div>
             )}
           </ReportSection>
+
+          {year.sponsors.length > 0 && (
+            <ReportSection n="05" id="sponsors" title="Sponsors">
+              <p className="max-w-[68ch] text-muted">
+                The companies and groups that helped put this car on the track.
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {year.sponsors.map((sponsor) => (
+                  <li
+                    key={sponsor}
+                    className="rounded-full border border-line bg-panel px-3.5 py-1.5 text-sm font-medium"
+                  >
+                    {sponsor}
+                  </li>
+                ))}
+              </ul>
+            </ReportSection>
+          )}
 
           <nav
             aria-label="More cars"

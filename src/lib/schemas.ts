@@ -118,6 +118,24 @@ export const seasonsSchema = z.array(
     // Optional: everyone on that season's team, grouped by subteam, shown on its car page.
     roster: list(z.array(z.object({ team: text, members: z.array(text).min(1) }))),
     photo: publicPath.optional(),
+    // Optional: total points at competition (out of 1,000).
+    points: z.number().nonnegative().optional(),
+    // Optional: how many students were on the team (the roster may list fewer by name).
+    teamSize: z.number().int().positive().optional(),
+    // Optional: every event's result, from the official Baja SAE results. place is a number, or null
+    // when SAE didn't publish one. note is a short extra like "33 laps".
+    results: list(
+      z.array(
+        z.object({
+          event: text,
+          place: z.number().int().positive().nullable(),
+          points: z.number().nonnegative(),
+          note: text.optional(),
+        }),
+      ),
+    ),
+    // Optional: companies and organizations that sponsored this season's car.
+    sponsors: list(z.array(text)),
   }),
 );
 
@@ -143,6 +161,9 @@ export const carSchema = z.object({
         livery: text.optional(),
         // More photos of the same car, shown on its page.
         gallery: list(z.array(publicPath)),
+        // Optional captions for the car's photos, keyed by photo path, e.g.
+        //   /images/team.jpg: The team with "#51" at SAE Rollout, April 2026
+        captions: z.record(z.string(), text).optional(),
       }),
     ),
   ),

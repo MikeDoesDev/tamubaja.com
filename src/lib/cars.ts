@@ -24,6 +24,12 @@ export interface CarYear {
   /** Everyone on the team that season, by subteam. */
   roster: { team: string; members: string[] }[];
   gallery: string[];
+  /** Captions for the car's photos, keyed by photo path. */
+  captions: Record<string, string>;
+  points?: number;
+  teamSize?: number;
+  results: { event: string; place: number | null; points: number; note?: string }[];
+  sponsors: string[];
 }
 
 /** Every season with a result or a garage car, newest first. */
@@ -45,11 +51,16 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
       leads: s.leads,
       roster: s.roster,
       gallery: [],
+      captions: {},
+      points: s.points,
+      teamSize: s.teamSize,
+      results: s.results,
+      sponsors: s.sponsors,
     });
   }
   for (const car of garage) {
     if (!car.season) continue;
-    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], story: [], specs: [], leads: [], roster: [], gallery: [] };
+    const year = years.get(car.season) ?? { slug: seasonSlug(car.season), season: car.season, highlights: [], story: [], specs: [], leads: [], roster: [], gallery: [], captions: {}, results: [], sponsors: [] };
     years.set(car.season, {
       ...year,
       number: car.number,
@@ -57,6 +68,7 @@ export function buildCarYears(seasons: Season[], garage: GarageCar[]): CarYear[]
       livery: car.livery,
       description: car.description,
       gallery: car.gallery,
+      captions: car.captions ?? {},
     });
   }
   const ordered = newestFirst([...years.values()]);
