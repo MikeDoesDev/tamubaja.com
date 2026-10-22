@@ -38,6 +38,8 @@ garage:
     photo: /images/cars/car-51-rear.jpg
     gallery:
       - /images/team.jpg
+    captions:
+      /images/team.jpg: 'The 2025–26 team with car #51 at SAE Rollout, April 19, 2026'
     description: Black livery with white topographic lines and Aggie script.
     livery: Black topo
   - number: 124
