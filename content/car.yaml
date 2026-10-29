@@ -103,6 +103,7 @@ garage:
 buildSeason: 2026–27
 # milestones: the build timeline. Optional per milestone: phase (Design, Build, or Compete) and
 #   photo: /images/build/<file>.jpg once there's a picture from it.
+#   link: a post or page about the milestone (for example the team's Instagram post).
 #   sponsorNote: what sponsors get at that milestone (must match tiers.yaml).
 # Dates come from the team calendar; mark anything SAE or the team hasn't confirmed as tentative: true.
 milestones:
@@ -115,6 +116,8 @@ milestones:
   - name: External design review 1
     phase: Design
     date: 2026-10-25
+    photo: /images/build/edr1-2026.jpg
+    link: https://www.instagram.com/p/DfAeGsHH_zo/
   - name: External design review 2
     phase: Design
     date: 2026-11-15

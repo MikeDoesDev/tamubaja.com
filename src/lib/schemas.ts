@@ -177,6 +177,8 @@ export const carSchema = z.object({
         // Optional: which stage of the season (Design, Build, Compete) and a photo from that milestone.
         phase: text.optional(),
         photo: publicPath.optional(),
+        // Optional: a post or page about the milestone, such as the team's Instagram post.
+        link: httpUrl.optional(),
         // Optional: what sponsors get at this milestone. Keep it true to tiers.yaml.
         sponsorNote: text.optional(),
       }),

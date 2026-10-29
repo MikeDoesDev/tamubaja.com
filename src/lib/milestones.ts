@@ -6,6 +6,7 @@ export interface Milestone {
   tentative?: boolean;
   phase?: string;
   photo?: string;
+  link?: string;
   sponsorNote?: string;
 }
 

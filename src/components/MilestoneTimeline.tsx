@@ -81,6 +81,16 @@ export function MilestoneTimeline({ milestones, builtAt }: { milestones: Milesto
                           {formatMilestoneDate(item.date)}
                           {item.tentative ? " (tentative)" : ""}
                         </p>
+                        {item.link && (
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline"
+                          >
+                            See the post →
+                          </a>
+                        )}
                         {item.sponsorNote && (
                           <p className="mt-3 rounded-lg border-l-4 border-maroon bg-maroon/25 px-3 py-2 text-xs leading-snug text-ink/90">
                             <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">For sponsors</span>
