@@ -61,6 +61,20 @@ Edit `content/seasons.yaml` and add a block at the **top**:
 
 Use `overall: null` if there was no overall placing. Only add results the team has confirmed.
 
+## Add a recent event
+
+Edit `content/events.yaml` and add a block at the **top**. The home page shows the three newest.
+
+```yaml
+- title: Visit to Brazos Christian School
+  date: 2026-10-27
+  description: One or two sentences about what happened.
+  photo: /images/events/brazos-visit.jpg
+  link: https://www.instagram.com/p/XXXXXXXX/
+```
+
+`photo` and `link` are optional. Upload photos to `public/images/events/` first.
+
 ## Update the current car or next season's milestones
 
 Edit `content/car.yaml`. Dates are written `YYYY-MM-DD`. The site marks milestones **Done / Up next / Upcoming** by itself every Monday, so you never change status by hand.

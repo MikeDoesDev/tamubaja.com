@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   getCar,
+  getEvents,
   getFaq,
   getSeasons,
   getSite,
@@ -18,6 +19,7 @@ describe("real content files", () => {
     ["car.yaml", getCar],
     ["team.yaml", getTeam],
     ["faq.yaml", getFaq],
+    ["events.yaml", getEvents],
   ] as const)("%s is valid", (_file, load) => {
     expect(() => load()).not.toThrow();
   });

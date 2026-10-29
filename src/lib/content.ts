@@ -5,6 +5,7 @@ import type { z } from "zod";
 import {
   carSchema,
   developmentSchema,
+  eventsSchema,
   faqSchema,
   seasonsSchema,
   siteSchema,
@@ -75,3 +76,5 @@ export const getCar = () => loadFile("car.yaml", carSchema);
 export const getTeam = () => loadFile("team.yaml", teamSchema);
 export const getFaq = () => loadFile("faq.yaml", faqSchema);
 export const getDevelopment = () => loadFile("development.yaml", developmentSchema);
+/** Recent events, newest first. */
+export const getEvents = () => [...loadFile("events.yaml", eventsSchema)].sort((a, b) => b.date.localeCompare(a.date));

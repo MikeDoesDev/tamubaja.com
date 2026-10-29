@@ -245,6 +245,16 @@ export const developmentSchema = z.object({
   applyUrl: httpUrl,
 });
 
+export const eventsSchema = z.array(
+  z.object({
+    title: text,
+    date: isoDate,
+    description: text,
+    photo: publicPath.optional(),
+    link: httpUrl.optional(),
+  }),
+);
+
 export const faqSchema = z.array(z.object({ q: text, a: text })).min(1);
 
 export type Site = z.infer<typeof siteSchema>;
@@ -259,4 +269,5 @@ export type Lead = Team["leads"][number];
 export type Subteam = Team["subteams"][number];
 export type Member = Subteam["members"][number];
 export type Development = z.infer<typeof developmentSchema>;
+export type Event = z.infer<typeof eventsSchema>[number];
 export type FaqItem = z.infer<typeof faqSchema>[number];
