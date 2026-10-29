@@ -19,6 +19,15 @@ export function RecentEvents({ events }: { events: Event[] }) {
               </div>
             )}
           </div>
+          {event.morePhotos.length > 0 && (
+            <div className="grid grid-cols-2 gap-px bg-line">
+              {event.morePhotos.map((photo) => (
+                <div key={photo} className="relative aspect-[4/3]">
+                  <Image src={photo} alt={event.title} fill sizes="(min-width: 1024px) 16vw, (min-width: 768px) 25vw, 50vw" className="object-cover" />
+                </div>
+              ))}
+            </div>
+          )}
           <div className="flex flex-1 flex-col p-5">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
               <time dateTime={event.date}>{formatMilestoneDate(event.date)}</time>

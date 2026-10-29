@@ -70,10 +70,12 @@ Edit `content/events.yaml` and add a block at the **top**. The home page shows t
   date: 2026-10-27
   description: One or two sentences about what happened.
   photo: /images/events/brazos-visit.jpg
+  morePhotos:
+    - /images/events/brazos-visit-2.jpg
   link: https://www.instagram.com/p/XXXXXXXX/
 ```
 
-`photo` and `link` are optional. Upload photos to `public/images/events/` first.
+`photo`, `morePhotos` (up to 2) and `link` are optional. Upload photos to `public/images/events/` first.
 
 ## Update the current car or next season's milestones
 
