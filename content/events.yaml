@@ -1,4 +1,4 @@
-# Recent events: shown on the home page, newest first (the 3 most recent appear).
+# Recent events: shown on the home page, newest first (the 2 most recent appear).
 # Add new events at the top. Dates are written YYYY-MM-DD.
 #   title: what happened, in a few words
 #   description: one or two sentences
@@ -7,11 +7,11 @@
 #   link: optional, the team's Instagram post or another page about it
 - title: Visit to Brazos Christian School
   date: 2026-10-27
-  description: We brought the car to Brazos Christian School so students could see a Baja car up close and ask the team how it's built. We're planning to come back.
+  description: We brought the car to show the students up close. We're planning to come back.
   link: https://www.instagram.com/p/DfCwfJWDe-F/
 - title: External Design Review 1
   date: 2026-10-25
-  description: Every subteam presented its design for the 2026–27 car, backed by analysis like FEA and buckling tests, ahead of design freeze.
+  description: Every subteam presented its 2026–27 design, backed by FEA and testing.
   photo: /images/build/edr1-2026.jpg
   morePhotos:
     - /images/build/edr1-2026-fea.jpg

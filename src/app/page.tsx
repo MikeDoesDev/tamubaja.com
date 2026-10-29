@@ -24,7 +24,7 @@ export const metadata = pageMetadata({
 export default function HomePage() {
   const site = getSite();
   const car = getCar();
-  const events = getEvents().slice(0, 3);
+  const events = getEvents().slice(0, 2);
   const years = buildCarYears(getSeasons(), car.garage);
   const featuredCars = years.filter((year): year is CarYear & { photo: string } => Boolean(year.photo)).slice(0, 3);
   const earlier = years.filter((year) => !year.photo);
@@ -63,16 +63,9 @@ export default function HomePage() {
 
       {events.length > 0 && (
         <Section id="events" className="bg-panel/40">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <Eyebrow>Recent events</Eyebrow>
-              <SectionHeading>What we&apos;ve been up to</SectionHeading>
-            </div>
-            <ButtonLink href={site.socials.instagram} external variant="secondary">
-              Follow on Instagram
-            </ButtonLink>
-          </div>
-          <RecentEvents events={events} />
+          <Eyebrow>Recent events</Eyebrow>
+          <SectionHeading>What we&apos;ve been up to</SectionHeading>
+          <RecentEvents events={events} socials={site.socials} />
         </Section>
       )}
 
