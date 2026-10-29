@@ -41,7 +41,15 @@ export function SaeSchedule({ sessions, builtAt }: { sessions: Session[]; builtA
           <p className="text-sm text-muted">{item.time}</p>
           <p className="col-start-2 sm:col-start-auto">
             {item.room}
-            {item.note && <span className="block text-sm text-accent sm:inline sm:before:content-['_·_']">{item.note}</span>}
+            {item.note && (
+              <>
+                <span aria-hidden="true" className="hidden text-muted sm:inline"> · </span>
+                <span className="block text-sm text-accent sm:inline">
+                  <span className="sr-only">, </span>
+                  {item.note}
+                </span>
+              </>
+            )}
           </p>
           <p
             className={`col-start-2 text-[11px] font-semibold uppercase tracking-[0.2em] sm:col-start-auto sm:text-right ${

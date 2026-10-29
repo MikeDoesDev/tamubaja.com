@@ -20,26 +20,6 @@ export default function DevelopmentPage() {
     <>
       <PageHero eyebrow="Development" title="Development program" intro={dev.intro} image={site.teamPhoto} imageAlt="Texas A&M Baja SAE team members" />
 
-      <Section>
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            {dev.status && (
-              <p className="inline-block rounded-sm border border-accent/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                {dev.status}
-              </p>
-            )}
-            <div className="mt-4">
-              <SectionHeading>Why we&apos;re building it</SectionHeading>
-            </div>
-          </div>
-          <div className="space-y-4 text-lg text-muted">
-            {dev.why.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </div>
-      </Section>
-
       {dev.sae && (
         <Section id="sae">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">

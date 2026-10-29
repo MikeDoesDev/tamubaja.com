@@ -1,11 +1,6 @@
 # Development page: our new-member development program and how to join.
-# status: shown as a badge at the top. Change it when the program launches (for example "Now enrolling").
-status: Launching soon
-intro: Texas A&M Baja started as a development path for the Formula team. We're building a program of our own that takes students with zero shop experience and turns them into engineers who can design, make, and race real parts.
-why:
-  - Most new members want to build something on day one but don't know where to start. The program gives every new member a clear path from their first meeting to owning a part on the car.
-  - It also gives our sponsors a stronger talent pipeline. Every student who comes through it leaves with hands-on design, machining, and teamwork experience.
-# The planned steps. Edit freely while the program is being designed.
+intro: Texas A&M Baja started as a development path for the Formula team. New members start with Texas A&M SAE's development program, which takes students with zero shop experience and gets them ready to design, make, and race real parts.
+# The path a new member takes, from first meeting to the car.
 phases:
   - name: Get in the shop
     description: Shop safety, hand and power tools, and the training needed to work in the Fischer Engineering Design Center.
@@ -19,7 +14,7 @@ phases:
 #   Add each session as a block (date as YYYY-MM-DD). Past sessions are marked done automatically.
 sae:
   title: Texas A&M SAE development program
-  intro: While our own program gets ready, new members can start now with Texas A&M SAE's development program. It's open to new members of every SAE team, not just Baja, and includes tours of the Baja, Formula IC, and Formula Electric shops.
+  intro: The development program is how new members get started. It's run by Texas A&M SAE and open to new members of every SAE team, not just Baja, and includes tours of the Baja, Formula IC, and Formula Electric shops.
   leads:
     - term: Fall 2026
       names:
