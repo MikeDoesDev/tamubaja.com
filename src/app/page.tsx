@@ -7,7 +7,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/Hero";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { PillarCards } from "@/components/PillarCards";
-import { RecentEvents } from "@/components/RecentEvents";
+import { FollowAlong, RecentEvents } from "@/components/RecentEvents";
 import { VideoFeature } from "@/components/VideoFeature";
 import { getCar, getEvents, getSeasons, getSite } from "@/lib/content";
 import { buildCarYears, type CarYear } from "@/lib/cars";
@@ -24,7 +24,7 @@ export const metadata = pageMetadata({
 export default function HomePage() {
   const site = getSite();
   const car = getCar();
-  const events = getEvents().slice(0, 2);
+  const events = getEvents().slice(0, 3);
   const years = buildCarYears(getSeasons(), car.garage);
   const featuredCars = years.filter((year): year is CarYear & { photo: string } => Boolean(year.photo)).slice(0, 3);
   const earlier = years.filter((year) => !year.photo);
@@ -63,9 +63,14 @@ export default function HomePage() {
 
       {events.length > 0 && (
         <Section id="events" className="bg-panel/40">
-          <Eyebrow>Recent events</Eyebrow>
-          <SectionHeading>What we&apos;ve been up to</SectionHeading>
-          <RecentEvents events={events} socials={site.socials} />
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <Eyebrow>Recent events</Eyebrow>
+              <SectionHeading>What we&apos;ve been up to</SectionHeading>
+            </div>
+            <FollowAlong socials={site.socials} />
+          </div>
+          <RecentEvents events={events} />
         </Section>
       )}
 

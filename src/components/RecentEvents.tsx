@@ -1,74 +1,77 @@
 import Image from "next/image";
-import { formatMilestoneDate } from "@/lib/milestones";
 import { InstagramIcon, LinkedInIcon } from "@/components/SocialLinks";
 import type { Event, Site } from "@/lib/schemas";
 
-const followClass =
-  "inline-flex items-center gap-3 rounded-sm border border-white/40 px-4 py-2 font-display text-base font-bold uppercase tracking-wide text-white transition-colors hover:border-white hover:bg-white/10";
+const day = (iso: string, options: Intl.DateTimeFormatOptions) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { ...options, timeZone: "UTC" });
 
-/** The latest team events as cards, ending with a "Follow along" card. Cards without a photo get a dated maroon panel. */
-export function RecentEvents({ events, socials }: { events: Event[]; socials: Site["socials"] }) {
-  const follow = [
+/** Small icon buttons to the team's socials, shown beside the section heading. */
+export function FollowAlong({ socials }: { socials: Site["socials"] }) {
+  const links = [
     { label: "Instagram", href: socials.instagram, icon: InstagramIcon },
     ...(socials.linkedin ? [{ label: "LinkedIn", href: socials.linkedin, icon: LinkedInIcon }] : []),
   ];
   return (
-    <ul className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {events.map((event) => (
-        <li key={`${event.date}-${event.title}`} className="flex flex-col overflow-hidden rounded-sm border border-line bg-panel">
-          <div className="relative aspect-[2/1] bg-maroon">
-            {event.photo ? (
-              <Image src={event.photo} alt={event.title} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
-            ) : (
-              <div aria-hidden="true" className="topo-bg flex h-full items-end p-4">
-                <p className="font-display text-5xl font-extrabold uppercase leading-none text-white/90">
-                  {new Date(`${event.date}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}
-                </p>
+    <div className="flex items-center gap-3">
+      <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Follow along</span>
+      {links.map((link) => (
+        <a
+          key={link.label}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-sm border border-line px-3 py-2 font-display text-base font-bold uppercase tracking-wide text-ink transition-colors hover:border-accent hover:text-accent"
+        >
+          <span className="h-4 w-4">{link.icon}</span>
+          {link.label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
+/** The latest team events as a dated list. Photos sit at the right of a row when an event has them. */
+export function RecentEvents({ events }: { events: Event[] }) {
+  return (
+    <ol className="mt-8 divide-y divide-line border-y border-line">
+      {events.map((event) => {
+        const photos = [event.photo, ...event.morePhotos].filter((photo): photo is string => Boolean(photo));
+        return (
+          <li
+            key={`${event.date}-${event.title}`}
+            className={`grid gap-x-6 gap-y-4 py-6 sm:grid-cols-[5.5rem_1fr] ${photos.length ? "lg:grid-cols-[5.5rem_1fr_auto]" : ""}`}
+          >
+            <time dateTime={event.date} className="flex items-baseline gap-2 sm:block">
+              <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{day(event.date, { month: "short" })}</span>
+              <span className="block font-display text-5xl font-extrabold leading-none">{day(event.date, { day: "numeric" })}</span>
+              <span className="block text-xs text-muted">{day(event.date, { year: "numeric" })}</span>
+            </time>
+            <div className="max-w-xl">
+              <h3 className="font-display text-2xl font-extrabold uppercase leading-tight">{event.title}</h3>
+              <p className="mt-1 text-muted">{event.description}</p>
+              {event.link && (
+                <a
+                  href={event.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline"
+                >
+                  See the post<span className="sr-only">: {event.title}</span> →
+                </a>
+              )}
+            </div>
+            {photos.length > 0 && (
+              <div className="flex gap-2 sm:col-start-2 lg:col-start-auto">
+                {photos.map((photo, index) => (
+                  <div key={photo} className="relative aspect-[4/3] w-1/3 overflow-hidden rounded-sm sm:w-40">
+                    <Image src={photo} alt={index === 0 ? event.title : ""} fill sizes="160px" className="object-cover" />
+                  </div>
+                ))}
               </div>
             )}
-          </div>
-          {event.morePhotos.length > 0 && (
-            <div className="grid grid-cols-2 gap-px bg-line">
-              {event.morePhotos.map((photo) => (
-                <div key={photo} className="relative aspect-[2/1]">
-                  <Image src={photo} alt={event.title} fill sizes="(min-width: 1024px) 16vw, (min-width: 768px) 25vw, 50vw" className="object-cover" />
-                </div>
-              ))}
-            </div>
-          )}
-          <div className="flex flex-1 flex-col p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
-              <time dateTime={event.date}>{formatMilestoneDate(event.date)}</time>
-            </p>
-            <h3 className="mt-1 font-display text-xl font-extrabold uppercase leading-tight">{event.title}</h3>
-            <p className="mt-2 flex-1 text-sm text-muted">{event.description}</p>
-            {event.link && (
-              <a
-                href={event.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 text-sm font-semibold text-accent underline-offset-4 hover:underline"
-              >
-                See the post<span className="sr-only">: {event.title}</span> →
-              </a>
-            )}
-          </div>
-        </li>
-      ))}
-      <li className="topo-bg flex flex-col justify-end rounded-sm bg-maroon p-5 md:col-span-2 lg:col-span-1">
-        <h3 className="font-display text-3xl font-extrabold uppercase leading-none text-white">Follow along</h3>
-        <p className="mt-3 text-white/85">
-          Build days, design reviews, and race weekends as they happen.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {follow.map((item) => (
-            <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className={followClass}>
-              <span className="h-4 w-4">{item.icon}</span>
-              {item.label}
-            </a>
-          ))}
-        </div>
-      </li>
-    </ul>
+          </li>
+        );
+      })}
+    </ol>
   );
 }

@@ -250,7 +250,7 @@ export const eventsSchema = z.array(
     date: isoDate,
     description: text,
     photo: publicPath.optional(),
-    // Optional: up to two more photos, shown side by side under the main one.
+    // Optional: up to two more photos, shown beside the main one.
     morePhotos: list(z.array(publicPath).max(2, "can show at most 2 more photos")),
     link: httpUrl.optional(),
   }),

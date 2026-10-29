@@ -63,7 +63,7 @@ Use `overall: null` if there was no overall placing. Only add results the team h
 
 ## Add a recent event
 
-Edit `content/events.yaml` and add a block at the **top**. The home page shows the two newest, next to a Follow along card.
+Edit `content/events.yaml` and add a block at the **top**. The home page shows the three newest.
 
 ```yaml
 - title: Visit to Brazos Christian School
