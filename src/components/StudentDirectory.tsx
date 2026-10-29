@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
-import type { DirectoryPerson } from "@/lib/directory";
+import { useEffect, useMemo, useState } from "react";
+import { personSlug, type DirectoryPerson } from "@/lib/directory";
 import { PersonPlaceholder } from "./PersonPlaceholder";
 
 const SELECT =
@@ -18,6 +18,39 @@ export function StudentDirectory({ people, subteams }: { people: DirectoryPerson
   const [major, setMajor] = useState("");
   const [year, setYear] = useState("");
 
+  const [focus, setFocus] = useState("");
+
+  // Links from the team page arrive as ?subteam=…&person=…; apply them once, then keep the URL in sync so filters can be shared.
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    /* eslint-disable react-hooks/set-state-in-effect -- reading the URL once after hydration */
+    setSubteam(params.get("subteam") ?? "");
+    setMajor(params.get("major") ?? "");
+    setYear(params.get("year") ?? "");
+    setQuery(params.get("q") ?? "");
+    setFocus(params.get("person") ?? "");
+    setReady(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    const params = new URLSearchParams();
+    if (subteam) params.set("subteam", subteam);
+    if (major) params.set("major", major);
+    if (year) params.set("year", year);
+    if (query) params.set("q", query);
+    if (focus) params.set("person", focus);
+    const search = params.toString();
+    window.history.replaceState(null, "", `${window.location.pathname}${search ? `?${search}` : ""}${focus ? `#${focus}` : ""}`);
+  }, [ready, subteam, major, year, query, focus]);
+
+  useEffect(() => {
+    if (!ready || !focus) return;
+    document.getElementById(focus)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [ready, focus]);
+
   const majors = useMemo(() => uniqueSorted(people.map((p) => p.major)), [people]);
   const years = useMemo(() => uniqueSorted(people.map((p) => p.classYear)), [people]);
 
@@ -30,7 +63,7 @@ export function StudentDirectory({ people, subteams }: { people: DirectoryPerson
     return true;
   });
 
-  const filtered = Boolean(query || subteam || major || year);
+  const filtered = Boolean(query || subteam || major || year || focus);
 
   return (
     <div>
@@ -93,6 +126,7 @@ export function StudentDirectory({ people, subteams }: { people: DirectoryPerson
               setSubteam("");
               setMajor("");
               setYear("");
+              setFocus("");
             }}
             className="font-semibold text-accent underline underline-offset-4 hover:text-ink"
           >
@@ -106,7 +140,14 @@ export function StudentDirectory({ people, subteams }: { people: DirectoryPerson
       ) : (
         <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {shown.map((person) => (
-            <li key={person.name} className="group overflow-hidden rounded-2xl border border-line bg-panel transition-colors hover:border-accent/60">
+            <li
+              key={person.name}
+              id={personSlug(person.name)}
+              aria-current={focus === personSlug(person.name) ? "true" : undefined}
+              className={`group scroll-mt-28 overflow-hidden rounded-2xl border bg-panel transition-colors hover:border-accent/60 ${
+                focus === personSlug(person.name) ? "border-accent ring-4 ring-accent/30" : "border-line"
+              }`}
+            >
               <div className="relative aspect-[4/5]">
                 {person.photo ? (
                   <Image

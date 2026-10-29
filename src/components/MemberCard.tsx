@@ -1,25 +1,54 @@
 import Image from "next/image";
+import Link from "next/link";
 import { PersonPlaceholder } from "./PersonPlaceholder";
+import { directoryHref } from "@/lib/directory";
 import type { Member } from "@/lib/schemas";
 
-/** A person on a subteam roster: face (or a placeholder), name, role, major and year. */
-export function MemberCard({ member, featured = false }: { member: Member; featured?: boolean }) {
-  const size = featured ? "h-20 w-20 text-2xl" : "h-14 w-14 text-lg";
-  const details = [member.major, member.classYear && `Class of ${member.classYear}`].filter(Boolean).join(" · ");
+const details = (member: Member) => [member.major, member.classYear && `Class of ${member.classYear}`].filter(Boolean).join(" · ");
+
+/** A subteam lead: photo, name, role, major and year. Opens their card in the student directory. */
+export function LeadCard({ member, subteam }: { member: Member; subteam: string }) {
   return (
-    <li className={`flex items-center gap-4 rounded-2xl border bg-panel p-4 ${featured ? "border-accent/60" : "border-line"}`}>
-      <div className={`relative shrink-0 overflow-hidden rounded-full bg-[#101214] ${size}`}>
-        {member.photo ? (
-          <Image src={member.photo} alt="" fill sizes={featured ? "80px" : "56px"} className="object-cover" />
-        ) : (
-          <PersonPlaceholder />
-        )}
-      </div>
-      <div className="min-w-0">
-        <p className={`font-display font-extrabold uppercase leading-tight ${featured ? "text-2xl" : "text-xl"}`}>{member.name}</p>
-        {featured && member.role && <p className="text-sm text-accent">{member.role}</p>}
-        {details && <p className="text-sm text-muted">{details}</p>}
-      </div>
+    <li>
+      <Link
+        href={directoryHref({ subteam, person: member.name })}
+        className="group flex items-center gap-4 rounded-2xl border border-accent/60 bg-panel p-4 transition-colors hover:border-accent hover:bg-panel-2"
+      >
+        <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[#101214]">
+          {member.photo ? <Image src={member.photo} alt="" fill sizes="64px" className="object-cover" /> : <PersonPlaceholder />}
+        </span>
+        <span className="min-w-0 flex-1">
+          {member.role && <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{member.role}</span>}
+          <span className="block font-display text-2xl font-extrabold uppercase leading-tight">{member.name}</span>
+          {details(member) && <span className="block text-sm text-muted">{details(member)}</span>}
+        </span>
+        <span aria-hidden="true" className="text-xl text-muted transition-transform group-hover:translate-x-1 group-hover:text-accent">
+          →
+        </span>
+      </Link>
+    </li>
+  );
+}
+
+/** A subteam member as a compact row that opens their card in the student directory. */
+export function MemberRow({ member, subteam }: { member: Member; subteam: string }) {
+  return (
+    <li>
+      <Link
+        href={directoryHref({ subteam, person: member.name })}
+        className="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-panel-2"
+      >
+        <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-[#101214]">
+          {member.photo ? <Image src={member.photo} alt="" fill sizes="36px" className="object-cover" /> : <PersonPlaceholder />}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block truncate font-display text-lg font-bold uppercase leading-tight">{member.name}</span>
+          {details(member) && <span className="block truncate text-xs text-muted">{details(member)}</span>}
+        </span>
+        <span aria-hidden="true" className="text-muted opacity-0 transition-opacity group-hover:opacity-100 group-hover:text-accent">
+          →
+        </span>
+      </Link>
     </li>
   );
 }

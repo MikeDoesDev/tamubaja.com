@@ -37,3 +37,21 @@ export function buildDirectory(team: Team): DirectoryPerson[] {
     (a, b) => lastName(a.name).localeCompare(lastName(b.name)) || a.name.localeCompare(b.name),
   );
 }
+
+/** URL-safe id for a person, used as the directory card's anchor. */
+export const personSlug = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(/\(.*?\)/g, " ")
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+/** Link into the student directory, optionally filtered to a subteam and pointed at one person. */
+export function directoryHref({ subteam, person }: { subteam?: string; person?: string } = {}) {
+  const params = new URLSearchParams();
+  if (subteam) params.set("subteam", subteam);
+  if (person) params.set("person", personSlug(person));
+  const query = params.toString();
+  return `/team/directory${query ? `?${query}` : ""}${person ? `#${personSlug(person)}` : ""}`;
+}

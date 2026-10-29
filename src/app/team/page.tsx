@@ -6,6 +6,7 @@ import { PageHero } from "@/components/PageHero";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { SubteamExplorer } from "@/components/SubteamExplorer";
 import { getSite, getTeam } from "@/lib/content";
+import { directoryHref } from "@/lib/directory";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -59,10 +60,11 @@ export default function TeamPage() {
             {team.leads.map((lead) => {
               const program = programLeads.some((p) => p.name === lead.name);
               return (
-                <li
-                  key={lead.name}
-                  className={`flex items-center gap-4 rounded-2xl border bg-panel p-4 ${program ? "border-accent/50" : "border-line"} ${program ? "lg:col-span-3" : "lg:col-span-2"}`}
-                >
+                <li key={lead.name} className={program ? "lg:col-span-3" : "lg:col-span-2"}>
+                  <Link
+                    href={directoryHref({ person: lead.name })}
+                    className={`flex h-full items-center gap-4 rounded-2xl border bg-panel p-4 transition-colors hover:border-accent hover:bg-panel-2 ${program ? "border-accent/50" : "border-line"}`}
+                  >
                   <span className={`relative shrink-0 overflow-hidden rounded-full bg-[#101214] ${program ? "h-20 w-20" : "h-14 w-14"}`}>
                     {lead.photo ? <Image src={lead.photo} alt="" fill sizes="80px" className="object-cover" /> : <PersonPlaceholder />}
                   </span>
@@ -73,6 +75,7 @@ export default function TeamPage() {
                       {[lead.major, lead.classYear && `Class of ${lead.classYear}`].filter(Boolean).join(" · ")}
                     </span>
                   </span>
+                  </Link>
                 </li>
               );
             })}

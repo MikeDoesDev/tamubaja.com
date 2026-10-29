@@ -3,7 +3,9 @@
 import { useRef, useState } from "react";
 import type { Subteam } from "@/lib/schemas";
 import Image from "next/image";
-import { MemberCard } from "./MemberCard";
+import Link from "next/link";
+import { directoryHref } from "@/lib/directory";
+import { LeadCard, MemberRow } from "./MemberCard";
 import { PersonPlaceholder } from "./PersonPlaceholder";
 
 const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -92,32 +94,45 @@ export function SubteamExplorer({ subteams }: { subteams: Subteam[] }) {
             hidden={open !== subteam.name}
             className="mt-6 rounded-2xl border border-line bg-panel/80 p-6 sm:p-8"
           >
-            <h3 className="font-display text-4xl font-extrabold uppercase">{subteam.name}</h3>
-            {subteam.details && <p className="mt-3 max-w-3xl text-lg text-muted">{subteam.details}</p>}
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="max-w-3xl">
+                <h3 className="font-display text-4xl font-extrabold uppercase">{subteam.name}</h3>
+                {subteam.details && <p className="mt-3 text-lg text-muted">{subteam.details}</p>}
+              </div>
+              <Link
+                href={directoryHref({ subteam: subteam.name })}
+                className="inline-flex items-center gap-2 rounded-sm border border-line px-4 py-2 font-display text-base font-bold uppercase tracking-wide transition-colors hover:border-accent hover:text-accent"
+              >
+                Open in the directory →
+              </Link>
+            </div>
 
-            {subteam.leads.length > 0 && (
-              <>
-                <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                  {subteam.leads.length === 1 ? "Lead" : "Leads"}
-                </p>
-                <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {subteam.leads.map((lead) => (
-                    <MemberCard key={lead.name} member={lead} featured />
-                  ))}
-                </ul>
-              </>
-            )}
-
-            {subteam.members.length > 0 && (
-              <>
-                <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-accent">Members</p>
-                <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {subteam.members.map((member) => (
-                    <MemberCard key={member.name} member={member} />
-                  ))}
-                </ul>
-              </>
-            )}
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_2fr]">
+              {subteam.leads.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                    {subteam.leads.length === 1 ? "Lead" : "Leads"}
+                  </p>
+                  <ul className="mt-3 space-y-3">
+                    {subteam.leads.map((lead) => (
+                      <LeadCard key={lead.name} member={lead} subteam={subteam.name} />
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {subteam.members.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                    Members · {subteam.members.length}
+                  </p>
+                  <ul className="mt-2 grid gap-x-2 sm:grid-cols-2">
+                    {subteam.members.map((member) => (
+                      <MemberRow key={member.name} member={member} subteam={subteam.name} />
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </section>
         ))}
       </div>
