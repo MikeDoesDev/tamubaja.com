@@ -1,20 +1,10 @@
-# Development page: our new-member development program and how to join.
-intro: Texas A&M Baja started as a development path for the Formula team. New members start with Texas A&M SAE's development program, which takes students with zero shop experience and gets them ready to design, make, and race real parts.
-# The path a new member takes, from first meeting to the car.
-phases:
-  - name: Get in the shop
-    description: Shop safety, hand and power tools, and the training needed to work in the Fischer Engineering Design Center.
-  - name: Learn the tools
-    description: CAD, drawings, and basic analysis, taught by current members using real parts from past cars.
-  - name: Build a starter project
-    description: Small teams design and make a real component with a mentor from a subteam.
-  - name: Join a subteam
-    description: Pick the subteam that fits, from chassis to business, and start contributing to the next car.
+# Development page: the SAE development program, how to join Baja, and the Pitcrew application.
+intro: Start with Texas A&M SAE's development program, then join Baja as a member or an apprentice. Open to every major and class year.
 # sae: the Texas A&M SAE development program running now. It's shared by all SAE teams, not just Baja.
 #   Add each session as a block (date as YYYY-MM-DD). Past sessions are marked done automatically.
 sae:
   title: Texas A&M SAE development program
-  intro: The development program is how new members get started. It's run by Texas A&M SAE and open to new members of every SAE team, not just Baja, and includes tours of the Baja, Formula IC, and Formula Electric shops.
+  intro: Run by Texas A&M SAE and open to new members of every SAE team, not just Baja. Weekly sessions, plus tours of the Baja, Formula IC, and Formula Electric shops.
   leads:
     - term: Fall 2026
       names:
@@ -58,4 +48,25 @@ sae:
       time: 6:00–8:00 PM
       room: HECC 209
   note: The fall schedule is tentative. The spring schedule will be posted once it's set.
+# paths: the two ways to join, shown side by side.
+paths:
+  - name: Team member
+    who: For students ready to take on a part of the car or the business side.
+    description: Join a subteam and own real work on the next car, from design and analysis through manufacturing and testing.
+    points:
+      - "Subteams: chassis, suspension, powertrain, controls, manufacturing, and business"
+      - Design, build, and test parts that race at competition
+      - Present your work at the team's design reviews
+  - name: Apprentice
+    who: For new students, including freshmen, with little or no shop or design experience.
+    description: Apprentices work alongside a subteam and learn the tools and the car before taking on parts of their own. Engineering and business apprentice spots are open.
+    points:
+      - Paired with a subteam and its lead from day one
+      - Learn CAD, analysis, and shop skills on real parts
+      - "Many of today's leads started as apprentices, including our chief engineer"
+# applySteps: how applying works, in order.
+applySteps:
+  - Create an account on Pitcrew, Texas A&M SAE's recruiting portal.
+  - Choose Texas A&M Baja and pick team member or apprentice (engineering or business).
+  - Submit your application and watch your email for next steps, including an interview.
 applyUrl: https://apply.tamusae.org/

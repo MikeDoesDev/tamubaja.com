@@ -225,10 +225,7 @@ export const teamSchema = z.object({
 });
 
 export const developmentSchema = z.object({
-  status: text.optional(),
   intro: text,
-  why: z.array(text).optional(),
-  phases: z.array(z.object({ name: text, description: text })).min(1),
   // The Texas A&M SAE development program that runs now, shared by every SAE team.
   sae: z
     .object({
@@ -242,6 +239,8 @@ export const developmentSchema = z.object({
       note: text.optional(),
     })
     .optional(),
+  paths: z.array(z.object({ name: text, who: text, description: text, points: list(z.array(text)) })).min(1),
+  applySteps: z.array(text).min(1),
   applyUrl: httpUrl,
 });
 

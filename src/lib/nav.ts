@@ -38,9 +38,9 @@ export const NAV_LINKS: NavLink[] = [
     href: "/development",
     label: "Development",
     children: [
-      { href: "/development#sae", label: "SAE program", description: "Sessions running this semester" },
-      { href: "/development", label: "The program", description: "From first meeting to the car" },
-      { href: "/development#join", label: "Join the team", description: "Open to every major and year" },
+      { href: "/development#sae", label: "SAE program", description: "This semester's session dates" },
+      { href: "/development#join", label: "Join the team", description: "Team member or apprentice" },
+      { href: "/development#apply", label: "Apply on Pitcrew", description: "Open to every major and year" },
     ],
   },
 ];
