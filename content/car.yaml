@@ -21,7 +21,7 @@ buildProcess:
   - name: Design
     description: Every season starts from a clean sheet. Each subteam designs its systems in CAD and backs every decision with analysis.
   - name: Review
-    description: Initial and engineering design reviews pressure-test every part before design freeze locks the car.
+    description: Initial and external design reviews pressure-test every part before design freeze locks the car.
   - name: Build
     description: We cut, bend, weld, and machine the car in house and with industry partners until it stands as a rolling chassis.
   - name: Test
@@ -112,10 +112,10 @@ milestones:
   - name: Initial design review 2
     phase: Design
     date: 2026-09-13
-  - name: Engineering design review 1
+  - name: External design review 1
     phase: Design
     date: 2026-10-25
-  - name: Engineering design review 2
+  - name: External design review 2
     phase: Design
     date: 2026-11-15
   - name: Design freeze

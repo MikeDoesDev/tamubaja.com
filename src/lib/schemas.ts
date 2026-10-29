@@ -227,6 +227,19 @@ export const developmentSchema = z.object({
   intro: text,
   why: z.array(text).min(1),
   phases: z.array(z.object({ name: text, description: text })).min(1),
+  // The Texas A&M SAE development program that runs now, shared by every SAE team.
+  sae: z
+    .object({
+      title: text,
+      intro: text,
+      leads: z.array(z.object({ term: text, names: z.array(text).min(1) })).min(1),
+      term: text,
+      sessions: z
+        .array(z.object({ date: isoDate, time: text, room: text, note: text.optional() }))
+        .min(1),
+      note: text.optional(),
+    })
+    .optional(),
   applyUrl: httpUrl,
 });
 

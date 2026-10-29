@@ -15,4 +15,52 @@ phases:
     description: Small teams design and make a real component with a mentor from a subteam.
   - name: Join a subteam
     description: Pick the subteam that fits, from chassis to business, and start contributing to the next car.
+# sae: the Texas A&M SAE development program running now. It's shared by all SAE teams, not just Baja.
+#   Add each session as a block (date as YYYY-MM-DD). Past sessions are marked done automatically.
+sae:
+  title: Texas A&M SAE development program
+  intro: While our own program gets ready, new members can start now with Texas A&M SAE's development program. It's open to new members of every SAE team, not just Baja, and includes tours of the Baja, Formula IC, and Formula Electric shops.
+  leads:
+    - term: Fall 2026
+      names:
+        - Matthew Vanous
+    - term: Spring 2027
+      names:
+        - Rohan Kataram
+        - Zachary Aronson
+  term: Fall 2026
+  sessions:
+    - date: 2026-09-29
+      time: 6:00–8:00 PM
+      room: HECC 203
+    - date: 2026-10-13
+      time: 6:00–8:00 PM
+      room: HECC 203
+    - date: 2026-10-20
+      time: 6:00–8:00 PM
+      room: HECC 203
+    - date: 2026-10-27
+      time: 6:00–8:00 PM
+      room: HECC 203
+    - date: 2026-10-28
+      time: 6:00–8:00 PM
+      room: JCAIN, first floor
+      note: Baja and Formula IC shop tour
+    - date: 2026-11-03
+      time: 6:00–8:00 PM
+      room: HECC 203
+    - date: 2026-11-05
+      time: 6:00–8:00 PM
+      room: THOM
+      note: Formula Electric shop tour
+    - date: 2026-11-10
+      time: 6:00–8:00 PM
+      room: HECC 203
+    - date: 2026-11-17
+      time: 6:00–8:00 PM
+      room: HECC 203
+    - date: 2026-12-01
+      time: 6:00–8:00 PM
+      room: HECC 209
+  note: The fall schedule is tentative. The spring schedule will be posted once it's set.
 applyUrl: https://apply.tamusae.org/

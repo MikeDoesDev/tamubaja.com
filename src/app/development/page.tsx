@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/ButtonLink";
 import { PageHero } from "@/components/PageHero";
+import { SaeSchedule } from "@/components/SaeSchedule";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { getDevelopment, getSite } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
@@ -38,6 +39,37 @@ export default function DevelopmentPage() {
           </div>
         </div>
       </Section>
+
+      {dev.sae && (
+        <Section id="sae">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
+            <div>
+              <p className="inline-block rounded-sm border border-accent/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                Running now
+              </p>
+              <div className="mt-4">
+                <SectionHeading>{dev.sae.title}</SectionHeading>
+              </div>
+              <p className="mt-4 text-lg text-muted">{dev.sae.intro}</p>
+              <dl className="mt-6 space-y-3">
+                {dev.sae.leads.map((lead) => (
+                  <div key={lead.term}>
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">{lead.term} {lead.names.length > 1 ? "leads" : "lead"}</dt>
+                    <dd className="font-display text-xl font-bold uppercase">{lead.names.join(" and ")}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div>
+              <Eyebrow>{dev.sae.term} sessions</Eyebrow>
+              <div className="mt-4">
+                <SaeSchedule sessions={dev.sae.sessions} builtAt={new Date().toISOString()} />
+              </div>
+              {dev.sae.note && <p className="mt-3 text-sm text-muted">{dev.sae.note}</p>}
+            </div>
+          </div>
+        </Section>
+      )}
 
       <Section className="bg-panel/40">
         <Eyebrow>The path</Eyebrow>
