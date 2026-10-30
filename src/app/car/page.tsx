@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BuildStatus } from "@/components/BuildStatus";
 import { CtaBand } from "@/components/CtaBand";
-import { MilestoneTimeline } from "@/components/MilestoneTimeline";
+import { SeasonTimeline } from "@/components/SeasonTimeline";
 import { PageHero } from "@/components/PageHero";
 import { CarHistory } from "@/components/CarHistory";
 import { buildCarYears } from "@/lib/cars";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
-import { getCar, getSeasons } from "@/lib/content";
+import { getCar, getEvents, getSeasons } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -33,12 +32,12 @@ export default function CarPage() {
 
       <Section id="now" className="topo-bg">
         <Eyebrow>Where we are now</Eyebrow>
-        <SectionHeading>Building the {car.buildSeason} car</SectionHeading>
-        <div className="mt-8">
-          <BuildStatus milestones={car.milestones} buildSeason={car.buildSeason} builtAt={new Date().toISOString()} />
-        </div>
+        <SectionHeading>The {car.buildSeason} season</SectionHeading>
+        <p className="mt-4 max-w-2xl text-lg text-muted">
+          Every build milestone and team event, from the first design review to competition day.
+        </p>
         <div className="mt-10">
-          <MilestoneTimeline milestones={car.milestones} builtAt={new Date().toISOString()} />
+          <SeasonTimeline milestones={car.milestones} events={getEvents()} buildSeason={car.buildSeason} builtAt={new Date().toISOString()} />
         </div>
         <p className="mt-4 text-sm text-muted">
           Want your logo on this car?{" "}

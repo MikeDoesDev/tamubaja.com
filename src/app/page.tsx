@@ -71,6 +71,12 @@ export default function HomePage() {
             <FollowAlong socials={site.socials} />
           </div>
           <RecentEvents events={events} />
+          <p className="mt-6 text-sm text-muted">
+            <Link href="/car#now" className="font-semibold text-ink underline decoration-accent underline-offset-4">
+              See the full season timeline
+            </Link>{" "}
+            with every build milestone and event.
+          </p>
         </Section>
       )}
 
