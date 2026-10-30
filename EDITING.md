@@ -63,7 +63,7 @@ Use `overall: null` if there was no overall placing. Only add results the team h
 
 ## Add a recent event
 
-Edit `content/events.yaml` and add a block at the **top**. The home page shows the three newest.
+Edit `content/events.yaml` and add a block at the **top**. The home page shows the three newest, and every event also appears on the Car page's season timeline. An event with the same name and date as a milestone in `car.yaml` (like "External design review 2") shows its photos and post on that milestone.
 
 ```yaml
 - title: Visit to Brazos Christian School
