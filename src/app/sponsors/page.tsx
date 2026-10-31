@@ -64,7 +64,14 @@ export default function SponsorsPage() {
         </div>
       </section>
 
-      <Section id="partners" className="bg-panel/40">
+      <Section className="bg-panel/40">
+        <Eyebrow>Why partner with us</Eyebrow>
+        <div className="mt-6">
+          <PillarCards pillars={site.sponsorPillars} headingLevel="h2" />
+        </div>
+      </Section>
+
+      <Section id="partners">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
             <Eyebrow>In good company</Eyebrow>
@@ -73,13 +80,6 @@ export default function SponsorsPage() {
           <p className="max-w-md text-muted">From global manufacturers to local shops, these partners put car #51 on the dirt.</p>
         </div>
         <SponsorGrid featured />
-      </Section>
-
-      <Section>
-        <Eyebrow>Why partner with us</Eyebrow>
-        <div className="mt-6">
-          <PillarCards pillars={site.sponsorPillars} headingLevel="h2" />
-        </div>
       </Section>
 
       <Section id="tiers" className="topo-bg">
@@ -148,7 +148,13 @@ export default function SponsorsPage() {
         </div>
       </Section>
 
-      <Section id="donate" className="bg-panel/40">
+      <Section className="bg-panel/40">
+        <SectionHeading>Sponsor FAQ</SectionHeading>
+        <div className="mt-8">
+          <Faq items={faq} />
+        </div>
+      </Section>
+      <Section id="donate">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <div className="lg:pt-6">
             <Eyebrow>Individuals and alumni</Eyebrow>
@@ -167,12 +173,6 @@ export default function SponsorsPage() {
         </div>
       </Section>
 
-      <Section>
-        <SectionHeading>Sponsor FAQ</SectionHeading>
-        <div className="mt-8">
-          <Faq items={faq} />
-        </div>
-      </Section>
     </>
   );
 }

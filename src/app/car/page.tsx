@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Our Baja SAE car: build, results, and history",
   description:
-    "Follow Texas A&M Baja SAE's car from clean sheet to competition: where this season's build stands, how we build every car, and our full competition history.",
+    "Follow Texas A&M Baja SAE's car from clean sheet to competition: how we build every car, where this season's build stands, and our full competition history.",
   path: "/car",
 });
 
@@ -25,12 +25,28 @@ export default function CarPage() {
       <PageHero
         eyebrow="Follow the car"
         title="From clean sheet to the dirt"
-        intro={`Every season we design, build, and race a brand-new off-road car. Here's where the ${car.buildSeason} car stands, how we build it, and every car that came before it.`}
+        intro={`Every season we design, build, and race a brand-new off-road car. Here's how we build it, where the ${car.buildSeason} car stands, and every car that came before it.`}
         image={car.photo}
         imageAlt={`The Texas A&M Baja ${car.season} car`}
       />
 
-      <Section id="now" className="topo-bg">
+      {car.buildProcess.length > 0 && (
+        <Section id="process" className="topo-bg">
+          <Eyebrow>How we build it</Eyebrow>
+          <SectionHeading>One car, every year</SectionHeading>
+          <ol className="mt-10 grid gap-px overflow-hidden rounded-sm bg-line md:grid-cols-2 lg:grid-cols-5">
+            {car.buildProcess.map((step, index) => (
+              <li key={step.name} className="bg-panel p-6">
+                <p className="font-display text-5xl font-extrabold text-accent/40">{String(index + 1).padStart(2, "0")}</p>
+                <h3 className="mt-2 font-display text-2xl font-extrabold uppercase">{step.name}</h3>
+                <p className="mt-2 text-sm text-muted">{step.description}</p>
+              </li>
+            ))}
+          </ol>
+        </Section>
+      )}
+
+      <Section id="now" className="bg-panel/40">
         <Eyebrow>Where we are now</Eyebrow>
         <SectionHeading>The {car.buildSeason} season</SectionHeading>
         <p className="mt-4 max-w-2xl text-lg text-muted">
@@ -47,22 +63,6 @@ export default function CarPage() {
           .
         </p>
       </Section>
-
-      {car.buildProcess.length > 0 && (
-        <Section id="process" className="bg-panel/40">
-          <Eyebrow>How we build it</Eyebrow>
-          <SectionHeading>One car, every year</SectionHeading>
-          <ol className="mt-10 grid gap-px overflow-hidden rounded-sm bg-line md:grid-cols-2 lg:grid-cols-5">
-            {car.buildProcess.map((step, index) => (
-              <li key={step.name} className="bg-panel p-6">
-                <p className="font-display text-5xl font-extrabold text-accent/40">{String(index + 1).padStart(2, "0")}</p>
-                <h3 className="mt-2 font-display text-2xl font-extrabold uppercase">{step.name}</h3>
-                <p className="mt-2 text-sm text-muted">{step.description}</p>
-              </li>
-            ))}
-          </ol>
-        </Section>
-      )}
 
       <Section id="inside">
         <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.2fr]">

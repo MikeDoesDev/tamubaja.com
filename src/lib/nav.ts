@@ -10,8 +10,8 @@ export const NAV_LINKS: NavLink[] = [
     href: "/car",
     label: "Car",
     children: [
-      { href: "/car#now", label: "Where we are now", description: "This season's build and what's next" },
       { href: "/car#process", label: "How we build it", description: "Design, review, build, test, compete" },
+      { href: "/car#now", label: "Where we are now", description: "This season's build and what's next" },
       { href: "/car#history", label: "Past cars and results", description: "Every car since 2018" },
     ],
   },
@@ -29,8 +29,8 @@ export const NAV_LINKS: NavLink[] = [
     label: "Partners",
     children: [
       { href: "/sponsors", label: "Partner with us", description: "Why sponsor, and how to start" },
-      { href: "/partners", label: "Our partners", description: "The companies behind car #51" },
       { href: "/sponsors#tiers", label: "Sponsorship tiers", description: "What each level includes" },
+      { href: "/partners", label: "Our partners", description: "The companies behind car #51" },
       { href: "/sponsors#donate", label: "Donate", description: "Give as an individual or alum" },
     ],
   },

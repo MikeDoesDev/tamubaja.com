@@ -54,6 +54,9 @@ export default function HomePage() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+            <Link href="/team" className="mt-6 inline-block font-semibold text-accent underline underline-offset-4 hover:text-ink">
+              Meet the team
+            </Link>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
             <Image src={site.teamPhoto} alt="Texas A&M Baja SAE team members" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
@@ -61,68 +64,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {events.length > 0 && (
-        <Section id="events" className="bg-panel/40">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <Eyebrow>Recent events</Eyebrow>
-              <SectionHeading>What we&apos;ve been up to</SectionHeading>
-            </div>
-            <FollowAlong socials={site.socials} />
-          </div>
-          <RecentEvents events={events} />
-          <p className="mt-6 text-sm text-muted">
-            <Link href="/car#now" className="font-semibold text-ink underline decoration-accent underline-offset-4">
-              See the full season timeline
-            </Link>{" "}
-            with every build milestone and event.
-          </p>
-        </Section>
-      )}
-
-      {site.videos.length > 0 && (
-        <Section className="topo-bg">
-          <Eyebrow>Baja on screen</Eyebrow>
-          <SectionHeading>See the team in action</SectionHeading>
-          <div className={`mt-10 grid gap-8 ${site.videos.length > 1 ? "lg:grid-cols-[1.5fr_1fr]" : ""}`}>
-            {site.videos.slice(0, 2).map((video, index) => (
-              <article key={video.youtubeId} className={index > 0 ? "lg:pt-16" : ""}>
-                <VideoFeature youtubeId={video.youtubeId} title={video.title} poster={video.poster} />
-                <h3 className={`mt-5 font-display font-extrabold uppercase leading-none ${index === 0 ? "text-3xl" : "text-2xl"}`}>{video.title}</h3>
-                <p className="mt-2 text-muted">{video.body}</p>
-                <a
-                  href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm font-semibold text-accent underline underline-offset-4 hover:text-ink"
-                >
-                  Watch on YouTube
-                </a>
-              </article>
-            ))}
-          </div>
-        </Section>
-      )}
-
       <Section className="bg-panel/40">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <Eyebrow>Why sponsor</Eyebrow>
-            <SectionHeading>Why partner with us</SectionHeading>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href="/sponsors#inquire">Become a Sponsor</ButtonLink>
-            <ButtonLink href="/sponsors#tiers" variant="secondary">
-              See the tiers
-            </ButtonLink>
-          </div>
-        </div>
-        <div className="mt-10">
-          <PillarCards pillars={site.sponsorPillars} />
-        </div>
-      </Section>
-
-      <Section className="topo-bg">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image src={car.photo} alt={`The Texas A&M Baja ${car.season} car`} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
@@ -146,7 +88,7 @@ export default function HomePage() {
       </Section>
 
       {featuredCars.length > 0 && (
-        <Section>
+        <Section className="topo-bg">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <Eyebrow>The garage · racing since 2018</Eyebrow>
@@ -171,6 +113,67 @@ export default function HomePage() {
           )}
         </Section>
       )}
+
+      {site.videos.length > 0 && (
+        <Section>
+          <Eyebrow>Baja on screen</Eyebrow>
+          <SectionHeading>See the team in action</SectionHeading>
+          <div className={`mt-10 grid gap-8 ${site.videos.length > 1 ? "lg:grid-cols-[1.5fr_1fr]" : ""}`}>
+            {site.videos.slice(0, 2).map((video, index) => (
+              <article key={video.youtubeId} className={index > 0 ? "lg:pt-16" : ""}>
+                <VideoFeature youtubeId={video.youtubeId} title={video.title} poster={video.poster} />
+                <h3 className={`mt-5 font-display font-extrabold uppercase leading-none ${index === 0 ? "text-3xl" : "text-2xl"}`}>{video.title}</h3>
+                <p className="mt-2 text-muted">{video.body}</p>
+                <a
+                  href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-block text-sm font-semibold text-accent underline underline-offset-4 hover:text-ink"
+                >
+                  Watch on YouTube
+                </a>
+              </article>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {events.length > 0 && (
+        <Section id="events" className="topo-bg">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <Eyebrow>Recent events</Eyebrow>
+              <SectionHeading>What we&apos;ve been up to</SectionHeading>
+            </div>
+            <FollowAlong socials={site.socials} />
+          </div>
+          <RecentEvents events={events} />
+          <p className="mt-6 text-sm text-muted">
+            <Link href="/car#now" className="font-semibold text-ink underline decoration-accent underline-offset-4">
+              See the full season timeline
+            </Link>{" "}
+            with every build milestone and event.
+          </p>
+        </Section>
+      )}
+
+      <Section>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <Eyebrow>Why sponsor</Eyebrow>
+            <SectionHeading>Why partner with us</SectionHeading>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href="/sponsors#inquire">Become a Sponsor</ButtonLink>
+            <ButtonLink href="/sponsors#tiers" variant="secondary">
+              See the tiers
+            </ButtonLink>
+          </div>
+        </div>
+        <div className="mt-10">
+          <PillarCards pillars={site.sponsorPillars} />
+        </div>
+      </Section>
 
       <CtaBand
         title="Put your name on the car"
