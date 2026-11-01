@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import type { Subteam } from "@/lib/schemas";
-import Image from "next/image";
 import Link from "next/link";
 import { directoryHref } from "@/lib/directory";
 import { LeadCard, MemberRow } from "./MemberCard";
@@ -59,7 +58,7 @@ export function SubteamExplorer({ subteams }: { subteams: Subteam[] }) {
                     <span className="flex -space-x-2">
                       {subteam.leads.slice(0, 3).map((lead) => (
                         <span key={lead.name} className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-panel bg-[#101214]">
-                          {lead.photo ? <Image src={lead.photo} alt="" fill sizes="40px" className="object-cover" /> : <PersonPlaceholder />}
+                          <PersonPlaceholder />
                         </span>
                       ))}
                     </span>

@@ -66,7 +66,7 @@ export default function TeamPage() {
                     className={`flex h-full items-center gap-4 rounded-2xl border bg-panel p-4 transition-colors hover:border-accent hover:bg-panel-2 ${program ? "border-accent/50" : "border-line"}`}
                   >
                   <span className={`relative shrink-0 overflow-hidden rounded-full bg-[#101214] ${program ? "h-20 w-20" : "h-14 w-14"}`}>
-                    {lead.photo ? <Image src={lead.photo} alt="" fill sizes="80px" className="object-cover" /> : <PersonPlaceholder />}
+                    <PersonPlaceholder />
                   </span>
                   <span className="min-w-0">
                     <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{lead.role}</span>

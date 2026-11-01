@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { personSlug, type DirectoryPerson } from "@/lib/directory";
 import { PersonPlaceholder } from "./PersonPlaceholder";
@@ -149,17 +148,7 @@ export function StudentDirectory({ people, subteams }: { people: DirectoryPerson
               }`}
             >
               <div className="relative aspect-[4/5]">
-                {person.photo ? (
-                  <Image
-                    src={person.photo}
-                    alt={`Headshot of ${person.name}`}
-                    fill
-                    sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                ) : (
-                  <PersonPlaceholder />
-                )}
+                <PersonPlaceholder />
                 {person.titles.length > 0 && (
                   <span className="absolute left-2 top-2 rounded-sm bg-bg/85 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-accent">
                     {person.titles[0]}

@@ -106,10 +106,9 @@ leads:
     role: Project Manager
     major: Mechanical Engineering
     classYear: "2027"
-    linkedin: https://www.linkedin.com/in/jordan-smith
 ```
 
-For a photo, upload a square JPG to `public/images/team/` and add `photo: /images/team/jordan-smith.jpg`. Without a photo, their initials are shown.
+The public site shows names, majors, and class years only. **Individual headshots, LinkedIns, and resumes never go in this repository.** Add them to the private team Google Sheet instead; they show up only for signed-in sponsors and team members in the sponsor portal (see docs/sponsor-portal.md). Group and event photos are still public.
 
 ## Turn the "under construction" banner on or off
 

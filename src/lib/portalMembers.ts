@@ -1,69 +1,99 @@
 import "server-only";
+import { downloadDriveFile, googleConfigured, readSheet } from "@/lib/google";
+import { parseRoster, type RosterMember } from "@/lib/roster";
 
 /**
- * Members shown in the private sponsor portal.
+ * Team members for the private sponsor portal, read from the private team Google Sheet.
  *
- * PLACEHOLDER DATA. These three people are made up so the sign-in flow can be tested end to end.
- * Real member details and resumes must never be committed: this repository is public. When the team
- * is ready, replace getPortalMembers() and getResume() with reads from private storage (a Google
- * Sheet + Drive folder shared with a service account, or private Vercel Blob storage), using keys
- * kept in the host's environment variables. Only members who opted in on the form should be returned.
+ * Nothing about members is stored in this repository (it's public). Until the sheet is connected
+ * (GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY and TEAM_SHEET_ID in the host's
+ * environment variables), three made-up sample profiles are shown so the flow can be tested.
  */
 export interface PortalMember {
   id: string;
   name: string;
-  major: string;
-  classYear: string;
+  major?: string;
+  classYear?: string;
   subteam?: string;
   linkedin?: string;
-  /** A same-site URL that is itself gated, never a file in public/. Empty shows the placeholder art. */
-  photo?: string;
+  hasPhoto: boolean;
   hasResume: boolean;
 }
 
-export const PORTAL_IS_PLACEHOLDER = true;
+const sheetId = process.env.TEAM_SHEET_ID;
+const sheetTab = process.env.TEAM_SHEET_TAB || "Roster";
+export const rosterConnected = googleConfigured && Boolean(sheetId);
+export const PORTAL_IS_PLACEHOLDER = !rosterConnected;
 
-const PLACEHOLDER_MEMBERS: PortalMember[] = [
-  {
-    id: "sample-jordan-reyes",
-    name: "Jordan Reyes (sample)",
-    major: "Mechanical Engineering",
-    classYear: "2027",
-    subteam: "Suspension",
-    linkedin: "https://www.linkedin.com/",
-    hasResume: true,
-  },
-  {
-    id: "sample-priya-shah",
-    name: "Priya Shah (sample)",
-    major: "Industrial Distribution",
-    classYear: "2028",
-    subteam: "Business",
-    linkedin: "https://www.linkedin.com/",
-    hasResume: true,
-  },
-  {
-    id: "sample-marcus-lee",
-    name: "Marcus Lee (sample)",
-    major: "Manufacturing & Mechanical Engineering Technology",
-    classYear: "2027",
-    subteam: "Powertrain",
-    hasResume: false,
-  },
+const SAMPLES: RosterMember[] = [
+  { id: "sample-jordan-reyes", name: "Jordan Reyes (sample)", emails: [], major: "Mechanical Engineering", classYear: "2027", subteam: "Suspension", linkedin: "https://www.linkedin.com/", share: true, resumeFileId: "sample" },
+  { id: "sample-priya-shah", name: "Priya Shah (sample)", emails: [], major: "Industrial Distribution", classYear: "2028", subteam: "Business", linkedin: "https://www.linkedin.com/", share: true, resumeFileId: "sample" },
+  { id: "sample-marcus-lee", name: "Marcus Lee (sample)", emails: [], major: "Manufacturing & Mechanical Engineering Technology", classYear: "2027", subteam: "Powertrain", share: true },
 ];
 
-export async function getPortalMembers(): Promise<PortalMember[]> {
-  return PLACEHOLDER_MEMBERS;
+// Re-read the sheet at most every 5 minutes, so edits show up quickly without hitting Google on every visit.
+const TTL = 5 * 60 * 1000;
+let cache: { at: number; roster: RosterMember[] } | undefined;
+
+export async function getRoster(): Promise<RosterMember[]> {
+  if (!rosterConnected) return SAMPLES;
+  if (cache && Date.now() - cache.at < TTL) return cache.roster;
+  try {
+    const roster = parseRoster(await readSheet(sheetId!, sheetTab));
+    cache = { at: Date.now(), roster };
+    return roster;
+  } catch (error) {
+    console.error("[sponsor portal]", error);
+    // Keep serving the last good copy if Google hiccups.
+    return cache?.roster ?? [];
+  }
 }
 
-export async function getResume(id: string): Promise<{ filename: string; body: Uint8Array } | null> {
-  const member = PLACEHOLDER_MEMBERS.find((m) => m.id === id && m.hasResume);
-  if (!member) return null;
+/** The team member signing in with this (verified) email, if they're on the sheet. */
+export async function findTeamMember(email: string): Promise<RosterMember | undefined> {
+  if (!rosterConnected) return undefined;
+  const address = email.toLowerCase();
+  return (await getRoster()).find((member) => member.emails.includes(address));
+}
+
+/** Members who said yes to sharing with sponsors, A to Z. */
+export async function getPortalMembers(): Promise<PortalMember[]> {
+  return (await getRoster())
+    .filter((member) => member.share)
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((member) => ({
+      id: member.id,
+      name: member.name,
+      major: member.major,
+      classYear: member.classYear,
+      subteam: member.subteam,
+      linkedin: member.linkedin,
+      hasPhoto: Boolean(member.headshotFileId),
+      hasResume: Boolean(member.resumeFileId),
+    }));
+}
+
+async function sharedMember(id: string) {
+  return (await getRoster()).find((member) => member.id === id && member.share);
+}
+
+export async function getResume(id: string): Promise<{ filename: string; body: ArrayBuffer | Uint8Array; contentType: string } | null> {
+  const member = await sharedMember(id);
+  if (!member?.resumeFileId) return null;
   const clean = member.name.replace(/\s*\(sample\)/, "");
-  return {
-    filename: `${clean.replace(/[^A-Za-z0-9]+/g, "-")}-Resume.pdf`,
-    body: placeholderPdf([`${clean} - sample resume`, `${member.major}, Class of ${member.classYear}`, "Placeholder file for testing the sponsor portal."]),
-  };
+  const filename = `${clean.replace(/[^A-Za-z0-9]+/g, "-")}-Resume.pdf`;
+  if (!rosterConnected) {
+    return { filename, contentType: "application/pdf", body: placeholderPdf([`${clean} - sample resume`, `${member.major}, Class of ${member.classYear}`, "Placeholder file for testing the sponsor portal."]) };
+  }
+  const file = await downloadDriveFile(member.resumeFileId);
+  return file ? { filename, contentType: file.contentType, body: file.body } : null;
+}
+
+export async function getHeadshot(id: string): Promise<{ body: ArrayBuffer; contentType: string } | null> {
+  const member = await sharedMember(id);
+  if (!rosterConnected || !member?.headshotFileId) return null;
+  const file = await downloadDriveFile(member.headshotFileId);
+  return file && file.contentType.startsWith("image/") ? file : null;
 }
 
 /** A tiny one-page PDF with a few lines of text, so the download can be tested without real resumes. */

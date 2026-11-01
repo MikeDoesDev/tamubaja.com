@@ -11,6 +11,7 @@ Pass this to the next business lead every spring. Every account is tied to the t
 | Form delivery | Web3Forms | Key issued to the team inbox | Key lives in `content/site.yaml` |
 | Sponsor portal: Google sign-in | Google Cloud project "TAMU Baja Website" | Team inbox | Client ID/secret in Vercel env vars; see docs/sponsor-portal.md |
 | Sponsor portal: Microsoft sign-in | Microsoft Entra app registration "Texas A&M Baja SAE" | Team inbox | Client secret expires every 24 months: make a new one and update Vercel |
+| Sponsor portal: team sheet | Google Sheet "Roster" + headshot/resume Drive folders | Team inbox | Shared view-only with the tamubaja-site service account; key in Vercel env vars |
 | Weekly rebuild | GitHub repo secret `VERCEL_DEPLOY_HOOK` | GitHub org owners | Recreate in Vercel → Settings → Git → Deploy Hooks if it stops |
 
 ## Before launch (one time)

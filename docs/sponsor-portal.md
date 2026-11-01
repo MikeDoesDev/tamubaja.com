@@ -1,6 +1,12 @@
 # Sponsor portal setup
 
-The sponsor portal (`/sponsor-portal`) lets approved sponsors sign in with Google or Microsoft and see member profiles and resumes. Until the steps below are done, the page says sign-in isn't switched on and the "Sponsor login" button on `/sponsors` stays hidden.
+The sponsor portal (`/sponsor-portal`) lets approved sponsors and team members sign in with Google or Microsoft. Inside, they see:
+
+- **Season calendar**: upcoming milestones from `content/car.yaml`. Notes meant for the viewer's tier are tagged "For you", and every date has an "Add to calendar" link. Team members see every tier's notes.
+- **Partnership benefits** (sponsors only): everything their tier includes, from `content/tiers.yaml`.
+- **Meet the team**: headshots, names, majors, years, subteams, and LinkedIns for members who opted in. Resume downloads are for the team and for sponsors at the tier whose benefits mention the resume bank (Silver today). Bronze sponsors see a note about upgrading.
+
+The public site shows only names, majors, and class years, plus group and event photos. Individual headshots, LinkedIns, and resumes appear only here. Until the steps below are done, the page says sign-in isn't switched on and the "Sponsor login" button on `/sponsors` stays hidden.
 
 Set everything up while signed in as **tamubajabusiness@gmail.com**, so the accounts stay with the team.
 
@@ -73,6 +79,52 @@ Known limit: some companies don't let employees sign in to outside apps without 
 
 Edit `content/sponsor-access.yaml` (instructions are at the top of the file and in EDITING.md). Changes apply as soon as the site redeploys, about a minute after you commit.
 
-## Where member data will live
+## 6. Connect the private team sheet (team login, real profiles)
 
-This repository is public, so real member profiles, headshots, and resumes must never be committed. Right now `src/lib/portalMembers.ts` returns three made-up profiles. The plan for real data is to read it from private storage, using keys kept in Vercel environment variables. The likely setup is the private Google Sheet the member form already fills, plus the team Drive resume folder, both shared with a Google service account. The site will show only members who opted in on the form.
+Until this is done, the portal shows three sample profiles and only the sponsor list can sign in.
+
+**The sheet.** Make one Google Sheet in the Baja Drive with a tab named **Roster**. The member form's response sheet works if you rename its tab to Roster, or set `TEAM_SHEET_TAB` to its tab name. Row 1 is headers, in any order. Use these names:
+
+| Header | What goes in it |
+|---|---|
+| Name | Full name (required) |
+| Email | Their TAMU email |
+| Sign-in email | Optional. The address they'll sign in with if it's different, like a personal Gmail |
+| Major | |
+| Class year | 4-digit year |
+| Subteam | |
+| LinkedIn | Full https://linkedin.com/in/... link |
+| Share with sponsors | Yes or No. Only "Yes" people appear in the portal |
+| Headshot | Google Drive link to their photo |
+| Resume | Google Drive link to their PDF |
+
+Everyone with an email on this sheet can sign in as a team member, whether or not they said Yes to sharing. To remove someone's access, delete their row. The site re-reads the sheet every 5 minutes.
+
+TAMU email runs on Microsoft, and TAMU IT may block outside apps from Microsoft sign-in. Have team members put a personal Gmail in **Sign-in email** and use "Continue with Google".
+
+**The service account** (the robot account the site uses to read the sheet):
+
+1. In the same Google Cloud project as step 2, open **APIs & Services → Library** and enable the **Google Sheets API** and the **Google Drive API**.
+2. **IAM & Admin → Service accounts → Create service account**, named `tamubaja-site`. Skip the optional role steps.
+3. Open it → **Keys → Add key → Create new key → JSON**. A file downloads. Treat it like a password and don't commit it.
+4. **Share** the sheet, the headshot folder, and the resume folder with the service account's email (it looks like `tamubaja-site@<project>.iam.gserviceaccount.com`), as **Viewer**. If a form collects the uploads, share the form's upload folder.
+5. Add these to Vercel (Production), then redeploy:
+
+| Name | Value |
+|---|---|
+| `GOOGLE_SERVICE_ACCOUNT_EMAIL` | `client_email` from the JSON file |
+| `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` | `private_key` from the JSON file, the whole thing including the BEGIN/END lines |
+| `TEAM_SHEET_ID` | The long ID in the sheet's URL, between `/d/` and `/edit` |
+| `TEAM_SHEET_TAB` | Optional. The tab name, if it isn't `Roster` |
+
+Some Google Cloud accounts block service-account keys by default ("key creation is disabled"). That usually only happens on school or company accounts, not the Baja Gmail. If you see it, tell whoever's helping with the site.
+
+## Calendar notes for each tier
+
+In `content/car.yaml`, a milestone's `sponsorNote` shows in the portal calendar. Add `forTiers: [platinum]` (or several tiers) when the note is only for some tiers. Leave it out when it's for every sponsor.
+
+## Why a public GitHub repo is still safe
+
+- Secrets (the sign-in keys, session secret, and service-account key) live only in Vercel's environment variables. Reading the code doesn't help anyone forge a sign-in.
+- The sponsor list in the repo holds only company names and email domains. Getting in still takes a verified account at one of those domains.
+- Member details, headshots, resumes, and team emails stay in the private sheet and Drive. They're served only to signed-in, approved viewers, and never from `public/`.

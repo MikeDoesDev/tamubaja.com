@@ -1,13 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SIGN_IN_OPTIONS, signIn, signOut } from "@/auth";
 import { ButtonLink } from "@/components/ButtonLink";
 import { PersonPlaceholder } from "@/components/PersonPlaceholder";
-import { Eyebrow, Section } from "@/components/Section";
+import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { LinkedInIcon } from "@/components/SocialLinks";
-import { getSite } from "@/lib/content";
-import { getPortalViewer } from "@/lib/portal";
+import { getCar, getSite, getTiers } from "@/lib/content";
+import { formatMilestoneDate, teamDate } from "@/lib/milestones";
+import { canDownloadResumes, getPortalViewer, noteAppliesTo, resumeTier, type ApprovedViewer, type TierId } from "@/lib/portal";
 import { PORTAL_IS_PLACEHOLDER, getPortalMembers, type PortalMember } from "@/lib/portalMembers";
 
 export const metadata: Metadata = {
@@ -41,29 +41,65 @@ export default async function SponsorPortalPage({ searchParams }: { searchParams
 
   if (viewer.state === "approved") {
     const members = await getPortalMembers();
+    const resumes = canDownloadResumes(viewer);
+    const tiers = getTiers().tiers;
+    const tierName = (id: string) => tiers.find((t) => t.id === id)?.name ?? id;
+    const isTeam = viewer.kind === "team";
     return (
       <>
         <PortalHeader
-          eyebrow={`Sponsor portal · ${viewer.company}`}
-          title="Meet the team"
-          intro="The Aggies who design, build, and race car #51. Every student here chose to share their profile with our sponsors."
+          eyebrow={isTeam ? "Sponsor portal · Team view" : `Sponsor portal · ${viewer.company}`}
+          title={isTeam ? `Howdy, ${viewer.name.split(" ")[0]}` : `Welcome, ${viewer.company}`}
+          intro={
+            isTeam
+              ? "You're seeing what our sponsors see, plus every tier's dates. Check that your own profile looks right."
+              : "Your season dates, your partnership benefits, and the Aggies who design, build, and race car #51."
+          }
         >
           <p className="mt-6 text-sm text-muted">
             Signed in as <span className="text-ink">{viewer.email}</span>
           </p>
           <SignOutButton />
         </PortalHeader>
+
+        <Section className="bg-panel/40">
+          <div className={`grid gap-10 ${isTeam ? "" : "lg:grid-cols-[1.6fr_1fr]"}`}>
+            <div>
+              <Eyebrow>{isTeam ? "Season calendar" : "Your season dates"}</Eyebrow>
+              <SectionHeading>What&apos;s coming up</SectionHeading>
+              <SponsorCalendar viewer={viewer} tierName={tierName} />
+            </div>
+            {!isTeam && <TierBenefits tier={viewer.tier} />}
+          </div>
+        </Section>
+
         <Section>
+          <Eyebrow>The team</Eyebrow>
+          <SectionHeading>Meet the team</SectionHeading>
+          <p className="mt-4 max-w-2xl text-lg text-muted">Every student here chose to share their profile with our sponsors.</p>
           {PORTAL_IS_PLACEHOLDER && (
-            <p className="mb-8 rounded-sm border-l-4 border-maroon bg-maroon/25 px-4 py-3 text-sm text-ink/90">
+            <p className="mt-8 rounded-sm border-l-4 border-maroon bg-maroon/25 px-4 py-3 text-sm text-ink/90">
               These are sample profiles for testing. Real member profiles are coming soon.
             </p>
           )}
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {members.map((member) => (
-              <MemberProfile key={member.id} member={member} />
-            ))}
-          </ul>
+          {!resumes && (
+            <p className="mt-8 rounded-sm border border-line bg-panel px-4 py-3 text-sm text-muted">
+              Resume downloads are part of our {tierName(resumeTier())} tier and up.{" "}
+              <Link href="/sponsors#tiers" className="font-semibold text-ink underline decoration-accent underline-offset-4">
+                See the tiers
+              </Link>{" "}
+              or email {site.email} to upgrade.
+            </p>
+          )}
+          {members.length ? (
+            <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {members.map((member) => (
+                <MemberProfile key={member.id} member={member} resumes={resumes} />
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-10 text-muted">Profiles are on their way. Check back soon.</p>
+          )}
           <p className="mt-10 text-sm text-muted">
             Want to meet someone in person or come recruit at a team meeting? Email{" "}
             <a href={`mailto:${site.email}`} className="font-semibold text-ink underline decoration-accent underline-offset-4">
@@ -189,24 +225,25 @@ function SignOutButton({ label = "Sign out" }: { label?: string }) {
   );
 }
 
-function MemberProfile({ member }: { member: PortalMember }) {
+function MemberProfile({ member, resumes }: { member: PortalMember; resumes: boolean }) {
+  const details = [member.major, member.classYear && `Class of ${member.classYear}`].filter(Boolean).join(" · ");
   return (
     <li className="flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
       <div className="relative aspect-square bg-[#101214]">
-        {member.photo ? (
-          <Image src={member.photo} alt={member.name} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+        {member.hasPhoto ? (
+          // Served through a signed-in-only route, so it can't go through the public image optimizer.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={`/sponsor-portal/photo/${encodeURIComponent(member.id)}`} alt={member.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
         ) : (
           <PersonPlaceholder />
         )}
       </div>
       <div className="flex flex-1 flex-col p-6">
         {member.subteam && <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">{member.subteam}</p>}
-        <h2 className="mt-1 font-display text-2xl font-extrabold uppercase leading-tight">{member.name}</h2>
-        <p className="mt-1 text-sm text-muted">
-          {member.major} · Class of {member.classYear}
-        </p>
+        <h3 className="mt-1 font-display text-2xl font-extrabold uppercase leading-tight">{member.name}</h3>
+        {details && <p className="mt-1 text-sm text-muted">{details}</p>}
         <div className="mt-auto flex flex-wrap gap-3 pt-5">
-          {member.hasResume && (
+          {member.hasResume && resumes && (
             <a
               href={`/sponsor-portal/resume/${encodeURIComponent(member.id)}`}
               className="inline-flex items-center justify-center rounded-sm bg-accent px-4 py-2 font-display text-base font-bold uppercase tracking-wide text-bg transition-colors hover:bg-ink"
@@ -228,6 +265,88 @@ function MemberProfile({ member }: { member: PortalMember }) {
         </div>
       </div>
     </li>
+  );
+}
+
+const ymd = (iso: string) => iso.replaceAll("-", "");
+const nextDay = (iso: string) => new Date(Date.parse(`${iso}T00:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
+
+/** An all-day "add to Google Calendar" link. */
+function googleCalendarLink(name: string, iso: string, details: string) {
+  const params = new URLSearchParams({ action: "TEMPLATE", text: `Texas A&M Baja: ${name}`, dates: `${ymd(iso)}/${ymd(nextDay(iso))}`, details });
+  return `https://calendar.google.com/calendar/render?${params}`;
+}
+
+/** Upcoming season milestones, with the notes meant for this sponsor's tier (team members see all of them). */
+function SponsorCalendar({ viewer, tierName }: { viewer: ApprovedViewer; tierName: (id: string) => string }) {
+  const today = teamDate(new Date());
+  const all = getCar().milestones;
+  const upcoming = all.filter((m) => m.date >= today);
+  const done = all.length - upcoming.length;
+  if (!upcoming.length) return <p className="mt-6 text-muted">The season is wrapped. Next season&apos;s dates are coming soon.</p>;
+  return (
+    <>
+      <p className="mt-4 text-muted">
+        {done} of {all.length} milestones done this season. Dates marked tentative can still move.
+      </p>
+      <ol className="mt-8 divide-y divide-line border-y border-line">
+        {upcoming.map((m) => {
+          const note = m.sponsorNote && noteAppliesTo(viewer, m.forTiers) ? m.sponsorNote : undefined;
+          const forYou = Boolean(note) && viewer.kind === "sponsor";
+          const audience = m.forTiers.length ? m.forTiers.map(tierName).join(", ") : "All sponsors";
+          return (
+            <li key={m.name} className="grid gap-x-6 gap-y-2 py-5 sm:grid-cols-[6.5rem_1fr_auto] sm:items-baseline">
+              <time dateTime={m.date} className="text-sm font-semibold uppercase tracking-[0.15em] text-accent">
+                {formatMilestoneDate(m.date).replace(/, \d{4}$/, "")}
+                {m.tentative && <span className="block text-[10px] tracking-[0.2em] text-muted">Tentative</span>}
+              </time>
+              <div>
+                <p className="font-display text-2xl font-extrabold uppercase leading-tight">
+                  {m.name}
+                  {forYou && <span className="ml-3 align-middle rounded-sm bg-maroon px-2 py-0.5 font-sans text-[10px] font-semibold tracking-[0.2em] text-white">For you</span>}
+                </p>
+                {note && (
+                  <p className="mt-1 text-sm text-ink/85">
+                    {viewer.kind === "team" && <span className="font-semibold text-accent">{audience}: </span>}
+                    {note}
+                  </p>
+                )}
+              </div>
+              <a
+                href={googleCalendarLink(m.name, m.date, note ?? "Texas A&M Baja SAE season milestone")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-accent underline-offset-4 hover:underline"
+              >
+                Add to calendar<span className="sr-only">: {m.name}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+    </>
+  );
+}
+
+/** Everything this sponsor's tier includes (each tier includes the ones below it). */
+function TierBenefits({ tier }: { tier: TierId }) {
+  const tiers = getTiers().tiers;
+  const index = tiers.findIndex((t) => t.id === tier);
+  const current = tiers[index];
+  if (!current) return null;
+  const benefits = tiers.slice(0, index + 1).reverse().flatMap((t) => t.benefits);
+  return (
+    <aside className="self-start rounded-2xl border border-line border-t-4 bg-panel p-6 sm:p-8" style={{ borderTopColor: current.badgeColor }}>
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Your partnership</p>
+      <p className="mt-2 font-display text-4xl font-extrabold uppercase leading-none" style={{ color: current.badgeColor }}>
+        {current.name}
+      </p>
+      <ul className="mt-6 space-y-2 text-sm text-ink/90">
+        {benefits.map((benefit) => (
+          <li key={benefit}>▸ {benefit}</li>
+        ))}
+      </ul>
+    </aside>
   );
 }
 

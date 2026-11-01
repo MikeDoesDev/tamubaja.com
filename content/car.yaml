@@ -105,6 +105,8 @@ buildSeason: 2026–27
 #   photo: /images/build/<file>.jpg once there's a picture from it.
 #   link: a post or page about the milestone (for example the team's Instagram post).
 #   sponsorNote: what sponsors get at that milestone (must match tiers.yaml).
+#   forTiers: which tiers that note is for, like [platinum]. Leave it out if it's for every sponsor.
+#     The sponsor portal shows each sponsor the dates meant for their tier.
 # Dates come from the team calendar; mark anything SAE or the team hasn't confirmed as tentative: true.
 milestones:
   - name: Initial design review 1
@@ -129,6 +131,7 @@ milestones:
     phase: Build
     date: 2027-02-28
     sponsorNote: Platinum partners are invited to vehicle testing
+    forTiers: [platinum]
   - name: SAE Rollout
     phase: Compete
     date: 2027-04-18

@@ -181,6 +181,8 @@ export const carSchema = z.object({
         link: httpUrl.optional(),
         // Optional: what sponsors get at this milestone. Keep it true to tiers.yaml.
         sponsorNote: text.optional(),
+        // Optional: which tiers the sponsorNote is for (shown in the sponsor portal). Leave out for every sponsor.
+        forTiers: list(z.array(z.enum(TIER_IDS, { message: 'must be "bronze", "silver", "gold", or "platinum"' }))),
       }),
     )
     .min(1),
@@ -188,12 +190,21 @@ export const carSchema = z.object({
 
 const classYear = stringish.pipe(z.string().regex(/^\d{4}$/, "must be a 4-digit graduation year like 2027"));
 
+// Individual headshots, LinkedIns, and resumes are private: they live in the team Google Sheet and only
+// show in the sponsor portal. This repository is public, so team.yaml refuses them.
+const privateOnly = (what: string) =>
+  z
+    .unknown()
+    .refine((value) => value === undefined, `${what} can't go on the public site. Add it to the private team sheet instead (see EDITING.md).`)
+    .optional();
+
 const memberSchema = z.object({
   name: text,
   role: text.optional(),
   major: text.optional(),
   classYear: classYear.optional(),
-  photo: publicPath.optional(),
+  photo: privateOnly("Individual headshots"),
+  linkedin: privateOnly("LinkedIn links"),
 });
 
 export const teamSchema = z.object({
@@ -205,8 +216,8 @@ export const teamSchema = z.object({
         role: text,
         major: text,
         classYear,
-        linkedin: httpUrl.optional(),
-        photo: publicPath.optional(),
+        photo: privateOnly("Individual headshots"),
+        linkedin: privateOnly("LinkedIn links"),
       }),
     ),
   ),

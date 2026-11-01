@@ -1,20 +1,19 @@
 # Team page content.
 # Only list people who are OK appearing on the public site.
-# Never add emails, phone numbers, UINs, or social handles here. The repository may be public.
+# Never add emails, phone numbers, UINs, or social handles here. The repository is public.
+#
+# Individual headshots, LinkedIns, and resumes do NOT go here. They live in the private team Google Sheet
+# and only show to signed-in sponsors and team members in the sponsor portal. Group photos stay public.
 #
 # leads: the leadership cards at the top of the Team page. Example:
 #   - name: Jordan Smith
 #     role: Project Manager
 #     major: Mechanical Engineering
 #     classYear: "2027"
-#     linkedin: https://www.linkedin.com/in/jordan-smith
-#     photo: /images/team/jordan-smith.jpg
 #
 # subteams: each one is a tile that opens to show its leads and members.
 #   Members show name, major, and class year only (no subteam roles). Leads also show their role.
-#   Members only need a name; major, classYear, and photo are optional.
-#   Photos: upload a square JPG to public/images/team/ and add photo: /images/team/first-last.jpg
-#   Without a photo, the person's initials are shown.
+#   Members only need a name; major and classYear are optional.
 story:
   - Texas A&M Baja SAE grew out of the Texas A&M Racing Apprentices program as a development path for the university's Formula team. Since our first competition in Kansas in 2018, we've designed and built a new car every season.
   - The team is open to every major and class year. Engineers design, machine, and test real hardware; business members run sponsorships, finance, and media. Graduates leave with the kind of experience employers ask about in interviews.

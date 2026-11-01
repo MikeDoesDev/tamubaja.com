@@ -73,3 +73,13 @@ describe("verifiedEmailFrom", () => {
     expect(verifiedEmailFrom("github", { email: "a@cat.com", email_verified: true })).toBeNull();
   });
 });
+
+describe("team.yaml privacy", () => {
+  it("refuses individual headshots and LinkedIns on the public site", async () => {
+    const { teamSchema } = await import("@/lib/schemas");
+    const yaml = (extra: string) => `story: [Hi]\nleads:\n  - name: A\n    role: PM\n    major: ME\n    classYear: "2027"\n${extra}subteams:\n  - name: Chassis\n    description: Frame\n`;
+    expect(() => parseContent("team.yaml", yaml(""), teamSchema)).not.toThrow();
+    expect(() => parseContent("team.yaml", yaml("    photo: /images/team/a.jpg\n"), teamSchema)).toThrow(/private team sheet/);
+    expect(() => parseContent("team.yaml", yaml("    linkedin: https://linkedin.com/in/a\n"), teamSchema)).toThrow(/private team sheet/);
+  });
+});
