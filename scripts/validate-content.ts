@@ -8,10 +8,12 @@ import {
   getFaq,
   getSeasons,
   getSite,
+  getSponsorAccess,
   getSponsors,
   getTeam,
   getTiers,
 } from "../src/lib/content";
+import { isFreeEmailDomain } from "../src/lib/sponsorAccess";
 
 const problems: string[] = [];
 const warnings: string[] = [];
@@ -44,6 +46,7 @@ const team = attempt(getTeam);
 attempt(getFaq);
 attempt(getDevelopment);
 const events = attempt(getEvents);
+const sponsorAccess = attempt(getSponsorAccess);
 
 if (site) {
   requireFile("site.yaml", "packetPdf", site.packetPdf);
@@ -86,6 +89,16 @@ for (const lead of team?.leads ?? []) requireFile("team.yaml", `${lead.name} →
 for (const subteam of team?.subteams ?? []) {
   for (const person of [...subteam.leads, ...subteam.members]) {
     requireFile("team.yaml", `${subteam.name} → ${person.name} → photo`, person.photo);
+  }
+}
+
+for (const entry of sponsorAccess ?? []) {
+  for (const domain of entry.domains) {
+    if (isFreeEmailDomain(domain)) {
+      problems.push(
+        `Problem in content/sponsor-access.yaml:\n  • ${entry.company} → domains: ${domain} is a shared email provider (anyone can get an address there), so it would let strangers in. List that person under emails: instead.`,
+      );
+    }
   }
 }
 

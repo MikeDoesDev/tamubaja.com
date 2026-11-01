@@ -46,6 +46,21 @@ The Partners page shows the logo in its own colors on a white tile. The footer s
 
 Change their `show: true` to `show: false`. Their logo disappears from every page.
 
+## Give a sponsor access to the sponsor portal
+
+Sponsors at Bronze tier and up can sign in at tamubaja.com/sponsor-portal to see member profiles and resumes. Edit `content/sponsor-access.yaml` and add a block:
+
+```yaml
+- company: Acme Gear
+  tier: gold
+  domains:
+    - acmegear.com
+```
+
+Anyone who signs in with a verified `@acmegear.com` email (or a subdomain like `@us.acmegear.com`) gets in. For one person who uses a personal address, list them under `emails:` instead of `domains:`. Never put `gmail.com`, `outlook.com`, `tamu.edu`, or similar under `domains:`; the update will be rejected. Add `until: 2027-08-31` to end access on a date. To remove a sponsor, delete their block.
+
+This file is public like everything else here, so it only holds company names and email domains.
+
 ## Add a competition result
 
 Edit `content/seasons.yaml` and add a block at the **top**:

@@ -1,0 +1,16 @@
+# Who can sign in to the private sponsor portal (tamubaja.com/sponsor-portal).
+# Bronze tier and up only. Add a block when a sponsor commits; delete it (or set until:) when they don't renew.
+#   company: the sponsor's name (shown on their welcome message)
+#   tier: bronze, silver, gold, or platinum
+#   domains: company email domains, like cat.com. Anyone with a verified email at that domain gets in,
+#            including subdomains (cat.com also covers us.cat.com). Never put gmail.com, outlook.com, etc. here.
+#   emails: optional, individual addresses (for a recruiter who uses a personal email)
+#   until: optional, YYYY-MM-DD. Access stops after this date.
+#
+# This repository is public, so this list is visible to anyone. It holds only company names and
+# domains. Never put dollar amounts, phone numbers, or member information in this file.
+
+- company: Texas A&M Baja (testing)
+  tier: platinum
+  emails:
+    - tamubajabusiness@gmail.com

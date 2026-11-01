@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { authConfigured } from "@/auth";
 import { ButtonLink } from "@/components/ButtonLink";
 import { DonateCard } from "@/components/DonateCard";
 import { Faq } from "@/components/Faq";
@@ -41,6 +43,21 @@ export default function SponsorsPage() {
                 See the tiers
               </ButtonLink>
             </div>
+            {authConfigured && (
+              <p className="mt-6 text-sm text-muted">
+                Already a sponsor?{" "}
+                <Link
+                  href="/sponsor-portal"
+                  className="ml-1 inline-flex items-center gap-2 rounded-sm border border-line px-3 py-1.5 font-display text-base font-bold uppercase tracking-wide text-ink transition-colors hover:border-accent hover:text-accent"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="4" y="11" width="16" height="10" rx="2" />
+                    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                  </svg>
+                  Sponsor login
+                </Link>
+              </p>
+            )}
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="relative col-span-2 aspect-[16/9] overflow-hidden rounded-3xl border border-line">

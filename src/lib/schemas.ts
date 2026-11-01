@@ -256,6 +256,26 @@ export const eventsSchema = z.array(
   }),
 );
 
+// Who can open the private sponsor portal. Matching and the free-email-provider check live in sponsorAccess.ts.
+const domainName = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .transform((value) => value.replace(/^@/, ""))
+  .pipe(z.string().regex(/^[a-z0-9-]+(\.[a-z0-9-]+)+$/, "must be a company email domain, like cat.com (no @, no https://)"));
+export const sponsorAccessSchema = z.array(
+  z
+    .object({
+      company: text,
+      // Only paying tiers get portal access; in-kind gifts count at their value, so a large one uses the matching tier.
+      tier: z.enum(TIER_IDS, { message: 'must be one of "bronze", "silver", "gold", "platinum"' }),
+      domains: list(z.array(domainName)),
+      emails: list(z.array(email.transform((value) => value.trim().toLowerCase()))),
+      until: isoDate.optional(),
+    })
+    .refine((entry) => entry.domains.length + entry.emails.length > 0, "needs at least one entry under domains: or emails:"),
+);
+
 export const faqSchema = z.array(z.object({ q: text, a: text })).min(1);
 
 export type Site = z.infer<typeof siteSchema>;
@@ -272,3 +292,4 @@ export type Member = Subteam["members"][number];
 export type Development = z.infer<typeof developmentSchema>;
 export type Event = z.infer<typeof eventsSchema>[number];
 export type FaqItem = z.infer<typeof faqSchema>[number];
+export type SponsorAccess = z.infer<typeof sponsorAccessSchema>[number];

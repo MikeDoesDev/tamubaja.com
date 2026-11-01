@@ -9,6 +9,8 @@ Pass this to the next business lead every spring. Every account is tied to the t
 | Hosting | Vercel project `tamubaja-com` | Team inbox account | Web Analytics enabled; deploy hook used by the weekly workflow |
 | Domain | tamubaja.com | Registered to the team inbox | Auto-renew ON; confirm the card on file each August |
 | Form delivery | Web3Forms | Key issued to the team inbox | Key lives in `content/site.yaml` |
+| Sponsor portal: Google sign-in | Google Cloud project "TAMU Baja Website" | Team inbox | Client ID/secret in Vercel env vars; see docs/sponsor-portal.md |
+| Sponsor portal: Microsoft sign-in | Microsoft Entra app registration "Texas A&M Baja SAE" | Team inbox | Client secret expires every 24 months: make a new one and update Vercel |
 | Weekly rebuild | GitHub repo secret `VERCEL_DEPLOY_HOOK` | GitHub org owners | Recreate in Vercel → Settings → Git → Deploy Hooks if it stops |
 
 ## Before launch (one time)
@@ -27,6 +29,7 @@ Pass this to the next business lead every spring. Every account is tied to the t
 - [ ] Add last season's result to `content/seasons.yaml`
 - [ ] Refresh `content/sponsors.yaml` (`show: false` for sponsors who didn't renew)
 - [ ] Upload the new sponsor packet
+- [ ] Update `content/sponsor-access.yaml` (remove sponsors who didn't renew)
 - [ ] Update `content/team.yaml` leads
 - [ ] Confirm the domain auto-renew card
 - [ ] GitHub → Actions → Weekly redeploy: if it shows "disabled" (GitHub pauses scheduled jobs after 60 quiet days), click Enable workflow
