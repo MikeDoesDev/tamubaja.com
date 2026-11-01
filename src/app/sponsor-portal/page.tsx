@@ -128,7 +128,7 @@ export default async function SponsorPortalPage({ searchParams }: { searchParams
             </p>
           )}
           <p>
-            Interested in sponsoring? Bronze tier and up includes access to our team profiles and resumes.
+            Interested in sponsoring? Every tier from Bronze up includes the sponsor portal: season dates, your benefits, and our team profiles.
           </p>
         </div>
         <div className="mt-8 flex flex-wrap gap-4">
