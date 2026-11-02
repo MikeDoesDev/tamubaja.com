@@ -78,33 +78,6 @@ export default function HomePage() {
         }}
       />
       <Hero site={site} />
-      <Section id="events" className="topo-bg">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <Eyebrow>This season · {car.buildSeason}</Eyebrow>
-            <SectionHeading>What we&apos;ve been up to</SectionHeading>
-          </div>
-          <FollowAlong socials={site.socials} />
-        </div>
-        <div className="mt-10">
-          <BuildStatus
-            milestones={car.milestones}
-            buildSeason={car.buildSeason}
-            builtAt={new Date().toISOString()}
-          />
-        </div>
-        {events.length > 0 && <RecentEvents events={events} />}
-        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <ButtonLink href="/car#now" variant="secondary">
-            Full season timeline
-          </ButtonLink>
-          <p className="text-sm text-muted">
-            Every build milestone and team event, from first design review to
-            competition day.
-          </p>
-        </div>
-      </Section>
-
       <Section>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>
@@ -131,6 +104,32 @@ export default function HomePage() {
               className="object-cover"
             />
           </div>
+        </div>
+      </Section>
+      <Section id="events" className="topo-bg">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <Eyebrow>This season · {car.buildSeason}</Eyebrow>
+            <SectionHeading>What we&apos;ve been up to</SectionHeading>
+          </div>
+          <FollowAlong socials={site.socials} />
+        </div>
+        <div className="mt-10">
+          <BuildStatus
+            milestones={car.milestones}
+            buildSeason={car.buildSeason}
+            builtAt={new Date().toISOString()}
+          />
+        </div>
+        {events.length > 0 && <RecentEvents events={events} />}
+        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <ButtonLink href="/car#now" variant="secondary">
+            Full season timeline
+          </ButtonLink>
+          <p className="text-sm text-muted">
+            Every build milestone and team event, from first design review to
+            competition day.
+          </p>
         </div>
       </Section>
 
