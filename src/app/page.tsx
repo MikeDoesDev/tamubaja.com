@@ -105,6 +105,35 @@ export default function HomePage() {
         </div>
       </Section>
 
+      <Section>
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <Eyebrow>Who we are</Eyebrow>
+            <SectionHeading>Built by Aggies. Raced in the dirt.</SectionHeading>
+            <div className="mt-6 space-y-4 text-lg text-muted">
+              {site.mission.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <Link
+              href="/team"
+              className="mt-6 inline-block font-semibold text-accent underline underline-offset-4 hover:text-ink"
+            >
+              Meet the team
+            </Link>
+          </div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+            <Image
+              src={site.teamPhoto}
+              alt="Texas A&M Baja SAE team members"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </Section>
+
       {(site.videos.length > 0 || site.press.length > 0) && (
         <Section className="bg-panel/40">
           <Eyebrow>Baja on screen</Eyebrow>
@@ -183,35 +212,6 @@ export default function HomePage() {
           )}
         </Section>
       )}
-
-      <Section>
-        <div className="grid items-center gap-10 lg:grid-cols-2">
-          <div>
-            <Eyebrow>Who we are</Eyebrow>
-            <SectionHeading>Built by Aggies. Raced in the dirt.</SectionHeading>
-            <div className="mt-6 space-y-4 text-lg text-muted">
-              {site.mission.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-            <Link
-              href="/team"
-              className="mt-6 inline-block font-semibold text-accent underline underline-offset-4 hover:text-ink"
-            >
-              Meet the team
-            </Link>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
-            <Image
-              src={site.teamPhoto}
-              alt="Texas A&M Baja SAE team members"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </Section>
 
       {featuredCars.length > 0 && (
         <Section className="bg-panel/40">
