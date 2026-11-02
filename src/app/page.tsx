@@ -26,23 +26,57 @@ export default function HomePage() {
   const car = getCar();
   const events = getEvents().slice(0, 3);
   const years = buildCarYears(getSeasons(), car.garage);
-  const featuredCars = years.filter((year): year is CarYear & { photo: string } => Boolean(year.photo)).slice(0, 3);
+  const featuredCars = years
+    .filter((year): year is CarYear & { photo: string } => Boolean(year.photo))
+    .slice(0, 3);
   const earlier = years.filter((year) => !year.photo);
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: site.name,
-    alternateName: ["TAMU Baja", "Texas A&M Baja", "Aggie Baja SAE", "TAMU Baja SAE"],
+    alternateName: [
+      "TAMU Baja",
+      "Texas A&M Baja",
+      "Aggie Baja SAE",
+      "TAMU Baja SAE",
+    ],
     url: site.url,
-    parentOrganization: { "@type": "Organization", name: "Texas A&M SAE", url: "https://www.tamusae.org" },
+    parentOrganization: {
+      "@type": "Organization",
+      name: "Texas A&M SAE",
+      url: "https://www.tamusae.org",
+    },
     logo: `${site.url}${site.logo}`,
     email: site.email,
-    sameAs: [site.socials.instagram, ...(site.socials.linkedin ? [site.socials.linkedin] : [])],
+    description: site.description,
+    foundingDate: "2017",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "College Station",
+      addressRegion: "TX",
+      addressCountry: "US",
+    },
+    sameAs: [
+      site.socials.instagram,
+      ...(site.socials.linkedin ? [site.socials.linkedin] : []),
+    ],
+    subjectOf: site.press.map((article) => ({
+      "@type": "NewsArticle",
+      headline: article.title,
+      url: article.url,
+      datePublished: article.date,
+      publisher: { "@type": "Organization", name: article.outlet },
+    })),
   };
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, "\u003c") }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organization).replace(/</g, "\u003c"),
+        }}
+      />
       <Hero site={site} />
       <Section id="events" className="topo-bg">
         <div className="flex flex-wrap items-end justify-between gap-4">
@@ -53,38 +87,100 @@ export default function HomePage() {
           <FollowAlong socials={site.socials} />
         </div>
         <div className="mt-10">
-          <BuildStatus milestones={car.milestones} buildSeason={car.buildSeason} builtAt={new Date().toISOString()} />
+          <BuildStatus
+            milestones={car.milestones}
+            buildSeason={car.buildSeason}
+            builtAt={new Date().toISOString()}
+          />
         </div>
         {events.length > 0 && <RecentEvents events={events} />}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
           <ButtonLink href="/car#now" variant="secondary">
             Full season timeline
           </ButtonLink>
-          <p className="text-sm text-muted">Every build milestone and team event, from first design review to competition day.</p>
+          <p className="text-sm text-muted">
+            Every build milestone and team event, from first design review to
+            competition day.
+          </p>
         </div>
       </Section>
 
-      {site.videos.length > 0 && (
+      {(site.videos.length > 0 || site.press.length > 0) && (
         <Section className="bg-panel/40">
           <Eyebrow>Baja on screen</Eyebrow>
           <SectionHeading>See the team in action</SectionHeading>
-          <div className={`mt-10 grid gap-8 ${site.videos.length > 1 ? "lg:grid-cols-[1.5fr_1fr]" : ""}`}>
-            {site.videos.slice(0, 2).map((video, index) => (
-              <article key={video.youtubeId} className={index > 0 ? "lg:pt-16" : ""}>
-                <VideoFeature youtubeId={video.youtubeId} title={video.title} poster={video.poster} />
-                <h3 className={`mt-5 font-display font-extrabold uppercase leading-none ${index === 0 ? "text-3xl" : "text-2xl"}`}>{video.title}</h3>
-                <p className="mt-2 text-muted">{video.body}</p>
-                <a
-                  href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm font-semibold text-accent underline underline-offset-4 hover:text-ink"
+          {site.videos.length > 0 && (
+            <div
+              className={`mt-10 grid gap-8 ${site.videos.length > 1 ? "lg:grid-cols-[1.5fr_1fr]" : ""}`}
+            >
+              {site.videos.slice(0, 2).map((video, index) => (
+                <article
+                  key={video.youtubeId}
+                  className={index > 0 ? "lg:pt-16" : ""}
                 >
-                  Watch on YouTube
-                </a>
-              </article>
-            ))}
-          </div>
+                  <VideoFeature
+                    youtubeId={video.youtubeId}
+                    title={video.title}
+                    poster={video.poster}
+                  />
+                  <h3
+                    className={`mt-5 font-display font-extrabold uppercase leading-none ${index === 0 ? "text-3xl" : "text-2xl"}`}
+                  >
+                    {video.title}
+                  </h3>
+                  <p className="mt-2 text-muted">{video.body}</p>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-sm font-semibold text-accent underline underline-offset-4 hover:text-ink"
+                  >
+                    Watch on YouTube
+                  </a>
+                </article>
+              ))}
+            </div>
+          )}
+          {site.press.length > 0 && (
+            <div className="mt-16 border-t border-line pt-10">
+              <h3 className="font-display text-2xl font-extrabold uppercase leading-none">
+                In the news
+              </h3>
+              <ul className="mt-6 grid gap-5 md:grid-cols-2">
+                {site.press.map((article) => (
+                  <li key={article.url}>
+                    <a
+                      href={article.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block h-full rounded-sm border border-line bg-bg p-6 transition-colors hover:border-accent"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+                        {article.outlet} ·{" "}
+                        <time dateTime={article.date}>
+                          {new Date(
+                            `${article.date}T00:00:00Z`,
+                          ).toLocaleDateString("en-US", {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                            timeZone: "UTC",
+                          })}
+                        </time>
+                      </p>
+                      <p className="mt-3 text-xl font-bold leading-snug group-hover:text-accent">
+                        {article.title}
+                      </p>
+                      <p className="mt-2 text-muted">{article.body}</p>
+                      <span className="mt-4 inline-block text-sm font-semibold text-accent underline underline-offset-4 group-hover:text-ink">
+                        Read the article
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </Section>
       )}
 
@@ -98,12 +194,21 @@ export default function HomePage() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <Link href="/team" className="mt-6 inline-block font-semibold text-accent underline underline-offset-4 hover:text-ink">
+            <Link
+              href="/team"
+              className="mt-6 inline-block font-semibold text-accent underline underline-offset-4 hover:text-ink"
+            >
               Meet the team
             </Link>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
-            <Image src={site.teamPhoto} alt="Texas A&M Baja SAE team members" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            <Image
+              src={site.teamPhoto}
+              alt="Texas A&M Baja SAE team members"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </Section>
@@ -115,7 +220,10 @@ export default function HomePage() {
               <Eyebrow>The garage · racing since 2018</Eyebrow>
               <SectionHeading>Every car has a number</SectionHeading>
             </div>
-            <Link href="/car#history" className="font-semibold text-accent underline underline-offset-4 hover:text-ink">
+            <Link
+              href="/car#history"
+              className="font-semibold text-accent underline underline-offset-4 hover:text-ink"
+            >
               All cars and results
             </Link>
           </div>
@@ -126,8 +234,12 @@ export default function HomePage() {
           </ul>
           {earlier.length > 0 && (
             <p className="mt-6 text-sm text-muted">
-              Plus {earlier.length} earlier seasons, back to our first race in {earlier.at(-1)?.season}.{" "}
-              <Link href="/car#history" className="font-semibold text-ink underline decoration-accent underline-offset-4">
+              Plus {earlier.length} earlier seasons, back to our first race in{" "}
+              {earlier.at(-1)?.season}.{" "}
+              <Link
+                href="/car#history"
+                className="font-semibold text-ink underline decoration-accent underline-offset-4"
+              >
                 See them all
               </Link>
             </p>

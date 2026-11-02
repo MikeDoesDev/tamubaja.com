@@ -54,6 +54,18 @@ export const siteSchema = z.object({
       }),
     ),
   ),
+  // News coverage shown under the videos ("In the news"). Newest first.
+  press: list(
+    z.array(
+      z.object({
+        title: text,
+        outlet: text,
+        date: isoDate,
+        url: httpUrl,
+        body: text,
+      }),
+    ),
+  ),
   logo: publicPath,
   web3formsKey: z.string(),
   // Optional banner above the header on every page (e.g. "under construction").

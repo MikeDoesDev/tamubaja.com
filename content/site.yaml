@@ -23,6 +23,23 @@ videos:
     title: Texas A&M's national commercial
     body: 'Car #51 and our crew in "Working Together for the Good of America," the university''s national TV spot.'
     poster: /images/commercial-poster.jpg
+# News articles about the team, shown under the videos ("In the news"). Put the newest first.
+press:
+  - title: General Sam's Offroad Park is our official test track partner
+    outlet: General Sam's Offroad Park
+    date: 2026-10-09
+    url: https://www.facebook.com/generalsamsorp/posts/1406171165005454/
+    body: General Sam's Offroad Park announced it is now the official test track partner of the Texas A&M Baja team, giving us real off-road terrain to test and tune the car.
+  - title: From CAD to competition
+    outlet: Texas A&M Engineering on Instagram
+    date: 2026-05-07
+    url: https://www.instagram.com/p/DYDFpsXCWA-/
+    body: The College of Engineering featured the team and car at competition, highlighting how members design, build and race a new off-road vehicle every year.
+  - title: Q&A with the Texas A&M Baja engineering team
+    outlet: Texas A&M Engineering News
+    date: 2026-03-28
+    url: https://news.engineering.tamu.edu/news/2026/03/28/qa-with-the-texas-am-baja-engineering-team/
+    body: Our members talk about designing and building a new off-road car in a single year, and how sponsors' materials, funding and mentorship turn into tours, recruiting visits and internships.
 logo: /images/logo-white.png
 # Web3Forms access key created with tamubajabusiness@gmail.com (replaced Oct 19, 2026). Inquiries go straight to that inbox.
 # This key is designed to be public in site code. If it's ever removed, the form falls back to opening the visitor's email app.
