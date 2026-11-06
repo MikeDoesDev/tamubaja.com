@@ -1,6 +1,6 @@
 # Sponsor logo wall. A sponsor appears on the site ONLY when show: true.
 # Set show: true only after the sponsor approves logo use AND the logo file exists in public/sponsors/.
-# tier must be one of: platinum, gold, silver, bronze, inkind
+# tier must be one of: title, diamond, platinum, gold, silver, bronze, inkind
 # Never add dollar amounts or contact info here.
 # In-kind gifts count at their value: a big enough gift goes in that money tier, not inkind.
 - name: General Motors

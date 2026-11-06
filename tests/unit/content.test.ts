@@ -84,12 +84,12 @@ milestones:
     benefits: [Thanks]
 `;
     const yaml = `tiers:
-${tier("gold")}${tier("bronze")}${tier("silver")}${tier("platinum")}inKindCategories:
+${tier("gold")}${tier("bronze")}${tier("silver")}${tier("platinum")}${tier("diamond")}${tier("title")}inKindCategories:
   - name: Tools
     examples: Wrenches
 `;
     expect(() => parseContent("tiers.yaml", yaml, tiersSchema)).toThrowError(
-      /bronze, silver, gold, platinum/,
+      /bronze, silver, gold, platinum, diamond, title/,
     );
   });
 });

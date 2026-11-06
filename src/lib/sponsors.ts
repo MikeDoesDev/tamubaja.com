@@ -1,8 +1,10 @@
 import type { Sponsor } from "./schemas";
 
-export const WALL_ORDER = ["platinum", "gold", "silver", "bronze", "inkind"] as const;
+export const WALL_ORDER = ["title", "diamond", "platinum", "gold", "silver", "bronze", "inkind"] as const;
 
 const WALL_LABELS: Record<(typeof WALL_ORDER)[number], string> = {
+  title: "Title partner",
+  diamond: "Diamond",
   platinum: "Platinum",
   gold: "Gold",
   silver: "Silver",

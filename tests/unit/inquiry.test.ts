@@ -45,7 +45,7 @@ describe("interestFromQuery", () => {
   });
 
   it("ignores unknown or missing values", () => {
-    expect(interestFromQuery(new URLSearchParams("interest=diamond"))).toBe("");
+    expect(interestFromQuery(new URLSearchParams("interest=emerald"))).toBe("");
     expect(interestFromQuery(new URLSearchParams(""))).toBe("");
   });
 });

@@ -14,7 +14,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Sponsor Texas A&M Baja SAE",
   description:
-    "Sponsorship tiers from $500, in-kind partnerships, and recruiting access to Texas A&M engineers. Put your logo on car #51.",
+    "Sponsorship tiers from $1,000, in-kind partnerships, and recruiting access to Texas A&M engineers. Put your logo on car #51.",
   path: "/sponsors",
 });
 
@@ -88,7 +88,7 @@ export default function SponsorsPage() {
         <p className="mt-4 max-w-2xl text-muted">
           Each tier includes everything in the tiers below it. Packages are a starting point. We&apos;ll shape one around your goals.
         </p>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {tiers.map((tier, index) => (
             <TierCard key={tier.id} tier={tier} lowerTierName={index > 0 ? tiers[index - 1].name : undefined} />
           ))}

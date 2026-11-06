@@ -23,6 +23,8 @@ const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 /** Bigger tiers get taller cells and fewer columns, so every tier uses the same wall format. */
 const WALL: Record<SponsorGroup["tier"], { height: string; logo: string; maxCols: number }> = {
+  title: { height: "h-72", logo: "h-36", maxCols: 1 },
+  diamond: { height: "h-64", logo: "h-32", maxCols: 2 },
   platinum: { height: "h-60", logo: "h-28", maxCols: 3 },
   gold: { height: "h-52", logo: "h-20", maxCols: 5 },
   silver: { height: "h-44", logo: "h-16", maxCols: 5 },
@@ -94,7 +96,7 @@ export function SponsorGrid({ headingLevel = "h3", featured = false }: { showNam
   if (all.length === 0) return <EmptyWall />;
   const colors: Record<string, string> = Object.fromEntries(getTiers().tiers.map((tier) => [tier.id, tier.badgeColor]));
   colors.inkind = "var(--color-accent)";
-  const groups = featured ? all.filter((group) => ["platinum", "gold", "silver"].includes(group.tier)) : all;
+  const groups = featured ? all.filter((group) => ["title", "diamond", "platinum", "gold", "silver"].includes(group.tier)) : all;
   const total = all.reduce((sum, group) => sum + group.sponsors.length, 0);
   const shown = groups.reduce((sum, group) => sum + group.sponsors.length, 0);
 

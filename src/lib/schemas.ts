@@ -25,8 +25,8 @@ const isoDate = z.preprocess(
   z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "must be a date written as YYYY-MM-DD"),
 );
 
-export const TIER_IDS = ["bronze", "silver", "gold", "platinum"] as const;
-export const SPONSOR_TIERS = ["platinum", "gold", "silver", "bronze", "inkind"] as const;
+export const TIER_IDS = ["bronze", "silver", "gold", "platinum", "diamond", "title"] as const;
+export const SPONSOR_TIERS = ["title", "diamond", "platinum", "gold", "silver", "bronze", "inkind"] as const;
 
 export const siteSchema = z.object({
   name: text,
@@ -109,7 +109,7 @@ export const tiersSchema = z
     inKindCategories: z.array(z.object({ name: text, examples: text })).min(1),
   })
   .refine((file) => file.tiers.map((t) => t.id).join(",") === TIER_IDS.join(","), {
-    message: "list the tiers exactly once each, in this order: bronze, silver, gold, platinum",
+    message: "list the tiers exactly once each, in this order: bronze, silver, gold, platinum, diamond, title",
     path: ["tiers"],
   });
 

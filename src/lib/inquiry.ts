@@ -1,4 +1,6 @@
 export const INTERESTS = [
+  { id: "title", label: "Title sponsorship" },
+  { id: "diamond", label: "Diamond sponsorship" },
   { id: "platinum", label: "Platinum sponsorship" },
   { id: "gold", label: "Gold sponsorship" },
   { id: "silver", label: "Silver sponsorship" },
