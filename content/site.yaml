@@ -85,3 +85,36 @@ giving:
     - "ATTN: Dr. Saripalli"
     - 3123 TAMU
     - College Station, TX 77843
+# Crowdfunding drive at the top of the Donate section. Update `raised` as money comes in.
+crowdfunding:
+  show: true
+  title: Crowdfunding is live
+  body: Help build the 2027 car. Every dollar goes into parts, testing, and getting us to competition in May. Hit a milestone and the team does the challenge.
+  venmoHandle: tamubaja
+  venmoUrl: https://venmo.com/u/tamubaja
+  qrImage: /images/crowdfunding/venmo-qr.png
+  raised: 0
+  milestones:
+    - amount: 500
+      challenge: Every subteam lead carries a Baja tire to class all day
+    - amount: 1000
+      challenge: A team lead goes to class in an inflatable dinosaur suit
+    - amount: 2000
+      challenge: 24-hour Waffle House challenge
+    - amount: 3000
+      challenge: 3 team members shave their heads
+      highlight: true
+    - amount: 4000
+      challenge: Team leads take on the BWW Blazin' Challenge
+    - amount: 5000
+      challenge: Chief engineer wears a full suit in the shop for a week
+    - amount: 6000
+      challenge: Project manager + a team lead of his choice run the Milk Mile
+    - amount: 7000
+      challenge: Subteam car-push relay race around the Drill Field
+    - amount: 8000
+      challenge: Top donor pies a team lead of their choice
+    - amount: 9000
+      challenge: 24-hour livestream from the shop
+    - amount: 10000
+      challenge: Biggest donor names the 2027 car

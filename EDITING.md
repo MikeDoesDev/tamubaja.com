@@ -130,3 +130,7 @@ Edit `content/tiers.yaml`. Keep the tiers in order: bronze, silver, gold, platin
 ## Change the sponsor-form email key
 
 The form sends to the team inbox through Web3Forms. If the key ever changes, paste the new one into `web3formsKey:` in `content/site.yaml`.
+
+## Update the crowdfunding total
+
+Edit `content/site.yaml`, find `crowdfunding:`, and change `raised:` to the new total (numbers only, like `raised: 2350`). The progress bar fills and any milestone at or below that amount shows as unlocked. To change a challenge, edit its `challenge:` line. When the drive ends, set `show: false` to hide the whole block.

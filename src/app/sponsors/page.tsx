@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
+import { Crowdfunding } from "@/components/Crowdfunding";
 import { DonateCard } from "@/components/DonateCard";
 import { Faq } from "@/components/Faq";
 import { InquiryForm } from "@/components/InquiryForm";
@@ -155,6 +156,11 @@ export default function SponsorsPage() {
         </div>
       </Section>
       <Section id="donate">
+        {site.crowdfunding?.show && (
+          <div id="crowdfunding" className="mb-16 scroll-mt-24">
+            <Crowdfunding drive={site.crowdfunding} />
+          </div>
+        )}
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <div className="lg:pt-6">
             <Eyebrow>Individuals and alumni</Eyebrow>

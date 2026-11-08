@@ -73,6 +73,22 @@ export const siteSchema = z.object({
   mission: z.array(text).min(1),
   homeStats: z.array(z.object({ value: text, label: text })).min(1).max(4),
   sponsorPillars: z.array(z.object({ title: text, body: text, photo: publicPath.optional() })).min(1),
+  // Crowdfunding drive shown at the top of the donate section on /sponsors. Set show: false to hide it.
+  crowdfunding: z
+    .object({
+      show: yesNo,
+      title: text,
+      body: text,
+      venmoHandle: text,
+      venmoUrl: httpUrl,
+      qrImage: publicPath,
+      // Dollars raised so far. Update this as donations come in; the progress bar follows it.
+      raised: z.coerce.number().min(0, "can't be negative"),
+      milestones: z
+        .array(z.object({ amount: z.coerce.number().positive("must be more than 0"), challenge: text, highlight: yesNo.optional() }))
+        .min(1),
+    })
+    .optional(),
   giving: z.object({
     foundationUrl: httpUrl,
     accountCode: text,
