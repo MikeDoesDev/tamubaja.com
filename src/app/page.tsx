@@ -78,8 +78,8 @@ export default function HomePage() {
           __html: JSON.stringify(organization).replace(/</g, "\u003c"),
         }}
       />
-      <Hero site={site} />
       {site.crowdfunding?.show && <CrowdfundingBanner drive={site.crowdfunding} />}
+      <Hero site={site} />
       <Section>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>

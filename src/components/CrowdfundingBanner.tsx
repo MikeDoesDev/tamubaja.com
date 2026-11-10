@@ -13,19 +13,19 @@ export function CrowdfundingBanner({ drive }: { drive: Drive }) {
   const pct = Math.min(100, Math.round((drive.raised / goal) * 100));
 
   return (
-    <section aria-label="Crowdfunding" className="bg-maroon px-4 py-8 text-white sm:px-6 sm:py-10">
+    <section aria-label="Crowdfunding" className="bg-maroon px-4 py-5 text-white sm:px-6 sm:py-6">
       <Link
         href="/sponsors#crowdfunding"
-        className="group mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-center md:justify-between"
+        className="group mx-auto flex max-w-6xl flex-col gap-4 md:flex-row md:items-center md:justify-between"
       >
         <div className="min-w-0 flex-1">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
             Fall 2026 crowdfunding
           </p>
-          <p className="font-display text-3xl font-extrabold uppercase leading-none sm:text-4xl">
+          <p className="font-display text-2xl font-extrabold uppercase leading-none sm:text-3xl">
             {drive.title}
           </p>
-          <p className="mt-3 max-w-2xl text-white/85">
+          <p className="mt-2 max-w-2xl text-white/85">
             {next ? (
               <>
                 Next up at {dollars(next.amount)}: {next.challenge}.
@@ -34,7 +34,7 @@ export function CrowdfundingBanner({ drive }: { drive: Drive }) {
               <>Every milestone unlocked. Thank you, Aggies!</>
             )}
           </p>
-          <div className="mt-4 flex max-w-xl items-center gap-3">
+          <div className="mt-3 flex max-w-xl items-center gap-3">
             <div
               className="h-2.5 flex-1 overflow-hidden rounded-full bg-white/20"
               role="progressbar"
