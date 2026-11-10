@@ -76,6 +76,9 @@ subteams:
       - name: Braden Meuth
         major: Biological & Agricultural Engineering
         classYear: "2029"
+      - name: Madeline Holmes
+        major: Manufacturing & Mechanical Engineering Technology
+        classYear: "2029"
   - name: Suspension
     description: Geometry, shocks, hubs, and steering.
     details: Suspension owns everything between the frame and the dirt, from geometry and shocks to hubs and steering, so the car stays planted over rocks, logs, and jumps.
