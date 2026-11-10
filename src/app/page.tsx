@@ -4,6 +4,7 @@ import { BuildStatus } from "@/components/BuildStatus";
 import { CarCard } from "@/components/CarHistory";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CtaBand } from "@/components/CtaBand";
+import { CrowdfundingBanner } from "@/components/CrowdfundingBanner";
 import { Hero } from "@/components/Hero";
 import { Eyebrow, Section, SectionHeading } from "@/components/Section";
 import { PillarCards } from "@/components/PillarCards";
@@ -78,6 +79,7 @@ export default function HomePage() {
         }}
       />
       <Hero site={site} />
+      {site.crowdfunding?.show && <CrowdfundingBanner drive={site.crowdfunding} />}
       <Section>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>
