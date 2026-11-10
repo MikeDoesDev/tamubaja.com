@@ -93,7 +93,7 @@ crowdfunding:
   venmoHandle: tamubaja
   venmoUrl: https://venmo.com/u/tamubaja
   qrImage: /images/crowdfunding/venmo-qr.png
-  raised: 0
+  raised: 125
   milestones:
     - amount: 500
       challenge: Every subteam lead carries a Baja tire to class all day
