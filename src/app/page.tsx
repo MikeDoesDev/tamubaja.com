@@ -176,18 +176,17 @@ export default function HomePage() {
               <h3 className="font-display text-2xl font-extrabold uppercase leading-none">
                 In the news
               </h3>
-              <ul className="mt-6 grid gap-5 md:grid-cols-2">
+              <ul className="mt-6 divide-y divide-line border-y border-line">
                 {site.press.map((article) => (
                   <li key={article.url}>
                     <a
                       href={article.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group block h-full rounded-sm border border-line bg-bg p-6 transition-colors hover:border-accent"
+                      className="group grid gap-x-10 gap-y-3 py-7 transition-colors md:grid-cols-[13rem_1fr_auto] md:items-start"
                     >
-                      <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-                        {article.outlet} ·{" "}
-                        <time dateTime={article.date}>
+                      <div className="text-xs font-semibold uppercase tracking-widest text-accent">
+                        <time dateTime={article.date} className="block">
                           {new Date(
                             `${article.date}T00:00:00Z`,
                           ).toLocaleDateString("en-US", {
@@ -197,13 +196,21 @@ export default function HomePage() {
                             timeZone: "UTC",
                           })}
                         </time>
-                      </p>
-                      <p className="mt-3 text-xl font-bold leading-snug group-hover:text-accent">
-                        {article.title}
-                      </p>
-                      <p className="mt-2 text-muted">{article.body}</p>
-                      <span className="mt-4 inline-block text-sm font-semibold text-accent underline underline-offset-4 group-hover:text-ink">
-                        Read the article
+                        <span className="mt-1 block text-muted">
+                          {article.outlet}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="text-xl font-bold leading-snug group-hover:text-accent">
+                          {article.title}
+                        </p>
+                        <p className="mt-2 max-w-3xl text-muted">
+                          {article.body}
+                        </p>
+                      </div>
+                      <span className="text-sm font-semibold text-accent underline underline-offset-4 group-hover:text-ink md:mt-1 md:whitespace-nowrap">
+                        Read the article{" "}
+                        <span aria-hidden="true">→</span>
                       </span>
                     </a>
                   </li>
