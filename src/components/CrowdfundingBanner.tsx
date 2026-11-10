@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Site } from "@/lib/schemas";
+import { MilestoneBar } from "./MilestoneBar";
 
 type Drive = NonNullable<Site["crowdfunding"]>;
 
@@ -10,7 +11,6 @@ export function CrowdfundingBanner({ drive }: { drive: Drive }) {
   const milestones = [...drive.milestones].sort((a, b) => a.amount - b.amount);
   const goal = milestones.at(-1)!.amount;
   const next = milestones.find((m) => m.amount > drive.raised);
-  const pct = Math.min(100, Math.round((drive.raised / goal) * 100));
 
   return (
     <section aria-label="Crowdfunding" className="bg-maroon px-4 py-5 text-white sm:px-6 sm:py-6">
@@ -35,15 +35,8 @@ export function CrowdfundingBanner({ drive }: { drive: Drive }) {
             )}
           </p>
           <div className="mt-3 flex max-w-xl items-center gap-3">
-            <div
-              className="h-2.5 flex-1 overflow-hidden rounded-full bg-white/20"
-              role="progressbar"
-              aria-label="Crowdfunding progress"
-              aria-valuemin={0}
-              aria-valuemax={goal}
-              aria-valuenow={drive.raised}
-            >
-              <div className="h-full rounded-full bg-white" style={{ width: `${pct}%` }} />
+            <div className="flex-1">
+              <MilestoneBar raised={drive.raised} milestones={drive.milestones} size="sm" />
             </div>
             <p className="shrink-0 text-sm text-white/80">
               {dollars(drive.raised)} of {dollars(goal)}

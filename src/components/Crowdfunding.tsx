@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Site } from "@/lib/schemas";
+import { MilestoneBar } from "./MilestoneBar";
 
 type Drive = NonNullable<Site["crowdfunding"]>;
 
@@ -9,7 +10,6 @@ const dollars = (n: number) => `$${n.toLocaleString("en-US")}`;
 export function Crowdfunding({ drive }: { drive: Drive }) {
   const milestones = [...drive.milestones].sort((a, b) => b.amount - a.amount);
   const goal = milestones[0].amount;
-  const pct = Math.min(100, Math.round((drive.raised / goal) * 100));
 
   return (
     <div className="overflow-hidden rounded-sm border border-line bg-panel">
@@ -26,15 +26,8 @@ export function Crowdfunding({ drive }: { drive: Drive }) {
               <p className="font-display text-3xl font-extrabold">{dollars(drive.raised)} raised</p>
               <p className="text-sm text-white/70">Goal {dollars(goal)}</p>
             </div>
-            <div
-              className="mt-3 h-3 overflow-hidden rounded-full bg-white/20"
-              role="progressbar"
-              aria-label="Crowdfunding progress"
-              aria-valuemin={0}
-              aria-valuemax={goal}
-              aria-valuenow={drive.raised}
-            >
-              <div className="h-full rounded-full bg-white" style={{ width: `${pct}%` }} />
+            <div className="mt-4">
+              <MilestoneBar raised={drive.raised} milestones={drive.milestones} />
             </div>
           </div>
 
